@@ -1,4 +1,4 @@
-package com.example.bomman;
+package bomman;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
