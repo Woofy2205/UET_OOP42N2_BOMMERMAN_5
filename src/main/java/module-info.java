@@ -1,8 +1,8 @@
-module com.example.bomman {
+module bomman {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.example.bomman to javafx.fxml;
-    exports com.example.bomman;
+    opens bomman to javafx.fxml;
+    exports bomman;
 }
