@@ -5,4 +5,5 @@ package bomman.entity;
  * Add, Remove, ...
  */
 public class EntityManager {
+
 }

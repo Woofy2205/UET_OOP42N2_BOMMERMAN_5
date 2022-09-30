@@ -7,13 +7,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static bomman.manager.GameManager.GAME_TITLE;
+import static bomman.manager.GameManager.*;
 
 public class MainGame extends Application {
 	@Override
 	public void start(Stage stage) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(MainGame.class.getResource("hello-view.fxml"));
-		Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+		Scene scene = new Scene(fxmlLoader.load(), GAME_WIDTH, GAME_LENGTH);
 		stage.setTitle(GAME_TITLE);
 		stage.setScene(scene);
 		stage.show();
