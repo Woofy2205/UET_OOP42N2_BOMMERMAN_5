@@ -1,5 +1,6 @@
 package bomman;
 
+import bomman.manager.SoundManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,6 +17,9 @@ public class MainGame extends Application {
 		Scene scene = new Scene(fxmlLoader.load(), GAME_WIDTH, GAME_LENGTH);
 		stage.setTitle(GAME_TITLE);
 		stage.setScene(scene);
+		SoundManager.init();
+		SoundManager.walk.play();
+
 		stage.show();
 	}
 
