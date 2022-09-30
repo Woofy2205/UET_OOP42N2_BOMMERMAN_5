@@ -19,7 +19,7 @@ public class MainGame extends Application {
 		stage.setTitle(GAME_TITLE);
 		stage.setScene(scene);
 		SoundManager.init();
-		SoundManager.walk.play();
+		SoundManager.bomb.play();
 
 		stage.show();
 
