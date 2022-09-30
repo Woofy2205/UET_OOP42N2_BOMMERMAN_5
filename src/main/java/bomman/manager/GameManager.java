@@ -12,11 +12,11 @@ public class GameManager {
 	public static final String GAME_TITLE = "BOMMAN";
 
 	// Each sprite size (pixels)
-	private static final int DEFAULT_SPRITE_SIZE = 16;
+	private static final int DEFAULT_SPRITE_SIZE = 32;
 
 	// 20 sprite per attribute
-	private static final int GAME_WIDTH = 20 * DEFAULT_SPRITE_SIZE;
-	private static final int GAME_LENGTH = 20 * DEFAULT_SPRITE_SIZE;
+	public static final int GAME_WIDTH = 30 * DEFAULT_SPRITE_SIZE;
+	public static final int GAME_LENGTH = 30 * DEFAULT_SPRITE_SIZE;
 
 	// In-game private attribute
 	private static int stage = 0;
@@ -30,6 +30,7 @@ public class GameManager {
 	// public variables that can be changed in game
 	public int bommanHealth = 5;
 	public int enemyHealth = 3;
+	public int enemyNumber = 5;
 	// public int bossHealth = 5;
 
 	/**
@@ -37,6 +38,7 @@ public class GameManager {
 	 */
 	private GameManager() {
 		// Load sprites of entities (haven't got yet)
+
 	}
 
 	/**
