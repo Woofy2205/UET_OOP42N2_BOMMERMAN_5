@@ -9,9 +9,9 @@ import java.net.URISyntaxException;
  * This class will manage all the sounds in the game.
  */
 public class SoundManager {
-	/**
-	 * entities sfx.
-	 */
+    /**
+     * entities sfx.
+     */
 
 //    public static AudioClip bomb = new AudioClip("https://wavlist.com/wav/cymbal2.wav");
 //    public static AudioClip buff = new AudioClip(new File("../sfx/explosion.mp3").toURI().toString());
@@ -22,7 +22,7 @@ public class SoundManager {
 //     * bomber sfx.
 //     */
 //
-	public static AudioClip walk;
+    public static AudioClip walk;
 //    public static AudioClip dead = new AudioClip(new File("../sfx/explosion.mp3").toURI().toString());
 //    public static AudioClip wind = new AudioClip(new File("../sfx/explosion.mp3").toURI().toString());
 //
@@ -32,11 +32,11 @@ public class SoundManager {
 //
 //    public static AudioClip hover = new AudioClip(new File("../sfx/explosion.mp3").toURI().toString());
 
-	public static void init() {
-		try {
-			walk = new AudioClip(SoundManager.class.getResource("/bomman/sfx/explosion.mp3").toURI().toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    public static void init() {
+        try {
+            walk = new AudioClip(SoundManager.class.getResource("/bomman/sfx/explosion.mp3").toURI().toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 }

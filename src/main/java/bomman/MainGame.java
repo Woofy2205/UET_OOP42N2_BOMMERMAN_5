@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import static bomman.manager.GameManager.*;
 
@@ -21,6 +22,7 @@ public class MainGame extends Application {
 		SoundManager.walk.play();
 
 		stage.show();
+
 	}
 
 	public static void main(String[] args) {
