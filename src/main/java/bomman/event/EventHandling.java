@@ -5,4 +5,5 @@ package bomman.event;
  * Collision, ...
  */
 public class EventHandling {
+
 }
