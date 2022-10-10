@@ -1,5 +1,7 @@
 package bomman.entity;
 
+import javafx.scene.image.Image;
+
 /**
  * This will control the main character =))))))) like, obviously =))))))))
  */
@@ -14,6 +16,10 @@ public class MainCharacter extends CommonEntity {
 	// Other attributes
 	private int explosionRadius;
 	private int bombDamage;
+
+	public MainCharacter(int xUnit, int yUnit, Image img) {
+		super(xUnit, yUnit, img);
+	}
 
 	/**
 	 * Getters.
@@ -39,5 +45,10 @@ public class MainCharacter extends CommonEntity {
 
 	public static void setPlayerStartY(int playerStartY) {
 		PLAYER_START_Y = playerStartY;
+	}
+
+	@Override
+	public void update() {
+
 	}
 }
