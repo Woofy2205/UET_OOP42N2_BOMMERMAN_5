@@ -29,7 +29,7 @@ public abstract class CommonEntity {
         DOWN(0, 1),
         UP(0, -1),
         RIGHT(1, 0),
-        LEFT(1, 0);
+        LEFT(-1, 0);
 
         // Private int for declaration
         private int moveX;
@@ -44,8 +44,8 @@ public abstract class CommonEntity {
 
     // Moving function for the entities.
     public void move(DIRECTION direct) {
-        xPosition += direct.moveX + 32;
-        yPosition += direct.moveY + 32;
+        xPosition += direct.moveX * 16;
+        yPosition += direct.moveY * 16;
     }
 
     /**
@@ -61,6 +61,10 @@ public abstract class CommonEntity {
 
     public int getYPosition() {
         return yPosition;
+    }
+
+    public void setImg(Image img) {
+        this.img = img;
     }
 
     public void render(GraphicsContext gc) {

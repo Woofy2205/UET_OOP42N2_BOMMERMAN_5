@@ -36,6 +36,16 @@ public class MainCharacter extends CommonEntity {
 		return explosionRadius;
 	}
 
+	@Override
+	public int getXPosition() {
+		return super.getXPosition();
+	}
+
+	@Override
+	public int getYPosition() {
+		return super.getYPosition();
+	}
+
 	/**
 	 * Setters.
 	 */
@@ -46,6 +56,8 @@ public class MainCharacter extends CommonEntity {
 	public static void setPlayerStartY(int playerStartY) {
 		PLAYER_START_Y = playerStartY;
 	}
+
+
 
 	@Override
 	public void update() {
