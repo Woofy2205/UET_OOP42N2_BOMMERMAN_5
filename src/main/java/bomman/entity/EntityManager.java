@@ -24,5 +24,4 @@ public class EntityManager {
 		entities.add(bomberman);
 		entities.add(bomb);
 	}
-
 }
