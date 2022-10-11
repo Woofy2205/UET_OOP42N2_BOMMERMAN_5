@@ -1,6 +1,8 @@
 package bomman;
 
 import bomman.entity.CommonEntity;
+import bomman.entity.EntityManager;
+import bomman.manager.GameManager;
 import bomman.manager.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
