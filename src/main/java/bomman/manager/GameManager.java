@@ -54,8 +54,8 @@ public class GameManager {
 	 */
 	private void setMapPath() {
 		map[0] = "";
-		map[1] = "D:\\UET_OOP42N2_BOMMERMAN_5\\src\\main\\resources\\bomman\\maps\\map1.txt";
-		map[2] = "D:\\UET_OOP42N2_BOMMERMAN_5\\src\\main\\resources\\bomman\\maps\\map2.txt";
+		map[1] = "src/main/resources/bomman/maps/map1.txt";
+		map[2] = "src/main/resources/bomman/maps/map2.txt";
 		map[3] = "";
 		map[4] = "";
 	}
