@@ -15,12 +15,15 @@ public abstract class CommonEntity {
     private int xPosition;
     private int yPosition;
 
-    protected Image img;
+    private DIRECTION direct;
+
+    private Image img;
 
     public CommonEntity(int xUnit, int yUnit, Image img) {
         this.xPosition = xUnit * Sprite.SCALED_SIZE;
         this.yPosition = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
+        this.direct = DIRECTION.DOWN;
     }
 
     // Enum class to decide which direction the living entities choose to move.
@@ -42,10 +45,12 @@ public abstract class CommonEntity {
         }
     }
 
+
     // Moving function for the entities.
     public void move(DIRECTION direct) {
-        xPosition += direct.moveX * 16;
-        yPosition += direct.moveY * 16;
+        xPosition += direct.moveX * 8;
+        yPosition += direct.moveY * 8;
+        this.direct = direct;
     }
 
     /**
@@ -63,11 +68,19 @@ public abstract class CommonEntity {
         return yPosition;
     }
 
+    public DIRECTION getDirect() {
+        return direct;
+    }
+
+    public Image getImg() {
+        return img;
+    }
+
     public void setImg(Image img) {
         this.img = img;
     }
 
-    public void render(GraphicsContext gc) {
+    public void render(GraphicsContext gc, double t) {
         gc.drawImage(img, xPosition, yPosition);
     }
 
