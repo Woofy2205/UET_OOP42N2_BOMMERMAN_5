@@ -1,5 +1,8 @@
 package bomman.entity;
 
+import bomman.event.EventHandling;
+import bomman.manager.Sprite;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
@@ -57,10 +60,24 @@ public class MainCharacter extends CommonEntity {
 		PLAYER_START_Y = playerStartY;
 	}
 
-
-
 	@Override
 	public void update() {
-
+		if (EventHandling.currentlyActiveKeys.contains("LEFT")) {
+			this.move(CommonEntity.DIRECTION.LEFT);
+		}
+		if (EventHandling.currentlyActiveKeys.contains("RIGHT")) {
+			this.move(CommonEntity.DIRECTION.RIGHT);
+		}
+		if (EventHandling.currentlyActiveKeys.contains("UP")) {
+			this.move(CommonEntity.DIRECTION.UP);
+		}
+		if (EventHandling.currentlyActiveKeys.contains("DOWN")) {
+			this.move(CommonEntity.DIRECTION.DOWN);
+		}
 	}
+
+//	@Override
+//	public void render(GraphicsContext gc) {
+//		if(this.DIRECTION == DIRECTION.UP)
+//	}
 }

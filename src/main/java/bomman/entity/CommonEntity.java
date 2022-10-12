@@ -44,8 +44,8 @@ public abstract class CommonEntity {
 
     // Moving function for the entities.
     public void move(DIRECTION direct) {
-        xPosition += direct.moveX * 16;
-        yPosition += direct.moveY * 16;
+        xPosition += direct.moveX * 8;
+        yPosition += direct.moveY * 8;
     }
 
     /**

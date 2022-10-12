@@ -4,19 +4,17 @@ import bomman.entity.CommonEntity;
 import bomman.entity.MainCharacter;
 import bomman.entity.tiles.HiddenTiles;
 import bomman.entity.tiles.UnbreakableTiles;
+import bomman.event.EventHandling;
 import bomman.manager.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class MainGame extends Application {
@@ -29,9 +27,7 @@ public class MainGame extends Application {
     private List<CommonEntity> entities = new ArrayList<CommonEntity>();
     private List<CommonEntity> stillObjects = new ArrayList<>();
 
-    private static CommonEntity bomberman;
-
-    static HashSet<String> currentlyActiveKeys;
+    private static MainCharacter bomman;
 
     final long startNanoTime = System.nanoTime();
 
@@ -52,7 +48,7 @@ public class MainGame extends Application {
 
         // Tao scene
         mainScene = new Scene(root);
-        prepareActionHandlers();
+        EventHandling.prepareActionHandlers(mainScene);
 
         // Them scene vao stage
         stage.setScene(mainScene);
@@ -60,18 +56,22 @@ public class MainGame extends Application {
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void handle(long l) {
-                tickAndRender();
-                render();
-                update();
+            public void handle(long currentNanoTime) {
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+                int frame = (int) (t * 100);
+                if(frame % 10 == 0) {
+                    System.out.println();
+                    update();
+                    render();;
+                }
             }
         };
         timer.start();
 
         createMap();
 
-        bomberman = new MainCharacter(1, 1, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
+        bomman = new MainCharacter(1, 1, Sprite.player_right.getFxImage());
+        entities.add(bomman);
     }
 
     public void createMap() {
@@ -96,37 +96,5 @@ public class MainGame extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
-    }
-
-    private static void prepareActionHandlers() {
-        // use a set so duplicates are not possible
-        currentlyActiveKeys = new HashSet<String>();
-        mainScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                currentlyActiveKeys.add(event.getCode().toString());
-            }
-        });
-        mainScene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                currentlyActiveKeys.remove(event.getCode().toString());
-            }
-        });
-    }
-
-    private static void tickAndRender() {
-        if (currentlyActiveKeys.contains("LEFT")) {
-            bomberman.move(CommonEntity.DIRECTION.LEFT);
-        }
-        if (currentlyActiveKeys.contains("RIGHT")) {
-            bomberman.move(CommonEntity.DIRECTION.RIGHT);
-        }
-        if (currentlyActiveKeys.contains("UP")) {
-            bomberman.move(CommonEntity.DIRECTION.UP);
-        }
-        if (currentlyActiveKeys.contains("DOWN")) {
-            bomberman.move(CommonEntity.DIRECTION.DOWN);
-        }
     }
 }
