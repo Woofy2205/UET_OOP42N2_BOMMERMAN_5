@@ -1,4 +1,4 @@
-package bomman.entity.buffs;
+package bomman.tiles.buffs;
 
 /**
  * Portal to move to another map.
