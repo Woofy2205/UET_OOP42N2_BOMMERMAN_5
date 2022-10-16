@@ -83,21 +83,26 @@ public class MainCharacter extends CommonEntity {
         }
     }
 
+    public void plantBomb() {
+        if (EventHandling.currentlyActiveKeys.contains("SPACE")) {
+            System.out.print("number: " + EventHandling.currentlyActiveKeys.size() + "\n");
+            int xPos = this.getXPosition();
+            int yPos = this.getYPosition();
+            if (!EntityManager.hasBomb(xPos, yPos)) {
+                Bomb.bombs.add(new Bomb (xPos/Sprite.SCALED_SIZE, yPos/Sprite.SCALED_SIZE, Sprite.player_right.getFxImage(), 100));
+                System.out.print(Bomb.bombs.size() + "\n");
+            }
+        }
+    }
+
 
 
     @Override
     public void update() {
         setCharacterVelocity(2);
-        CommonEntity.collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+        collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
         moveEvent();
-        if (EventHandling.currentlyActiveKeys.contains("BACK_SPACE")) {
-            int xPos = this.getXPosition();
-            int yPos = this.getYPosition();
-            System.out.print("this function is called \n");
-            Bomb newBomb = new Bomb (xPos/Sprite.SCALED_SIZE, yPos/Sprite.SCALED_SIZE, Sprite.player_right.getFxImage(), 1000);
-            //EntityManager.createBombs(new Bomb(this.getXPosition(), this.getYPosition(), Sprite.bomb.getFxImage(), 50));
-            Bomb.bombs.add(newBomb);
-        }
+        plantBomb();
     }
 
     @Override

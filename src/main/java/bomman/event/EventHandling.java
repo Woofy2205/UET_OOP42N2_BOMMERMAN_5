@@ -1,5 +1,6 @@
 package bomman.event;
 
+import bomman.MainGame;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -13,6 +14,7 @@ import java.util.Scanner;
  */
 public class EventHandling {
     public static HashSet<String> currentlyActiveKeys;
+    public static String keyPressed;
 
     public static void prepareActionHandlers(Scene mainScene) {
         // use a set so duplicates are not possible

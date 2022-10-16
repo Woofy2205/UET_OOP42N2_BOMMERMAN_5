@@ -18,26 +18,14 @@ public class EntityManager {
 		// entities = new ArrayList<CommonEntity>();
 	}
 
-//	public static void createBombs(Bomb newBomb) {
-//		bombs.add(newBomb);
-//	}
-
-//	public static void bombCountdown() {
-//		List<Integer> removingIndexes = new ArrayList<>();
-//		explosionList.clear();
-//		int index = 0;
-//		for (Bomb b: bombs) {
-//			b.setExplosionTime(b.getExplosionTime() - 1);
-//			if (b.getExplosionTime() == 0) {
-//				removingIndexes.add(index);
-//				explosionList.add(b);
-//			}
-//			index++;
-//		}
-//		for (int i: removingIndexes) {
-//			bombs.remove(i);
-//		}
-//	}
+	public static boolean hasBomb(int row, int col) {
+		for (Bomb b: Bomb.bombs) {
+			if (b.getXPosition() == row && b.getXPosition() == col) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void createEntity() {
 		entities.add (new Bomb(5, 5, Sprite.player_right.getFxImage(), 10));

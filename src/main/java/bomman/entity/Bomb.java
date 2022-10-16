@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,24 +33,26 @@ public class Bomb extends CommonEntity {
 		this.explosionTime = explosionTime;
 	}
 
-//	public void countDown() {
-//		List<Integer> removingIndexes = new ArrayList<>();
-//		explosionList.clear();
-//		int index = 0;
-//		for (Bomb b: bombs) {
-//			b.setExplosionTime(b.getExplosionTime() - 1);
-//			System.out.print(b.getExplosionTime() + "\n");
-//			if (b.getExplosionTime() == 0) {
-//				removingIndexes.add(index);
-//				explosionList.add(b);
-//			}
-//			index++;
-//		}
+	public void countDown() {
+		List<Integer> removingIndexes = new ArrayList<>();
+		explosionList.clear();
+		int index = 0;
+		for (Bomb b: bombs) {
+			b.setExplosionTime(b.getExplosionTime() - 1);
+			System.out.print(b.getExplosionTime() + "\n");
+			if (b.getExplosionTime() == 0) {
+				removingIndexes.add(index);
+				explosionList.add(b);
+			}
+			index++;
+		}
 //		for (int i: removingIndexes) {
 //			bombs.remove(i);
 //			System.out.print("Bomb is removed \n");
+//
 //		}
-//	}
+		bombs.removeAll(removingIndexes);
+	}
 
 	@Override
 	public int getXPosition() {
@@ -72,13 +75,16 @@ public class Bomb extends CommonEntity {
 	@Override
 	public void render(GraphicsContext gc, double t) {
 		double frame = (int) (t / 0.083) % 12 % 3;
-		if (explosionTime <= 0) {
+		if (explosionTime == 0) {
 			this.setImg(Sprite.bomb_exploded.getFxImage());
+			gc.drawImage(getImg(), getXPosition(), getYPosition());
+		} else if (explosionTime <= 0) {
+
 		} else {
 			if (frame == 0) this.setImg(Sprite.bomb.getFxImage());
 			if (frame == 1) this.setImg(Sprite.bomb_1.getFxImage());
 			if (frame == 2) this.setImg(Sprite.bomb_2.getFxImage());
+			gc.drawImage(getImg(), getXPosition(), getYPosition());
 		}
-		gc.drawImage(getImg(), getXPosition(), getYPosition());
 	}
 }
