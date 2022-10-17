@@ -89,5 +89,9 @@ public class Bomb extends CommonEntity {
 	}
 
 	public void countDown() {
+		setExplosionTime(explosionTime-1);
+		if(explosionTime < 0) {
+			bombs.remove(this);
+		}
 	}
 }
