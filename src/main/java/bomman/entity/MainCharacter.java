@@ -93,11 +93,10 @@ public class MainCharacter extends CommonEntity {
 
     public void plantBomb() {
         if (EventHandling.currentlyActiveKeys.contains("SPACE")) {
-            System.out.print("number: " + EventHandling.currentlyActiveKeys.size() + "\n");
-            int xPos = this.getXPosition();
-            int yPos = this.getYPosition();
+            int xPos = this.getXPosition()/Sprite.SCALED_SIZE;
+            int yPos = this.getYPosition()/Sprite.SCALED_SIZE;
             if (!EntityManager.hasBomb(xPos, yPos)) {
-                Bomb.bombs.add(new Bomb (xPos/Sprite.SCALED_SIZE, yPos/Sprite.SCALED_SIZE, Sprite.player_right.getFxImage(), 100));
+                Bomb.bombs.add(new Bomb (xPos, yPos, Sprite.player_right.getFxImage(), 100));
                 System.out.print(Bomb.bombs.size() + "\n");
             }
         }

@@ -20,7 +20,8 @@ public class EntityManager {
 
 	public static boolean hasBomb(int row, int col) {
 		for (Bomb b: Bomb.bombs) {
-			if (b.getXPosition() == row && b.getXPosition() == col) {
+			if (b.getXPosition()/Sprite.SCALED_SIZE == row && b.getYPosition()/Sprite.SCALED_SIZE == col) {
+				System.out.println("true");
 				return true;
 			}
 		}
@@ -31,7 +32,7 @@ public class EntityManager {
 		entities.add (new Bomb(5, 5, Sprite.player_right.getFxImage(), 10));
 	}
 
-	public void createMainCharacter() {
+	public static void createMainCharacter() {
 		bomberman = new MainCharacter(MainCharacter.PLAYER_START_X, MainCharacter.PLAYER_START_Y, Sprite.player_right.getFxImage());
 	}
 }
