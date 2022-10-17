@@ -70,16 +70,24 @@ public class MainCharacter extends CommonEntity {
 
     public void moveEvent() {
         if (EventHandling.currentlyActiveKeys.contains("LEFT")) {
-            this.move(DIRECTION.LEFT, characterVelocity);
+            this.setDirect(DIRECTION.LEFT);
+            collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+            this.move(this.getDirect(), characterVelocity);
         }
         if (EventHandling.currentlyActiveKeys.contains("RIGHT")) {
-            this.move(DIRECTION.RIGHT, characterVelocity);
+            this.setDirect(DIRECTION.RIGHT);
+            collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+            this.move(this.getDirect(), characterVelocity);
         }
         if (EventHandling.currentlyActiveKeys.contains("UP")) {
-            this.move(DIRECTION.UP, characterVelocity);
+            this.setDirect(DIRECTION.UP);
+            collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+            this.move(this.getDirect(), characterVelocity);
         }
         if (EventHandling.currentlyActiveKeys.contains("DOWN")) {
-            this.move(DIRECTION.DOWN, characterVelocity);
+            this.setDirect(DIRECTION.DOWN);
+            collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+            this.move(this.getDirect(), characterVelocity);
         }
     }
 
@@ -99,8 +107,6 @@ public class MainCharacter extends CommonEntity {
 
     @Override
     public void update() {
-        setCharacterVelocity(2);
-        collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
         moveEvent();
         plantBomb();
     }

@@ -35,7 +35,8 @@ public abstract class CommonEntity {
         DOWN(0, 1),
         UP(0, -1),
         RIGHT(1, 0),
-        LEFT(-1, 0);
+        LEFT(-1, 0),
+        COLLIDE(0, 0);
 
         // Private int for declaration
         int moveX;
@@ -115,8 +116,8 @@ public abstract class CommonEntity {
                     int value = map[i][j];
                     if (value == 2) {
 
-                    } else if (MainCharacter.getCharacterVelocity() != 0) {
-                        MainCharacter.setCharacterVelocity(0);
+                    } else {
+                        entity.setDirect(DIRECTION.COLLIDE);
                     }
                 }
             }
@@ -147,6 +148,10 @@ public abstract class CommonEntity {
 
     public DIRECTION getDirect() {
         return direct;
+    }
+
+    public void setDirect(DIRECTION direction) {
+        this.direct = direction;
     }
 
     public Image getImg() {
