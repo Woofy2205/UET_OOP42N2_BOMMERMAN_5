@@ -1,10 +1,13 @@
 package bomman;
 
+import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
 import bomman.entity.EntityManager;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
+import bomman.tiles.CommonTiles;
+import bomman.tiles.TilesManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -17,7 +20,7 @@ public class MainGame extends Application {
 
     // gameManager to control the game, create map, entities and other stuffs.
     GameManager gameManager = new GameManager();
-
+    EntityManager entityManager = new EntityManager();
     static Scene mainScene;
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
@@ -59,16 +62,28 @@ public class MainGame extends Application {
         timer.start();
 
         gameManager.createMapFromFile();
-        EntityManager.createEntity();
+        entityManager.createMainCharacter();
+        //Bomb.bombs.forEach(Bomb::countDown);
     }
 
     public void update() {
-        EntityManager.entities.forEach(CommonEntity::update);
+        Bomb.bombs.forEach(Bomb::countDown);
+        entityManager.bomberman.update();
+        //Bomb.bombs.forEach(Bomb::update);
+        entityManager.entities.forEach(CommonEntity::update);
     }
 
     public void render(double t) {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gameManager.stillObjects.forEach(g -> g.render(gc, t));
-        EntityManager.entities.forEach(g -> g.render(gc, t));
+        for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
+            for (int j = 0; j < GameManager.GAME_WIDTH; j++) {
+                gameManager.gameTiles[i][j].render(gc, t);
+            }
+        }
+        entityManager.entities.forEach(g -> g.render(gc, t));
+        Bomb.bombs.forEach(g -> g.render(gc, t));
+        //gameManager.gameTiles.forEach(g -> g.render(gc, t));
+        entityManager.bomberman.render(gc,t);
     }
 }

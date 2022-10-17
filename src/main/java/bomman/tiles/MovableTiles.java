@@ -1,4 +1,4 @@
-package bomman.entity.tiles;
+package bomman.tiles;
 
 /**
  * Tiles that can suddenly move =))))))).

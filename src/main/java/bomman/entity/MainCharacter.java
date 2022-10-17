@@ -1,7 +1,10 @@
 package bomman.entity;
 
 import bomman.event.EventHandling;
+import bomman.manager.GameManager;
 import bomman.manager.Sprite;
+import bomman.tiles.CommonTiles;
+import bomman.tiles.TilesManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -9,12 +12,13 @@ import javafx.scene.image.Image;
  * This will control the main character =))))))) like, obviously =))))))))
  */
 public class MainCharacter extends CommonEntity {
+
     // Start point of main character (can be changed so not 'final' type)
-    private static int PLAYER_START_X;
-    private static int PLAYER_START_Y;
+    public static int PLAYER_START_X = 5;
+    public static int PLAYER_START_Y = 5;
 
     // Speed of the main character
-    private static int CHARACTER_STEP = 16;
+    private static int characterVelocity = 2;
 
     // Other attributes
     private int explosionRadius;
@@ -29,10 +33,6 @@ public class MainCharacter extends CommonEntity {
      */
     public int getBombDamage() {
         return bombDamage;
-    }
-
-    public static int getCharacterStep() {
-        return CHARACTER_STEP;
     }
 
     public int getExplosionRadius() {
@@ -50,8 +50,16 @@ public class MainCharacter extends CommonEntity {
     }
 
     /**
-     * Setters.
+     * Getters and Setters.
      */
+    public static int getCharacterVelocity(){
+        return characterVelocity;
+    }
+
+    public static void setCharacterVelocity(int characterVelocity) {
+        MainCharacter.characterVelocity = characterVelocity;
+    }
+
     public static void setPlayerStartX(int playerStartX) {
         PLAYER_START_X = playerStartX;
     }
@@ -60,20 +68,41 @@ public class MainCharacter extends CommonEntity {
         PLAYER_START_Y = playerStartY;
     }
 
-    @Override
-    public void update() {
+    public void moveEvent() {
         if (EventHandling.currentlyActiveKeys.contains("LEFT")) {
-            this.move(DIRECTION.LEFT);
+            this.move(DIRECTION.LEFT, characterVelocity);
         }
         if (EventHandling.currentlyActiveKeys.contains("RIGHT")) {
-            this.move(DIRECTION.RIGHT);
+            this.move(DIRECTION.RIGHT, characterVelocity);
         }
         if (EventHandling.currentlyActiveKeys.contains("UP")) {
-            this.move(DIRECTION.UP);
+            this.move(DIRECTION.UP, characterVelocity);
         }
         if (EventHandling.currentlyActiveKeys.contains("DOWN")) {
-            this.move(DIRECTION.DOWN);
+            this.move(DIRECTION.DOWN, characterVelocity);
         }
+    }
+
+    public void plantBomb() {
+        if (EventHandling.currentlyActiveKeys.contains("SPACE")) {
+            System.out.print("number: " + EventHandling.currentlyActiveKeys.size() + "\n");
+            int xPos = this.getXPosition();
+            int yPos = this.getYPosition();
+            if (!EntityManager.hasBomb(xPos, yPos)) {
+                Bomb.bombs.add(new Bomb (xPos/Sprite.SCALED_SIZE, yPos/Sprite.SCALED_SIZE, Sprite.player_right.getFxImage(), 100));
+                System.out.print(Bomb.bombs.size() + "\n");
+            }
+        }
+    }
+
+
+
+    @Override
+    public void update() {
+        setCharacterVelocity(2);
+        collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+        moveEvent();
+        plantBomb();
     }
 
     @Override
