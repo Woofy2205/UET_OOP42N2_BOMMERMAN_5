@@ -1,4 +1,4 @@
-package bomman.entity.buffs;
+package bomman.tiles.buffs;
 
 /**
  * Speed the character up.

@@ -1,4 +1,4 @@
-package bomman.entity.buffs;
+package bomman.tiles.buffs;
 
 /**
  * Increase the range of the bomb.
