@@ -93,10 +93,10 @@ public abstract class CommonEntity {
 //    }
 
     public static boolean collisionWithTiles (CommonEntity entity, CommonTiles tile) {
-        int entityLeft = entity.getXPosition() + entity.getDirect().moveX * 2;
-        int entityRight = entity.getXPosition() + entity.getDirect().moveX * 2 + Sprite.SCALED_SIZE;
-        int entityTop = entity.getYPosition() + entity.getDirect().moveY * 2;
-        int entityBottom = entity.getYPosition() + entity.getDirect().moveY * 2 + Sprite.SCALED_SIZE;
+        int entityLeft = entity.getXPosition() + entity.getDirect().moveX;
+        int entityRight = entity.getXPosition() + entity.getDirect().moveX+ Sprite.SCALED_SIZE;
+        int entityTop = entity.getYPosition() + entity.getDirect().moveY;
+        int entityBottom = entity.getYPosition() + entity.getDirect().moveY + Sprite.SCALED_SIZE;
 
         int tileLeft = tile.xTile;
         int tileRight = tile.xTile + Sprite.SCALED_SIZE;
@@ -106,6 +106,22 @@ public abstract class CommonEntity {
         if(entityBottom <= tileTop || entityTop >= tileBottom || entityRight <= tileLeft || entityLeft >= tileRight) return false;
         return true;
 
+    }
+
+    public static boolean collisionWithEntity (CommonEntity entity1, CommonEntity entity2) {
+
+        int entity1Left = entity1.getXPosition() + entity1.getDirect().moveX;
+        int entity1Right = entity1.getXPosition() + entity1.getDirect().moveX+ Sprite.SCALED_SIZE;
+        int entity1Top = entity1.getYPosition() + entity1.getDirect().moveY;
+        int entity1Bottom = entity1.getYPosition() + entity1.getDirect().moveY + Sprite.SCALED_SIZE;
+
+        int entity2Left = entity2.getXPosition() + entity2.getDirect().moveX;
+        int entity2Right = entity2.getXPosition() + entity2.getDirect().moveX+ Sprite.SCALED_SIZE;
+        int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
+        int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
+
+        if(entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right) return false;
+        return true;
     }
 
     public static void collide (CommonEntity entity, int[][] map, CommonTiles[][] tiles) {

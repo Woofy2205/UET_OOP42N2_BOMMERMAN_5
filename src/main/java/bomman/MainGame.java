@@ -66,7 +66,8 @@ public class MainGame extends Application {
     }
 
     public void update() {
-        Bomb.bombs.forEach(Bomb::countDown);
+        //Bomb.bombs.forEach(Bomb::countDown);
+        Bomb.countDown();
         EntityManager.bomberman.update();
         //Bomb.bombs.forEach(Bomb::update);
         EntityManager.entities.forEach(CommonEntity::update);
