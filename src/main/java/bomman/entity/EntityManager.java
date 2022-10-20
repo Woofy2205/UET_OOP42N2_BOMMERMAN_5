@@ -1,5 +1,6 @@
 package bomman.entity;
 
+import bomman.entity.enemy.FirstEnemy;
 import bomman.manager.Sprite;
 
 import java.util.ArrayList;
@@ -28,8 +29,8 @@ public class EntityManager {
 		return false;
 	}
 
-	public void createEntity() {
-		entities.add (new Bomb(5, 5, Sprite.player_right.getFxImage(), 10));
+	public static void createEntity() {
+		entities.add(new FirstEnemy(5, 5, Sprite.balloon_left1.getFxImage()));
 	}
 
 	public static void createMainCharacter() {

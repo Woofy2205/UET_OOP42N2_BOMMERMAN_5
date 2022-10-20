@@ -39,16 +39,6 @@ public class MainCharacter extends CommonEntity {
         return explosionRadius;
     }
 
-    @Override
-    public int getXPosition() {
-        return super.getXPosition();
-    }
-
-    @Override
-    public int getYPosition() {
-        return super.getYPosition();
-    }
-
     /**
      * Getters and Setters.
      */

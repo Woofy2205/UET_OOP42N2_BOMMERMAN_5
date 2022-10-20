@@ -62,6 +62,7 @@ public class MainGame extends Application {
 
         gameManager.createMapFromFile();
         EntityManager.createMainCharacter();
+        EntityManager.createEntity();
         //Bomb.bombs.forEach(Bomb::countDown);
     }
 
