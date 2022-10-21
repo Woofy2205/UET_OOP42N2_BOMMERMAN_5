@@ -24,7 +24,7 @@ public class MainCharacter extends CommonEntity {
     public static int PLAYER_START_Y = 5;
 
     // Speed of the main character
-    private static int characterVelocity = 4;
+    private static int characterVelocity = 2;
 
     // Other attributes
     private int bombDamage;
@@ -70,17 +70,6 @@ public class MainCharacter extends CommonEntity {
     public static void setPlayerStartY(int playerStartY) {
         PLAYER_START_Y = playerStartY;
     }
-
-
-    /**
-     * Getters.
-     */
-    public int getBombDamage() {
-        return bombDamage;
-    }
-
-    public int getExplosionRadius() {
-        return explosionRadius;
 
     public static void collideMainCharacter (MainCharacter mainCharacter, int[][] map, CommonTiles[][] tiles) {
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
@@ -167,6 +156,7 @@ public class MainCharacter extends CommonEntity {
                 }
             }
         }
+    }
         
     public void coolDownBuff() {
         Buff.buffs.forEach(g -> g.update());
