@@ -19,7 +19,6 @@ public abstract class CommonEntity {
 
     private DIRECTION direct;
 
-
     private Image img;
 
     public CommonEntity(int xUnit, int yUnit, Image img) {
@@ -39,8 +38,8 @@ public abstract class CommonEntity {
         COLLIDE(0, 0);
 
         // Private int for declaration
-        int moveX;
-        int moveY;
+        public int moveX;
+        public int moveY;
 
         // Constructor for direction
         DIRECTION(final int _moveX, final int _moveY) {
@@ -49,89 +48,67 @@ public abstract class CommonEntity {
         }
     }
 
-//    public static boolean canMove (int x, int y, int[][] map) {
-//        double xUnit = (double) x / Sprite.SCALED_SIZE;
-//        double yUnit = (double) y / Sprite.SCALED_SIZE;
-//        System.out.print("This is xUnit: " + xUnit + ", This is yUnit: " + yUnit + "\n");
-//        if ((int)xUnit <= 0 || (int)yUnit <= 0 || (int)xUnit >= GameManager.GAME_WIDTH-2 || (int)yUnit >= GameManager.GAME_HEIGHT-2) return false;
-//        System.out.print("This is yUnit: " + (int) Math.ceil (yUnit) + ", This is xUnit: " + (int) Math.ceil (xUnit) + "\n");
-//        return (map[(int) Math.ceil (yUnit)][(int) Math.ceil (xUnit)] != 1);
-//    }
-
-//    public static boolean canMove (DIRECTION direct, int x, int y, int[][] map) {
-//        //int xUnit = (int) Math.round ((double)x / Sprite.SCALED_SIZE);
-//        //int yUnit = (int) Math.round ((double)y / Sprite.SCALED_SIZE);
-//        int xUnit = x / Sprite.SCALED_SIZE;
-//        int yUnit = y / Sprite.SCALED_SIZE;
-//
-//        //System.out.print("y: " + yUnit + ", x: " + xUnit + "\n");
-//        int left = xUnit;
-//        int right = xUnit + 1;
-//        int top = yUnit;
-//        int bottom = yUnit + 1;
-//
-//        if (direct == DIRECTION.UP) {
-//            return (map[top][left] != 1);
-//        }
-//        if (direct == DIRECTION.DOWN) {
-//            return (map[top][left] != 1 && map[bottom][left] != 1);
-//        }
-//        if (direct == DIRECTION.RIGHT) {
-//            return (map[top][left] != 1 && map[top][right] != 1);
-//        }
-//        if (direct == DIRECTION.LEFT) {
-//            if (map[top][left] != 1) {
-//                if (map[bottom][left+1] == 1 && map[bottom][left] == 1) return true;
-//                else if (map[bottom][left] == 1) return false;
-//                else return true;
-//            }
-//        }
-//        // return (map[top][left] != 1 && map[bottom][right] != 1 && map[top][right] != 1 && map[bottom][left] != 1);
-//        // if ((int)xUnit <= 0 || (int)yUnit <= 0 || (int)xUnit >= GameManager.GAME_WIDTH-2 || (int)yUnit >= GameManager.GAME_HEIGHT-2) return false;
-//        // return ((map[top][left] != 1 && map[bottom][right] != 1 && map[top][right] != 1 && map[bottom][left] != 1));
-//        return false;
-//    }
-
-    public static boolean collisionWithTiles (CommonEntity entity, CommonTiles tile) {
-        int entityLeft = entity.getXPosition() + entity.getDirect().moveX * 2;
-        int entityRight = entity.getXPosition() + entity.getDirect().moveX * 2 + Sprite.SCALED_SIZE;
-        int entityTop = entity.getYPosition() + entity.getDirect().moveY * 2;
-        int entityBottom = entity.getYPosition() + entity.getDirect().moveY * 2 + Sprite.SCALED_SIZE;
+    public static boolean collisionWithTiles(CommonEntity entity, CommonTiles tile) {
+        int entityLeft = entity.getXPosition() + entity.getDirect().moveX;
+        int entityRight = entity.getXPosition() + entity.getDirect().moveX + Sprite.SCALED_SIZE;
+        int entityTop = entity.getYPosition() + entity.getDirect().moveY;
+        int entityBottom = entity.getYPosition() + entity.getDirect().moveY + Sprite.SCALED_SIZE;
 
         int tileLeft = tile.xTile;
         int tileRight = tile.xTile + Sprite.SCALED_SIZE;
         int tileTop = tile.yTile;
         int tileBottom = tile.yTile + Sprite.SCALED_SIZE;
 
-        if(entityBottom <= tileTop || entityTop >= tileBottom || entityRight <= tileLeft || entityLeft >= tileRight) return false;
+        if (entityBottom <= tileTop || entityTop >= tileBottom || entityRight <= tileLeft || entityLeft >= tileRight)
+            return false;
         return true;
 
     }
 
+    public static boolean collisionWithEntity(CommonEntity entity1, CommonEntity entity2) {
+
+        int entity1Left = entity1.getXPosition() + entity1.getDirect().moveX;
+        int entity1Right = entity1.getXPosition() + entity1.getDirect().moveX + Sprite.SCALED_SIZE;
+        int entity1Top = entity1.getYPosition() + entity1.getDirect().moveY;
+        int entity1Bottom = entity1.getYPosition() + entity1.getDirect().moveY + Sprite.SCALED_SIZE;
+
+        int entity2Left = entity2.getXPosition() + entity2.getDirect().moveX;
+        int entity2Right = entity2.getXPosition() + entity2.getDirect().moveX + Sprite.SCALED_SIZE;
+        int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
+        int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
+
+        if (entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right)
+            return false;
+        return true;
+    }
+
+//    public static void collide(CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
+//        //System.out.print("y: " + yUnit + ", x: " + xUnit + "\n");
+//        int entity2Right = entity2.getXPosition() + entity2.getDirect().moveX+ Sprite.SCALED_SIZE;
+//        int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
+//        int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
+//
+//        if(entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right) return false;
+//        return true;
+//    }
+
     public static void collide (CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
-        //System.out.print("y: " + yUnit + ", x: " + xUnit + "\n");
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
             for (int j = 0; j < GameManager.GAME_WIDTH; j++) {
                 if (map[i][j] != 0 && collisionWithTiles(entity, tiles[i][j])) {
-                    int value = map[i][j];
-                    if (value == 2) {
-
-                    } else {
+                    //int value = map[i][j];
+                    //if (value != 0) {
                         entity.setDirect(DIRECTION.COLLIDE);
-                    }
+                    //}
                 }
             }
         }
-
     }
 
     // Moving function for the entities.
     public void move(DIRECTION direct, int velocity) {
-        //System.out.print(xPosition + " " + yPosition + "\n");
-        //if (canMove(xPosition + direct.moveX, yPosition + direct.moveY, manager.map)) {
-            xPosition += direct.moveX * velocity;
-            yPosition += direct.moveY * velocity;
-        //}
+        xPosition += direct.moveX * velocity;
+        yPosition += direct.moveY * velocity;
         this.direct = direct;
     }
 
@@ -144,6 +121,14 @@ public abstract class CommonEntity {
 
     public int getYPosition() {
         return yPosition;
+    }
+
+    public void setXPosition(int xPosition) {
+        this.xPosition = xPosition;
+    }
+
+    public void setYPosition(int yPosition) {
+        this.yPosition = yPosition;
     }
 
     public DIRECTION getDirect() {

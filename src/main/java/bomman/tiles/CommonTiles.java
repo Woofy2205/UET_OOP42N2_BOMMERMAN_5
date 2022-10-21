@@ -19,6 +19,30 @@ public abstract class CommonTiles {
 
 	private Image img;
 
+	public Image getImg() {
+		return this.img;
+	}
+
+	public int getXTile() {
+		return xTile;
+	}
+
+	public int getYTile() {
+		return yTile;
+	}
+
+	public void setImg(Image img) {
+		this.img = img;
+	}
+
+	public void setXTile(int xTile) {
+		this.xTile = xTile;
+	}
+
+	public void setYTile(int yTile) {
+		this.yTile = yTile;
+	}
+
 	public CommonTiles (int xUnit, int yUnit, Image img) {
 		this.xTile = xUnit * Sprite.SCALED_SIZE;
 		this.yTile = yUnit * Sprite.SCALED_SIZE;
