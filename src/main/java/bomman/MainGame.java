@@ -3,11 +3,13 @@ package bomman;
 import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
 import bomman.entity.EntityManager;
+import bomman.entity.Flame;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
 import bomman.tiles.CommonTiles;
 import bomman.tiles.TilesManager;
+import bomman.tiles.buffs.Buff;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -17,9 +19,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 public class MainGame extends Application {
-
-    // gameManager to control the game, create map, entities and other stuffs.
-    GameManager gameManager = new GameManager();
     static Scene mainScene;
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
@@ -46,27 +45,38 @@ public class MainGame extends Application {
         mainScene = new Scene(root);
         EventHandling.prepareActionHandlers(mainScene);
 
-        // Them scene vao stage
+        // Add scene to stage
         stage.setScene(mainScene);
         stage.show();
+
+        GameManager.createMap();
+        TilesManager.createTiles();
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+                if (GameManager.nextStage) {
+                    GameManager.createMap();
+                    TilesManager.createTiles();
+                    GameManager.nextStage = false;
+                }
                 update();
                 render(t);
             }
         };
         timer.start();
 
-        gameManager.createMapFromFile();
+
         EntityManager.createMainCharacter();
+
         //Bomb.bombs.forEach(Bomb::countDown);
     }
 
     public void update() {
-        Bomb.bombs.forEach(Bomb::countDown);
+        Bomb.countDown();
+        Bomb.createFlame();
+        Flame.flameCountdown();
         EntityManager.bomberman.update();
         //Bomb.bombs.forEach(Bomb::update);
         EntityManager.entities.forEach(CommonEntity::update);
@@ -74,14 +84,15 @@ public class MainGame extends Application {
 
     public void render(double t) {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gameManager.stillObjects.forEach(g -> g.render(gc, t));
+        // gameManager.stillObjects.forEach(g -> g.render(gc, t));
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
             for (int j = 0; j < GameManager.GAME_WIDTH; j++) {
-                gameManager.gameTiles[i][j].render(gc, t);
+                TilesManager.gameTiles[i][j].render(gc, t);
             }
         }
         EntityManager.entities.forEach(g -> g.render(gc, t));
         Bomb.bombs.forEach(g -> g.render(gc, t));
+        Flame.flames.forEach(g -> g.render(gc, t));
         //gameManager.gameTiles.forEach(g -> g.render(gc, t));
         EntityManager.bomberman.render(gc,t);
     }

@@ -21,15 +21,10 @@ public class EntityManager {
 	public static boolean hasBomb(int row, int col) {
 		for (Bomb b: Bomb.bombs) {
 			if (b.getXPosition()/Sprite.SCALED_SIZE == row && b.getYPosition()/Sprite.SCALED_SIZE == col) {
-				System.out.println("true");
 				return true;
 			}
 		}
 		return false;
-	}
-
-	public void createEntity() {
-		entities.add (new Bomb(5, 5, Sprite.player_right.getFxImage(), 10));
 	}
 
 	public static void createMainCharacter() {
