@@ -69,11 +69,13 @@ public class MainGame extends Application {
 
 
         EntityManager.createMainCharacter();
-
+        EntityManager.createEntity();
         //Bomb.bombs.forEach(Bomb::countDown);
     }
 
     public void update() {
+        //Bomb.bombs.forEach(Bomb::countDown);
+        Bomb.countDown();
         Bomb.countDown();
         Bomb.createFlame();
         Flame.flameCountdown();
@@ -94,6 +96,6 @@ public class MainGame extends Application {
         Bomb.bombs.forEach(g -> g.render(gc, t));
         Flame.flames.forEach(g -> g.render(gc, t));
         //gameManager.gameTiles.forEach(g -> g.render(gc, t));
-        EntityManager.bomberman.render(gc,t);
+        EntityManager.bomberman.render(gc, t);
     }
 }

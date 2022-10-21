@@ -42,8 +42,9 @@ public class Bomb extends CommonEntity {
 		explosionList.clear();
 		int index = 0;
 		for (Bomb b: bombs) {
-			b.setExplosionTime(b.getExplosionTime() - 1);
-			if (b.getExplosionTime() == 0) {
+			b.setExplosionTime(b.explosionTime - 1);
+			System.out.print(b.explosionTime + "\n");
+			if (b.explosionTime <= 0) {
 				removingIndexes.add(index);
 				explosionList.add(b);
 			}
@@ -51,6 +52,8 @@ public class Bomb extends CommonEntity {
 		}
 		for (int i: removingIndexes) {
 			bombs.remove(i);
+			System.out.print("Bomb is removed \n");
+
 		}
 	}
 

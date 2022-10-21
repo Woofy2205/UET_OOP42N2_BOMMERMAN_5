@@ -24,7 +24,7 @@ public class MainCharacter extends CommonEntity {
     public static int PLAYER_START_Y = 5;
 
     // Speed of the main character
-    private static int characterVelocity = 2;
+    private static int characterVelocity = 4;
 
     // Other attributes
     private int bombDamage;
@@ -55,7 +55,7 @@ public class MainCharacter extends CommonEntity {
     /**
      * Getters and Setters.
      */
-    public static int getCharacterVelocity(){
+    public static int getCharacterVelocity() {
         return characterVelocity;
     }
 
@@ -70,6 +70,17 @@ public class MainCharacter extends CommonEntity {
     public static void setPlayerStartY(int playerStartY) {
         PLAYER_START_Y = playerStartY;
     }
+
+
+    /**
+     * Getters.
+     */
+    public int getBombDamage() {
+        return bombDamage;
+    }
+
+    public int getExplosionRadius() {
+        return explosionRadius;
 
     public static void collideMainCharacter (MainCharacter mainCharacter, int[][] map, CommonTiles[][] tiles) {
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
@@ -121,6 +132,7 @@ public class MainCharacter extends CommonEntity {
             collideMainCharacter(MainCharacter.this, GameManager.map, TilesManager.gameTiles);
             this.move(this.getDirect(), characterVelocity);
         }
+        System.out.println(getXPosition() + " " + getYPosition());
     }
 
     public void plantBomb() {
@@ -132,7 +144,30 @@ public class MainCharacter extends CommonEntity {
             }
         }
     }
-
+    
+    public void autocorrect() {
+        if (getDirect() == DIRECTION.COLLIDE) {
+            System.out.println("collide");
+            if (EventHandling.currentlyActiveKeys.contains("UP") || EventHandling.currentlyActiveKeys.contains("DOWN")) {
+                int delta = getXPosition() % Sprite.SCALED_SIZE;
+                if (delta < 20) {
+                    setXPosition(getXPosition() - delta);
+                }
+                if (delta > 44) {
+                    setXPosition(getXPosition() + (64 - delta));
+                }
+            }
+            if (EventHandling.currentlyActiveKeys.contains("LEFT") || EventHandling.currentlyActiveKeys.contains("RIGHT")) {
+                int delta = getYPosition() % Sprite.SCALED_SIZE;
+                if (delta < 20) {
+                    setYPosition(getYPosition() - delta);
+                }
+                if (delta > 44) {
+                    setYPosition(getYPosition() + (64 - delta));
+                }
+            }
+        }
+        
     public void coolDownBuff() {
         Buff.buffs.forEach(g -> g.update());
         List<Buff> removeBuffs = new ArrayList<Buff>();
@@ -149,6 +184,7 @@ public class MainCharacter extends CommonEntity {
     @Override
     public void update() {
         moveEvent();
+        autocorrect();
         plantBomb();
         coolDownBuff();
      }
