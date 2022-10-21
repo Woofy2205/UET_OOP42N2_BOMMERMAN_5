@@ -6,8 +6,6 @@ import bomman.entity.EntityManager;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
-import bomman.tiles.CommonTiles;
-import bomman.tiles.TilesManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -85,6 +83,6 @@ public class MainGame extends Application {
         EntityManager.entities.forEach(g -> g.render(gc, t));
         Bomb.bombs.forEach(g -> g.render(gc, t));
         //gameManager.gameTiles.forEach(g -> g.render(gc, t));
-        EntityManager.bomberman.render(gc,t);
+        EntityManager.bomberman.render(gc, t);
     }
 }

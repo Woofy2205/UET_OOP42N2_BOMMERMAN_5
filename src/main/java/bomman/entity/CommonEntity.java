@@ -39,8 +39,8 @@ public abstract class CommonEntity {
         COLLIDE(0, 0);
 
         // Private int for declaration
-        int moveX;
-        int moveY;
+        public int moveX;
+        public int moveY;
 
         // Constructor for direction
         DIRECTION(final int _moveX, final int _moveY) {
@@ -92,9 +92,9 @@ public abstract class CommonEntity {
 //        return false;
 //    }
 
-    public static boolean collisionWithTiles (CommonEntity entity, CommonTiles tile) {
+    public static boolean collisionWithTiles(CommonEntity entity, CommonTiles tile) {
         int entityLeft = entity.getXPosition() + entity.getDirect().moveX;
-        int entityRight = entity.getXPosition() + entity.getDirect().moveX+ Sprite.SCALED_SIZE;
+        int entityRight = entity.getXPosition() + entity.getDirect().moveX + Sprite.SCALED_SIZE;
         int entityTop = entity.getYPosition() + entity.getDirect().moveY;
         int entityBottom = entity.getYPosition() + entity.getDirect().moveY + Sprite.SCALED_SIZE;
 
@@ -103,28 +103,30 @@ public abstract class CommonEntity {
         int tileTop = tile.yTile;
         int tileBottom = tile.yTile + Sprite.SCALED_SIZE;
 
-        if(entityBottom <= tileTop || entityTop >= tileBottom || entityRight <= tileLeft || entityLeft >= tileRight) return false;
+        if (entityBottom <= tileTop || entityTop >= tileBottom || entityRight <= tileLeft || entityLeft >= tileRight)
+            return false;
         return true;
 
     }
 
-    public static boolean collisionWithEntity (CommonEntity entity1, CommonEntity entity2) {
+    public static boolean collisionWithEntity(CommonEntity entity1, CommonEntity entity2) {
 
         int entity1Left = entity1.getXPosition() + entity1.getDirect().moveX;
-        int entity1Right = entity1.getXPosition() + entity1.getDirect().moveX+ Sprite.SCALED_SIZE;
+        int entity1Right = entity1.getXPosition() + entity1.getDirect().moveX + Sprite.SCALED_SIZE;
         int entity1Top = entity1.getYPosition() + entity1.getDirect().moveY;
         int entity1Bottom = entity1.getYPosition() + entity1.getDirect().moveY + Sprite.SCALED_SIZE;
 
         int entity2Left = entity2.getXPosition() + entity2.getDirect().moveX;
-        int entity2Right = entity2.getXPosition() + entity2.getDirect().moveX+ Sprite.SCALED_SIZE;
+        int entity2Right = entity2.getXPosition() + entity2.getDirect().moveX + Sprite.SCALED_SIZE;
         int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
         int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
 
-        if(entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right) return false;
+        if (entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right)
+            return false;
         return true;
     }
 
-    public static void collide (CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
+    public static void collide(CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
         //System.out.print("y: " + yUnit + ", x: " + xUnit + "\n");
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
             for (int j = 0; j < GameManager.GAME_WIDTH; j++) {
@@ -145,8 +147,8 @@ public abstract class CommonEntity {
     public void move(DIRECTION direct, int velocity) {
         //System.out.print(xPosition + " " + yPosition + "\n");
         //if (canMove(xPosition + direct.moveX, yPosition + direct.moveY, manager.map)) {
-            xPosition += direct.moveX * velocity;
-            yPosition += direct.moveY * velocity;
+        this.xPosition += direct.moveX * velocity;
+        this.yPosition += direct.moveY * velocity;
         //}
         this.direct = direct;
     }
