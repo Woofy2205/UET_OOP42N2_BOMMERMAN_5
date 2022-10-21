@@ -42,7 +42,7 @@ public class SecondEnemy extends CommonEntity {
                 }
                 int col = (getXPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveX;
                 int row = (getYPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveY;
-                if (GameManager.getGameManager().map[row][col] == 0) {
+                if (GameManager.map[row][col] == 0) {
                     canMove.add(this.getDirect());
                 }
             }

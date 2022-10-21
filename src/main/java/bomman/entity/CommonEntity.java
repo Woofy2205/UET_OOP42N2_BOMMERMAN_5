@@ -48,49 +48,6 @@ public abstract class CommonEntity {
         }
     }
 
-//    public static boolean canMove (int x, int y, int[][] map) {
-//        double xUnit = (double) x / Sprite.SCALED_SIZE;
-//        double yUnit = (double) y / Sprite.SCALED_SIZE;
-//        System.out.print("This is xUnit: " + xUnit + ", This is yUnit: " + yUnit + "\n");
-//        if ((int)xUnit <= 0 || (int)yUnit <= 0 || (int)xUnit >= GameManager.GAME_WIDTH-2 || (int)yUnit >= GameManager.GAME_HEIGHT-2) return false;
-//        System.out.print("This is yUnit: " + (int) Math.ceil (yUnit) + ", This is xUnit: " + (int) Math.ceil (xUnit) + "\n");
-//        return (map[(int) Math.ceil (yUnit)][(int) Math.ceil (xUnit)] != 1);
-//    }
-
-//    public static boolean canMove (DIRECTION direct, int x, int y, int[][] map) {
-//        //int xUnit = (int) Math.round ((double)x / Sprite.SCALED_SIZE);
-//        //int yUnit = (int) Math.round ((double)y / Sprite.SCALED_SIZE);
-//        int xUnit = x / Sprite.SCALED_SIZE;
-//        int yUnit = y / Sprite.SCALED_SIZE;
-//
-//        //System.out.print("y: " + yUnit + ", x: " + xUnit + "\n");
-//        int left = xUnit;
-//        int right = xUnit + 1;
-//        int top = yUnit;
-//        int bottom = yUnit + 1;
-//
-//        if (direct == DIRECTION.UP) {
-//            return (map[top][left] != 1);
-//        }
-//        if (direct == DIRECTION.DOWN) {
-//            return (map[top][left] != 1 && map[bottom][left] != 1);
-//        }
-//        if (direct == DIRECTION.RIGHT) {
-//            return (map[top][left] != 1 && map[top][right] != 1);
-//        }
-//        if (direct == DIRECTION.LEFT) {
-//            if (map[top][left] != 1) {
-//                if (map[bottom][left+1] == 1 && map[bottom][left] == 1) return true;
-//                else if (map[bottom][left] == 1) return false;
-//                else return true;
-//            }
-//        }
-//        // return (map[top][left] != 1 && map[bottom][right] != 1 && map[top][right] != 1 && map[bottom][left] != 1);
-//        // if ((int)xUnit <= 0 || (int)yUnit <= 0 || (int)xUnit >= GameManager.GAME_WIDTH-2 || (int)yUnit >= GameManager.GAME_HEIGHT-2) return false;
-//        // return ((map[top][left] != 1 && map[bottom][right] != 1 && map[top][right] != 1 && map[bottom][left] != 1));
-//        return false;
-//    }
-
     public static boolean collisionWithTiles(CommonEntity entity, CommonTiles tile) {
         int entityLeft = entity.getXPosition() + entity.getDirect().moveX;
         int entityRight = entity.getXPosition() + entity.getDirect().moveX + Sprite.SCALED_SIZE;
@@ -125,15 +82,15 @@ public abstract class CommonEntity {
         return true;
     }
 
-    public static void collide(CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
-        //System.out.print("y: " + yUnit + ", x: " + xUnit + "\n");
-        int entity2Right = entity2.getXPosition() + entity2.getDirect().moveX+ Sprite.SCALED_SIZE;
-        int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
-        int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
-
-        if(entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right) return false;
-        return true;
-    }
+//    public static void collide(CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
+//        //System.out.print("y: " + yUnit + ", x: " + xUnit + "\n");
+//        int entity2Right = entity2.getXPosition() + entity2.getDirect().moveX+ Sprite.SCALED_SIZE;
+//        int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
+//        int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
+//
+//        if(entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right) return false;
+//        return true;
+//    }
 
     public static void collide (CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
