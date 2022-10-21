@@ -19,7 +19,6 @@ public abstract class CommonEntity {
 
     private DIRECTION direct;
 
-
     private Image img;
 
     public CommonEntity(int xUnit, int yUnit, Image img) {
@@ -128,28 +127,31 @@ public abstract class CommonEntity {
 
     public static void collide(CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
         //System.out.print("y: " + yUnit + ", x: " + xUnit + "\n");
+        int entity2Right = entity2.getXPosition() + entity2.getDirect().moveX+ Sprite.SCALED_SIZE;
+        int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
+        int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
+
+        if(entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right) return false;
+        return true;
+    }
+
+    public static void collide (CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
             for (int j = 0; j < GameManager.GAME_WIDTH; j++) {
                 if (map[i][j] != 0 && collisionWithTiles(entity, tiles[i][j])) {
-                    int value = map[i][j];
-                    if (value == 2) {
-
-                    } else {
+                    //int value = map[i][j];
+                    //if (value != 0) {
                         entity.setDirect(DIRECTION.COLLIDE);
-                    }
+                    //}
                 }
             }
         }
-
     }
 
     // Moving function for the entities.
     public void move(DIRECTION direct, int velocity) {
-        //System.out.print(xPosition + " " + yPosition + "\n");
-        //if (canMove(xPosition + direct.moveX, yPosition + direct.moveY, manager.map)) {
-        this.xPosition += direct.moveX * velocity;
-        this.yPosition += direct.moveY * velocity;
-        //}
+        xPosition += direct.moveX * velocity;
+        yPosition += direct.moveY * velocity;
         this.direct = direct;
     }
 

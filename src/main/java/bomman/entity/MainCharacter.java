@@ -3,8 +3,16 @@ package bomman.entity;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
+import bomman.tiles.CommonTiles;
+import bomman.tiles.TilesManager;
+import bomman.tiles.buffs.Buff;
+import bomman.tiles.buffs.IncreaseRange;
+import bomman.tiles.buffs.SpeedUp;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This will control the main character =))))))) like, obviously =))))))))
@@ -19,11 +27,29 @@ public class MainCharacter extends CommonEntity {
     private static int characterVelocity = 4;
 
     // Other attributes
-    private int explosionRadius;
     private int bombDamage;
+
+    // public static List<Buff> buffs = new ArrayList<Buff>();
 
     public MainCharacter(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
+    }
+
+    /**
+     * Getters.
+     */
+    public int getBombDamage() {
+        return bombDamage;
+    }
+
+    @Override
+    public int getXPosition() {
+        return super.getXPosition();
+    }
+
+    @Override
+    public int getYPosition() {
+        return super.getYPosition();
     }
 
     /**
@@ -45,6 +71,7 @@ public class MainCharacter extends CommonEntity {
         PLAYER_START_Y = playerStartY;
     }
 
+
     /**
      * Getters.
      */
@@ -54,27 +81,55 @@ public class MainCharacter extends CommonEntity {
 
     public int getExplosionRadius() {
         return explosionRadius;
+
+    public static void collideMainCharacter (MainCharacter mainCharacter, int[][] map, CommonTiles[][] tiles) {
+        for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
+            for (int j = 0; j < GameManager.GAME_WIDTH; j++) {
+                if (map[i][j] != 0 && collisionWithTiles(mainCharacter, tiles[i][j])) {
+                    int value = map[i][j];
+                    if (value == 3) {
+                        GameManager.map[i][j] = 0;
+                        GameManager.currentStage++;
+                        GameManager.nextStage = true;
+                        break;
+                    } else if (value == 4) {
+                        GameManager.map[i][j] = 0;
+                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        Buff.buffs.add(new SpeedUp(j, i));
+                        SpeedUp.executeBuff(mainCharacter);
+                    } else if (value == 5) {
+                        GameManager.map[i][j] = 0;
+                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        Buff.buffs.add(new IncreaseRange(j, i));
+                        IncreaseRange.executeBuff(mainCharacter);
+                    }
+                    else {
+                        mainCharacter.setDirect(DIRECTION.COLLIDE);
+                    }
+                }
+            }
+        }
     }
 
     public void moveEvent() {
         if (EventHandling.currentlyActiveKeys.contains("LEFT")) {
             this.setDirect(DIRECTION.LEFT);
-            collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+            collideMainCharacter(MainCharacter.this, GameManager.map, TilesManager.gameTiles);
             this.move(this.getDirect(), characterVelocity);
         }
         if (EventHandling.currentlyActiveKeys.contains("RIGHT")) {
             this.setDirect(DIRECTION.RIGHT);
-            collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+            collideMainCharacter(MainCharacter.this, GameManager.map, TilesManager.gameTiles);
             this.move(this.getDirect(), characterVelocity);
         }
         if (EventHandling.currentlyActiveKeys.contains("UP")) {
             this.setDirect(DIRECTION.UP);
-            collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+            collideMainCharacter(MainCharacter.this, GameManager.map, TilesManager.gameTiles);
             this.move(this.getDirect(), characterVelocity);
         }
         if (EventHandling.currentlyActiveKeys.contains("DOWN")) {
             this.setDirect(DIRECTION.DOWN);
-            collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
+            collideMainCharacter(MainCharacter.this, GameManager.map, TilesManager.gameTiles);
             this.move(this.getDirect(), characterVelocity);
         }
         System.out.println(getXPosition() + " " + getYPosition());
@@ -84,13 +139,12 @@ public class MainCharacter extends CommonEntity {
         if (EventHandling.currentlyActiveKeys.contains("SPACE")) {
             int xPos = this.getXPosition() / Sprite.SCALED_SIZE;
             int yPos = this.getYPosition() / Sprite.SCALED_SIZE;
-            if (!EntityManager.hasBomb(xPos, yPos)) {
-                Bomb.bombs.add(new Bomb(xPos, yPos, Sprite.player_right.getFxImage(), 100));
-                System.out.print(Bomb.bombs.size() + "\n");
+            if (! EntityManager.hasBomb(xPos, yPos)) {
+                Bomb.bombs.add(new Bomb(xPos, yPos, Sprite.bomb.getFxImage(), 100));
             }
         }
     }
-
+    
     public void autocorrect() {
         if (getDirect() == DIRECTION.COLLIDE) {
             System.out.println("collide");
@@ -113,6 +167,18 @@ public class MainCharacter extends CommonEntity {
                 }
             }
         }
+        
+    public void coolDownBuff() {
+        Buff.buffs.forEach(g -> g.update());
+        List<Buff> removeBuffs = new ArrayList<Buff>();
+        for (Buff b: Buff.buffs) {
+            if (b.getCoolDown() <= 0) {
+                removeBuffs.add(b);
+            }
+        }
+        for (Buff b: removeBuffs) {
+            Buff.buffs.remove(b);
+        }
     }
 
     @Override
@@ -120,7 +186,8 @@ public class MainCharacter extends CommonEntity {
         moveEvent();
         autocorrect();
         plantBomb();
-    }
+        coolDownBuff();
+     }
 
     @Override
     public void render(GraphicsContext gc, double t) {
