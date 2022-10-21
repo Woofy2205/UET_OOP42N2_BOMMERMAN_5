@@ -48,7 +48,6 @@ public class SecondEnemy extends CommonEntity {
             }
         }
         if (canMove.size() != 0) {
-            System.out.println(canMove.size());
             int rand_dir = (int) (Math.random() * (canMove.size()));
             this.setDirect(canMove.get(rand_dir));
         }

@@ -3,8 +3,6 @@ package bomman.entity;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
-import bomman.tiles.CommonTiles;
-import bomman.tiles.TilesManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -18,7 +16,7 @@ public class MainCharacter extends CommonEntity {
     public static int PLAYER_START_Y = 5;
 
     // Speed of the main character
-    private static int characterVelocity = 2;
+    private static int characterVelocity = 4;
 
     // Other attributes
     private int explosionRadius;
@@ -29,20 +27,9 @@ public class MainCharacter extends CommonEntity {
     }
 
     /**
-     * Getters.
-     */
-    public int getBombDamage() {
-        return bombDamage;
-    }
-
-    public int getExplosionRadius() {
-        return explosionRadius;
-    }
-
-    /**
      * Getters and Setters.
      */
-    public static int getCharacterVelocity(){
+    public static int getCharacterVelocity() {
         return characterVelocity;
     }
 
@@ -56,6 +43,17 @@ public class MainCharacter extends CommonEntity {
 
     public static void setPlayerStartY(int playerStartY) {
         PLAYER_START_Y = playerStartY;
+    }
+
+    /**
+     * Getters.
+     */
+    public int getBombDamage() {
+        return bombDamage;
+    }
+
+    public int getExplosionRadius() {
+        return explosionRadius;
     }
 
     public void moveEvent() {
@@ -79,24 +77,48 @@ public class MainCharacter extends CommonEntity {
             collide(MainCharacter.this, GameManager.getGameManager().map, GameManager.getGameManager().gameTiles);
             this.move(this.getDirect(), characterVelocity);
         }
+        System.out.println(getXPosition() + " " + getYPosition());
     }
 
     public void plantBomb() {
         if (EventHandling.currentlyActiveKeys.contains("SPACE")) {
-            int xPos = this.getXPosition()/Sprite.SCALED_SIZE;
-            int yPos = this.getYPosition()/Sprite.SCALED_SIZE;
+            int xPos = this.getXPosition() / Sprite.SCALED_SIZE;
+            int yPos = this.getYPosition() / Sprite.SCALED_SIZE;
             if (!EntityManager.hasBomb(xPos, yPos)) {
-                Bomb.bombs.add(new Bomb (xPos, yPos, Sprite.player_right.getFxImage(), 100));
+                Bomb.bombs.add(new Bomb(xPos, yPos, Sprite.player_right.getFxImage(), 100));
                 System.out.print(Bomb.bombs.size() + "\n");
             }
         }
     }
 
-
+    public void autocorrect() {
+        if (getDirect() == DIRECTION.COLLIDE) {
+            System.out.println("collide");
+            if (EventHandling.currentlyActiveKeys.contains("UP") || EventHandling.currentlyActiveKeys.contains("DOWN")) {
+                int delta = getXPosition() % Sprite.SCALED_SIZE;
+                if (delta < 20) {
+                    setXPosition(getXPosition() - delta);
+                }
+                if (delta > 44) {
+                    setXPosition(getXPosition() + (64 - delta));
+                }
+            }
+            if (EventHandling.currentlyActiveKeys.contains("LEFT") || EventHandling.currentlyActiveKeys.contains("RIGHT")) {
+                int delta = getYPosition() % Sprite.SCALED_SIZE;
+                if (delta < 20) {
+                    setYPosition(getYPosition() - delta);
+                }
+                if (delta > 44) {
+                    setYPosition(getYPosition() + (64 - delta));
+                }
+            }
+        }
+    }
 
     @Override
     public void update() {
         moveEvent();
+        autocorrect();
         plantBomb();
     }
 
