@@ -39,4 +39,8 @@ public class EntityManager {
     public static void createMainCharacter() {
         bomberman = new MainCharacter(MainCharacter.PLAYER_START_X, MainCharacter.PLAYER_START_Y, Sprite.player_right.getFxImage());
     }
+
+    public static void removeDeathEntity() {
+        entities.removeIf(i -> i.getAlive() == 2);
+    }
 }

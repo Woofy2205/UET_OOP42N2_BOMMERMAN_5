@@ -7,9 +7,7 @@ import bomman.entity.Flame;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
-import bomman.tiles.CommonTiles;
 import bomman.tiles.TilesManager;
-import bomman.tiles.buffs.Buff;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -79,6 +77,7 @@ public class MainGame extends Application {
         Bomb.countDown();
         Bomb.createFlame();
         Flame.flameCountdown();
+        EntityManager.removeDeathEntity();
         EntityManager.bomberman.update();
         //Bomb.bombs.forEach(Bomb::update);
         EntityManager.entities.forEach(CommonEntity::update);

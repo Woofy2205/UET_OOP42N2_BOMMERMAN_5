@@ -17,6 +17,8 @@ public abstract class CommonEntity {
     private int xPosition;
     private int yPosition;
 
+    private int alive = 0;
+
     private DIRECTION direct;
 
     private Image img;
@@ -152,4 +154,12 @@ public abstract class CommonEntity {
     }
 
     public abstract void update();
+
+    public int getAlive() {
+        return alive;
+    }
+
+    public void setAlive(int alive) {
+        this.alive = alive;
+    }
 }
