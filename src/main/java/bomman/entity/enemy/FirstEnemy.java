@@ -29,7 +29,7 @@ public class FirstEnemy extends CommonEntity {
         return characterVelocity;
     }
 
-    public void setCharacterVelocity(int characterVelocity) {
+    public static void setCharacterVelocity(int characterVelocity) {
         FirstEnemy.characterVelocity = characterVelocity;
     }
 

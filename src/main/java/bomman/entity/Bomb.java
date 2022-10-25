@@ -14,6 +14,7 @@ public class Bomb extends CommonEntity {
     private int explosionTime;
 
     public static int explosionRadius = 1;
+    public static int bombLimit = 3;
 
     public Bomb(int xUnit, int yUnit, Image img, int explosionTime) {
         super(xUnit, yUnit, img);

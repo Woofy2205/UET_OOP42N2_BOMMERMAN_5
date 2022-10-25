@@ -79,7 +79,7 @@ public abstract class CommonEntity {
         int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
         int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
 
-        if (entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right)
+        if (entity1Bottom < entity2Top || entity1Top > entity2Bottom || entity1Right < entity2Left || entity1Left > entity2Right)
             return false;
         return true;
     }

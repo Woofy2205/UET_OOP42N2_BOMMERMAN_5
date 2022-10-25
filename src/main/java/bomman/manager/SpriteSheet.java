@@ -17,6 +17,7 @@ public class SpriteSheet {
     public BufferedImage image;
 
     public static SpriteSheet tiles = new SpriteSheet("/bomman/gfx/textures/classic.png", 256);
+    public static SpriteSheet grassTiles = new SpriteSheet("/bomman/gfx/textures/grass.png", 256);
 
     public SpriteSheet(String path, int size) {
         _path = path;

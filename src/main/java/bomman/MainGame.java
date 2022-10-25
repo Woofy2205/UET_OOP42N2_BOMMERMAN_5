@@ -1,9 +1,6 @@
 package bomman;
 
-import bomman.entity.Bomb;
-import bomman.entity.CommonEntity;
-import bomman.entity.EntityManager;
-import bomman.entity.Flame;
+import bomman.entity.*;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
@@ -18,8 +15,8 @@ import javafx.stage.Stage;
 
 public class MainGame extends Application {
     static Scene mainScene;
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 15;
+    public static final int WIDTH = 40;
+    public static final int HEIGHT = 30;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -54,10 +51,12 @@ public class MainGame extends Application {
             @Override
             public void handle(long currentNanoTime) {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-                if (GameManager.nextStage) {
-                    GameManager.createMap();
-                    TilesManager.createTiles();
-                    GameManager.nextStage = false;
+                GameManager.nextStage();
+                if (GameManager.isLost()) {
+
+                }
+                if (GameManager.isWon()) {
+
                 }
                 update();
                 render(t);

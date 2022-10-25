@@ -6,6 +6,7 @@ import bomman.manager.Sprite;
 import bomman.tiles.CommonTiles;
 import bomman.tiles.TilesManager;
 import bomman.tiles.buffs.Buff;
+import bomman.tiles.buffs.IncreaseBomb;
 import bomman.tiles.buffs.IncreaseRange;
 import bomman.tiles.buffs.SpeedUp;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,11 +21,12 @@ import java.util.List;
 public class MainCharacter extends CommonEntity {
 
     // Start point of main character (can be changed so not 'final' type)
-    public static int PLAYER_START_X = 5;
-    public static int PLAYER_START_Y = 5;
+    public static int PLAYER_START_X = 1;
+    public static int PLAYER_START_Y = 1;
 
     // Speed of the main character
     private static int characterVelocity = 2;
+    private static int explosionTimeCharacter = 500;
 
     // Other attributes
     private int bombDamage;
@@ -91,8 +93,21 @@ public class MainCharacter extends CommonEntity {
                         TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
                         Buff.buffs.add(new IncreaseRange(j, i));
                         IncreaseRange.executeBuff(mainCharacter);
-                    } else {
+                    } else if (value == 6) {
+                        GameManager.map[i][j] = 0;
+                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        Buff.buffs.add(new IncreaseBomb(j, i));
+                        IncreaseBomb.executeBuff(mainCharacter);
+                    }
+
+                    else {
                         mainCharacter.setDirect(DIRECTION.COLLIDE);
+                    }
+                }
+                for (CommonEntity e: EntityManager.entities) {
+                    if (collisionWithEntity(mainCharacter, e)) {
+                        mainCharacter.setDirect(DIRECTION.COLLIDE);
+                        GameManager.lost = true;
                     }
                 }
             }
@@ -126,8 +141,8 @@ public class MainCharacter extends CommonEntity {
         if (EventHandling.currentlyActiveKeys.contains("SPACE")) {
             int xPos = this.getXPosition() / Sprite.SCALED_SIZE;
             int yPos = this.getYPosition() / Sprite.SCALED_SIZE;
-            if (!EntityManager.hasBomb(xPos, yPos)) {
-                Bomb.bombs.add(new Bomb(xPos, yPos, Sprite.bomb.getFxImage(), 100));
+            if (!EntityManager.hasBomb(xPos, yPos) && Bomb.bombs.size() < Bomb.bombLimit) {
+                Bomb.bombs.add(new Bomb(xPos, yPos, Sprite.bomb.getFxImage(), explosionTimeCharacter));
             }
         }
     }
