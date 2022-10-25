@@ -71,10 +71,6 @@ public class AStarAlgorithm {
 		return (i == destination.i && j == destination.j);
 	}
 
-	public int euclideanDistance(int row, int col, pair dest) {
-		return ((int) Math.sqrt((row - dest.i) * (row - dest.i) + (col - dest.j) * (col - dest.j)));
-	}
-
 	public int manhattan_Distance(int row, int col, pair dest) {
 		return abs(row - dest.i) + abs(col - dest.j);
 	}

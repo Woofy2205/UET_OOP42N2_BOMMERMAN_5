@@ -13,15 +13,15 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvisibleEnemy extends CommonEntity {
-	private static int characterVelocity = 2;
+public class DoubleLifeEnemy extends CommonEntity {
+	private static int characterVelocity = 1;
 
 	private int count = 0;
-	private int invisibleTime = 100;
+	private int life = 2;
 
 	private List<DIRECTION> canMove;
 
-	public InvisibleEnemy(int xUnit, int yUnit, Image img) {
+	public DoubleLifeEnemy(int xUnit, int yUnit, Image img) {
 		super(xUnit, yUnit, img);
 		canMove = new ArrayList<>();
 	}
@@ -30,8 +30,8 @@ public class InvisibleEnemy extends CommonEntity {
 		return characterVelocity;
 	}
 
-	public void setCharacterVelocity(int characterVelocity) {
-		FirstEnemy.setCharacterVelocity(characterVelocity);
+	public static void setCharacterVelocity(int characterVelocity) {
+		DoubleLifeEnemy.characterVelocity = characterVelocity;
 	}
 
 	@Override
@@ -50,14 +50,14 @@ public class InvisibleEnemy extends CommonEntity {
 					if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
 						this.setDirect(this.getOppositeDirect());
 					}
-					if (GameManager.map[row][col] == 0 && ! EntityManager.hasBomb(col, row)) {
+					if (GameManager.map[row][col] == 0) {
 						canMove.add(this.getDirect());
 					}
 					if (canMove.size() != 0) {
 						int rand_dir = (int) (Math.random() * (canMove.size()));
 						this.setDirect(canMove.get(rand_dir));
 					}
-					for (Bomb b: Bomb.bombs) {
+					for (Bomb b : Bomb.bombs) {
 						if (collisionWithEntity(this, b)) {
 							this.setDirect(this.getOppositeDirect());
 						}
@@ -72,6 +72,10 @@ public class InvisibleEnemy extends CommonEntity {
 			for (Flame i : Flame.flames) {
 				if (collisionWithFlame(this, i)) {
 					this.setAlive(1);
+					EntityManager.entities.add(new FirstEnemy(this.getXPosition() / Sprite.SCALED_SIZE, this.getYPosition() / Sprite.SCALED_SIZE,
+							Sprite.balloon_left1.getFxImage()));
+					EntityManager.entities.add(new SecondEnemy(this.getXPosition() / Sprite.SCALED_SIZE, this.getYPosition() / Sprite.SCALED_SIZE,
+							Sprite.balloon_left1.getFxImage()));
 				}
 			}
 		}
@@ -80,11 +84,10 @@ public class InvisibleEnemy extends CommonEntity {
 	@Override
 	public void render(GraphicsContext gc, double t) {
 		double frame = (int) (t / 0.083) % 12 % 3;
-		invisibleTime--;
 		if (getAlive() == 1) {
 			if (frame == 0) count++;
 			if (count == 10) {
-				this.setImg(Sprite.balloon_dead.getFxImage());
+				this.setImg(Sprite.oneal_dead.getFxImage());
 			}
 			if (count == 20) {
 				this.setImg(Sprite.mob_dead1.getFxImage());
@@ -100,48 +103,24 @@ public class InvisibleEnemy extends CommonEntity {
 			}
 		} else {
 			if (this.getDirect() == DIRECTION.LEFT) {
-				if (frame == 0) this.setImg(Sprite.balloon_left1.getFxImage());
-				if (frame == 1) this.setImg(Sprite.balloon_left2.getFxImage());
-				if (frame == 2) this.setImg(Sprite.balloon_left3.getFxImage());
-				if (invisibleTime <= 0) {
-					this.setImg(Sprite.grass.getFxImage());
-				}
-				if (invisibleTime == -100) {
-					invisibleTime = 100;
-				}
+				if (frame == 0) this.setImg(Sprite.oneal_left1.getFxImage());
+				if (frame == 1) this.setImg(Sprite.oneal_left2.getFxImage());
+				if (frame == 2) this.setImg(Sprite.oneal_left3.getFxImage());
 			}
 			if (this.getDirect() == DIRECTION.RIGHT) {
-				if (frame == 0) this.setImg(Sprite.balloon_right1.getFxImage());
-				if (frame == 1) this.setImg(Sprite.balloon_right2.getFxImage());
-				if (frame == 2) this.setImg(Sprite.balloon_right3.getFxImage());
-				if (invisibleTime <= 0) {
-					this.setImg(Sprite.grass.getFxImage());
-				}
-				if (invisibleTime == -100) {
-					invisibleTime = 100;
-				}
+				if (frame == 0) this.setImg(Sprite.oneal_right1.getFxImage());
+				if (frame == 1) this.setImg(Sprite.oneal_right2.getFxImage());
+				if (frame == 2) this.setImg(Sprite.oneal_right3.getFxImage());
 			}
 			if (this.getDirect() == DIRECTION.UP) {
-				if (frame == 0) this.setImg(Sprite.balloon_left1.getFxImage());
-				if (frame == 1) this.setImg(Sprite.balloon_left2.getFxImage());
-				if (frame == 2) this.setImg(Sprite.balloon_left3.getFxImage());
-				if (invisibleTime <= 0) {
-					this.setImg(Sprite.grass.getFxImage());
-				}
-				if (invisibleTime == -100) {
-					invisibleTime = 100;
-				}
+				if (frame == 0) this.setImg(Sprite.oneal_left1.getFxImage());
+				if (frame == 1) this.setImg(Sprite.oneal_left2.getFxImage());
+				if (frame == 2) this.setImg(Sprite.oneal_left3.getFxImage());
 			}
 			if (this.getDirect() == DIRECTION.DOWN) {
-				if (frame == 0) this.setImg(Sprite.balloon_right1.getFxImage());
-				if (frame == 1) this.setImg(Sprite.balloon_right2.getFxImage());
-				if (frame == 2) this.setImg(Sprite.balloon_right3.getFxImage());
-				if (invisibleTime <= 0) {
-					this.setImg(Sprite.grass.getFxImage());
-				}
-				if (invisibleTime == -100) {
-					invisibleTime = 100;
-				}
+				if (frame == 0) this.setImg(Sprite.oneal_right1.getFxImage());
+				if (frame == 1) this.setImg(Sprite.oneal_right2.getFxImage());
+				if (frame == 2) this.setImg(Sprite.oneal_right3.getFxImage());
 			}
 		}
 		gc.drawImage(getImg(), getXPosition(), getYPosition());

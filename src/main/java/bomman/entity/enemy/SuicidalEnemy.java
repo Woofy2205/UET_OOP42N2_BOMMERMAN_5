@@ -3,14 +3,15 @@ package bomman.entity.enemy;
 import bomman.entity.*;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
+import bomman.tiles.TilesManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SmartEnemy extends CommonEntity {
-	private static int characterVelocity = 1;
+public class SuicidalEnemy extends CommonEntity {
+	private static int characterVelocity = 2;
 
 	private int count = 0;
 
@@ -19,7 +20,7 @@ public class SmartEnemy extends CommonEntity {
 	private static AStarAlgorithm aStar = new AStarAlgorithm();
 
 
-	public SmartEnemy(int xUnit, int yUnit, Image img) {
+	public SuicidalEnemy(int xUnit, int yUnit, Image img) {
 		super(xUnit, yUnit, img);
 	}
 
@@ -28,7 +29,7 @@ public class SmartEnemy extends CommonEntity {
 	}
 
 	public void setCharacterVelocity(int characterVelocity) {
-		SmartEnemy.characterVelocity = characterVelocity;
+		SuicidalEnemy.characterVelocity = characterVelocity;
 	}
 
 	public void findPath(int[][] gridGame, int startX, int startY, int desX, int desY) {
@@ -43,7 +44,7 @@ public class SmartEnemy extends CommonEntity {
 			this.findPath(GameManager.map,
 					this.getYPosition() / Sprite.SCALED_SIZE,
 					this.getXPosition() / Sprite.SCALED_SIZE,
-					EntityManager.bomberman.getYPosition() / Sprite.SCALED_SIZE,
+					EntityManager.bomberman.getYPosition() / Sprite.SCALED_SIZE + 2,
 					EntityManager.bomberman.getXPosition() / Sprite.SCALED_SIZE);
 
 
@@ -52,6 +53,8 @@ public class SmartEnemy extends CommonEntity {
 					this.setDirect(pathToBomber.get(0));
 				} else {
 					this.setDirect(DIRECTION.COLLIDE);
+					Bomb.bombs.add(new Bomb(this.getXPosition()/Sprite.SCALED_SIZE, this.getYPosition()/Sprite.SCALED_SIZE,
+							Sprite.bomb.getFxImage(), 50));
 				}
 			}
 

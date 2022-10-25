@@ -1,5 +1,6 @@
 package bomman.entity;
 
+import bomman.manager.GameManager;
 import bomman.manager.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -14,7 +15,7 @@ public class Bomb extends CommonEntity {
     private int explosionTime;
 
     public static int explosionRadius = 1;
-    public static int bombLimit = 3;
+    public static int bombLimit = 5;
 
     public Bomb(int xUnit, int yUnit, Image img, int explosionTime) {
         super(xUnit, yUnit, img);
@@ -46,6 +47,7 @@ public class Bomb extends CommonEntity {
             if (b.explosionTime <= 0) {
                 removingIndexes.add(index);
                 explosionList.add(b);
+                GameManager.map[b.getYPosition()/Sprite.SCALED_SIZE][b.getXPosition()/Sprite.SCALED_SIZE] = 0;
             }
             index++;
         }
