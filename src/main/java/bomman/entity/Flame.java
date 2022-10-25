@@ -48,7 +48,8 @@ public class Flame extends CommonEntity{
 		// if (GameManager.getGameManager().map[yPos][xPos] == 1) return false;
 		if (GameManager.map[yPos][xPos] == 2) {
 			GameManager.map[yPos][xPos] = 0;
-			TilesManager.gameTiles[yPos][xPos].setImg(Sprite.grass.getFxImage());
+			TilesManager.gameTiles[yPos][xPos].setImg(Sprite.brick_exploded.getFxImage());
+			TilesManager.gameTiles[yPos][xPos].isExist = false;
 			return true;
 		} else if (GameManager.map[yPos][xPos] != 0) {
 			return false;

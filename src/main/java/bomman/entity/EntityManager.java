@@ -1,7 +1,9 @@
 package bomman.entity;
 
 import bomman.entity.enemy.FirstEnemy;
+import bomman.entity.enemy.InvisibleEnemy;
 import bomman.entity.enemy.SecondEnemy;
+import bomman.entity.enemy.SmartEnemy;
 import bomman.manager.Sprite;
 
 import java.util.ArrayList;
@@ -30,13 +32,30 @@ public class EntityManager {
         return false;
     }
 
-    public static void createEntity() {
-        entities.add(new FirstEnemy(1, 1, Sprite.balloon_left1.getFxImage()));
-        entities.add(new SecondEnemy(6, 6, Sprite.oneal_left1.getFxImage()));
+    public static int generateRandomX() {
+		int max = 38;
+		int min = 1;
+		return (int)Math.floor(Math.random()*(max-min+1)+min);
+	}
 
+	public static int generateRandomY() {
+		int max = 18;
+		int min = 1;
+		return (int)Math.floor(Math.random()*(max-min+1)+min);
+	}
+
+    public static void createEntity() {
+        //entities.add(new FirstEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
+        //entities.add(new SecondEnemy(generateRandomX(), generateRandomY(), Sprite.oneal_left1.getFxImage()));
+        //entities.add(new SmartEnemy(generateRandomX(), generateRandomY(), Sprite.doll_left1.getFxImage()));
+		entities.add(new InvisibleEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
     }
 
     public static void createMainCharacter() {
         bomberman = new MainCharacter(MainCharacter.PLAYER_START_X, MainCharacter.PLAYER_START_Y, Sprite.player_right.getFxImage());
+    }
+
+    public static void removeDeathEntity() {
+        entities.removeIf(i -> i.getAlive() == 2);
     }
 }
