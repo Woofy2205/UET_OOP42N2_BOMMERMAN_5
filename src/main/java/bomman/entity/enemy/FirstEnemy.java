@@ -49,15 +49,15 @@ public class FirstEnemy extends CommonEntity {
                     }
                     int col = (getXPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveX;
                     int row = (getYPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveY;
-                    if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
-                        this.setDirect(this.getOppositeDirect());
-                    }
                     if (GameManager.map[row][col] == 0 && !EntityManager.hasBomb(col, row)) {
                         canMove.add(this.getDirect());
                     }
                     if (canMove.size() != 0) {
                         int rand_dir = (int) (Math.random() * (canMove.size()));
                         this.setDirect(canMove.get(rand_dir));
+                    }
+                    if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
+                        this.setDirect(this.getOppositeDirect());
                     }
                     for (Bomb b: Bomb.bombs) {
                         if (collisionWithEntity(this, b)) {

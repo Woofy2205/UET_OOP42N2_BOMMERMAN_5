@@ -35,6 +35,10 @@ public class SuicidalEnemy extends CommonEntity {
 	public void findPath(int[][] gridGame, int startX, int startY, int desX, int desY) {
 		aStar.aStarSearch(gridGame, startX, startY, desX, desY);
 		pathToBomber = aStar.getPathToDes();
+		if (pathToBomber.isEmpty()) {
+			aStar.aStarSearch(gridGame, this.getYPosition() / Sprite.SCALED_SIZE,
+					this.getXPosition() / Sprite.SCALED_SIZE, 1, 4);
+		}
 	}
 
 	@Override

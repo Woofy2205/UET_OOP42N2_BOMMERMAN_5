@@ -16,7 +16,7 @@ import java.util.List;
  * Add, Remove, ...
  */
 public class TilesManager {
-	
+
 	public static CommonTiles[][] gameTiles = new CommonTiles[GameManager.GAME_HEIGHT][GameManager.GAME_WIDTH];
 
 	public static void createTiles() {
@@ -37,7 +37,7 @@ public class TilesManager {
 				} else if (GameManager.map[i][j] == 7) {
 					gameTiles[i][j] = new DestroyedMode(j, i);
 				} else {
-					gameTiles[i][j] = new Grass(j, i);
+					gameTiles[i][j] = new Floor(j, i);
 				}
 			}
 		}

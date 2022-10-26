@@ -27,7 +27,6 @@ public class Sprite {
     |--------------------------------------------------------------------------
      */
     public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.tiles, 16, 16);
-    //public static Sprite newGrass;
     public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.tiles, 16, 16);
     public static Sprite wall = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.tiles, 16, 16);
     public static Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.tiles, 14, 14);
@@ -137,6 +136,17 @@ public class Sprite {
     | FlameSegment Sprites
     |--------------------------------------------------------------------------
      */
+    public static Sprite newBomb_exploded = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded1 = new Sprite(DEFAULT_SIZE, 1, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded2 = new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded3 = new Sprite(DEFAULT_SIZE, 3, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded4 = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded5 = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded6 = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded7 = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded8 = new Sprite(DEFAULT_SIZE, 8, 0, SpriteSheet.explosion, 16, 16);
+
+
     public static Sprite bomb_exploded = new Sprite(DEFAULT_SIZE, 0, 4, SpriteSheet.tiles, 16, 16);
     public static Sprite bomb_exploded1 = new Sprite(DEFAULT_SIZE, 0, 5, SpriteSheet.tiles, 16, 16);
     public static Sprite bomb_exploded2 = new Sprite(DEFAULT_SIZE, 0, 6, SpriteSheet.tiles, 16, 16);

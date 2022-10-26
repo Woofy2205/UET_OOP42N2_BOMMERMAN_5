@@ -24,8 +24,8 @@ public class GameManager {
 
 	// Each sprite size (pixels)
 	private static final int DEFAULT_SPRITE_SIZE = 32;
-	public static final int GAME_WIDTH = 40;
-	public static final int GAME_HEIGHT = 30;
+	public static final int GAME_WIDTH = 31;
+	public static final int GAME_HEIGHT = 21;
 
 	// In-game private attribute
 	private static final int STAGE_NUMBER = 5;

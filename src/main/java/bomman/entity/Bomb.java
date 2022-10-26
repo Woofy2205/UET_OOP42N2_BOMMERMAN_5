@@ -60,7 +60,7 @@ public class Bomb extends CommonEntity {
         for (Bomb b : Bomb.explosionList) {
 
             Flame.flames.add(new Flame(b.getXPosition() / Sprite.SCALED_SIZE,
-                    b.getYPosition() / Sprite.SCALED_SIZE, Sprite.bomb_exploded.getFxImage()));
+                    b.getYPosition() / Sprite.SCALED_SIZE, Sprite.newBomb_exploded.getFxImage()));
 
             for (int i = 1; i <= b.explosionRadius; i++) {
 
@@ -68,28 +68,28 @@ public class Bomb extends CommonEntity {
                         && Flame.checkFlameValid(b.getXPosition() / Sprite.SCALED_SIZE - i, b.getYPosition() / Sprite.SCALED_SIZE)) {
 
                     Flame.flames.add(new Flame(b.getXPosition() / Sprite.SCALED_SIZE - i,
-                            b.getYPosition() / Sprite.SCALED_SIZE, Sprite.bomb_exploded.getFxImage()));
+                            b.getYPosition() / Sprite.SCALED_SIZE, Sprite.newBomb_exploded.getFxImage()));
 
                 }
                 if (Flame.checkFlameValid(b.getXPosition() / Sprite.SCALED_SIZE + 1, b.getYPosition() / Sprite.SCALED_SIZE)
                         && Flame.checkFlameValid(b.getXPosition() / Sprite.SCALED_SIZE + i, b.getYPosition() / Sprite.SCALED_SIZE)) {
 
                     Flame.flames.add(new Flame(b.getXPosition() / Sprite.SCALED_SIZE + i,
-                            b.getYPosition() / Sprite.SCALED_SIZE, Sprite.bomb_exploded.getFxImage()));
+                            b.getYPosition() / Sprite.SCALED_SIZE, Sprite.newBomb_exploded.getFxImage()));
 
                 }
                 if (Flame.checkFlameValid(b.getXPosition() / Sprite.SCALED_SIZE, b.getYPosition() / Sprite.SCALED_SIZE - 1)
                         && Flame.checkFlameValid(b.getXPosition() / Sprite.SCALED_SIZE, b.getYPosition() / Sprite.SCALED_SIZE - i)) {
 
                     Flame.flames.add(new Flame(b.getXPosition() / Sprite.SCALED_SIZE,
-                            b.getYPosition() / Sprite.SCALED_SIZE - i, Sprite.bomb_exploded.getFxImage()));
+                            b.getYPosition() / Sprite.SCALED_SIZE - i, Sprite.newBomb_exploded.getFxImage()));
 
                 }
                 if (Flame.checkFlameValid(b.getXPosition() / Sprite.SCALED_SIZE, b.getYPosition() / Sprite.SCALED_SIZE + 1)
                         && Flame.checkFlameValid(b.getXPosition() / Sprite.SCALED_SIZE, b.getYPosition() / Sprite.SCALED_SIZE + i)) {
 
                     Flame.flames.add(new Flame(b.getXPosition() / Sprite.SCALED_SIZE,
-                            b.getYPosition() / Sprite.SCALED_SIZE + i, Sprite.bomb_exploded.getFxImage()));
+                            b.getYPosition() / Sprite.SCALED_SIZE + i, Sprite.newBomb_exploded.getFxImage()));
 
                 }
             }

@@ -6,6 +6,7 @@ import bomman.entity.EntityManager;
 import bomman.entity.Flame;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
+import bomman.manager.SpriteSheet;
 import bomman.tiles.TilesManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -47,15 +48,15 @@ public class InvisibleEnemy extends CommonEntity {
 					}
 					int col = (getXPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveX;
 					int row = (getYPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveY;
-					if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
-						this.setDirect(this.getOppositeDirect());
-					}
 					if (GameManager.map[row][col] == 0 && ! EntityManager.hasBomb(col, row)) {
 						canMove.add(this.getDirect());
 					}
 					if (canMove.size() != 0) {
 						int rand_dir = (int) (Math.random() * (canMove.size()));
 						this.setDirect(canMove.get(rand_dir));
+					}
+					if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
+						this.setDirect(this.getOppositeDirect());
 					}
 					for (Bomb b: Bomb.bombs) {
 						if (collisionWithEntity(this, b)) {
@@ -104,7 +105,7 @@ public class InvisibleEnemy extends CommonEntity {
 				if (frame == 1) this.setImg(Sprite.balloon_left2.getFxImage());
 				if (frame == 2) this.setImg(Sprite.balloon_left3.getFxImage());
 				if (invisibleTime <= 0) {
-					this.setImg(Sprite.grass.getFxImage());
+					this.setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
 				}
 				if (invisibleTime == -100) {
 					invisibleTime = 100;
@@ -115,7 +116,7 @@ public class InvisibleEnemy extends CommonEntity {
 				if (frame == 1) this.setImg(Sprite.balloon_right2.getFxImage());
 				if (frame == 2) this.setImg(Sprite.balloon_right3.getFxImage());
 				if (invisibleTime <= 0) {
-					this.setImg(Sprite.grass.getFxImage());
+					this.setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
 				}
 				if (invisibleTime == -100) {
 					invisibleTime = 100;
@@ -126,7 +127,7 @@ public class InvisibleEnemy extends CommonEntity {
 				if (frame == 1) this.setImg(Sprite.balloon_left2.getFxImage());
 				if (frame == 2) this.setImg(Sprite.balloon_left3.getFxImage());
 				if (invisibleTime <= 0) {
-					this.setImg(Sprite.grass.getFxImage());
+					this.setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
 				}
 				if (invisibleTime == -100) {
 					invisibleTime = 100;
@@ -137,7 +138,7 @@ public class InvisibleEnemy extends CommonEntity {
 				if (frame == 1) this.setImg(Sprite.balloon_right2.getFxImage());
 				if (frame == 2) this.setImg(Sprite.balloon_right3.getFxImage());
 				if (invisibleTime <= 0) {
-					this.setImg(Sprite.grass.getFxImage());
+					this.setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
 				}
 				if (invisibleTime == -100) {
 					invisibleTime = 100;

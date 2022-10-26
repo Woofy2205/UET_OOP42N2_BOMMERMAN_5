@@ -3,6 +3,7 @@ package bomman.entity;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
+import bomman.manager.SpriteSheet;
 import bomman.tiles.CommonTiles;
 import bomman.tiles.TilesManager;
 import bomman.tiles.buffs.*;
@@ -78,22 +79,22 @@ public class MainCharacter extends CommonEntity {
                         break;
                     } else if (value == 4) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
                         Buff.buffs.add(new SpeedUp(j, i));
                         SpeedUp.executeBuff(mainCharacter);
                     } else if (value == 5) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
                         Buff.buffs.add(new IncreaseRange(j, i));
                         IncreaseRange.executeBuff(mainCharacter);
                     } else if (value == 6) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
                         Buff.buffs.add(new IncreaseBomb(j, i));
                         IncreaseBomb.executeBuff(mainCharacter);
                     } else if (value == 7) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
                         Buff.buffs.add(new DestroyedMode(j, i));
                         DestroyedMode.executeBuff(mainCharacter);
                     }
@@ -112,7 +113,9 @@ public class MainCharacter extends CommonEntity {
     }
 
     public void aiAutoPlay() {
+        while(!EntityManager.entities.isEmpty()) {
 
+        }
     }
 
     public void moveEvent() {

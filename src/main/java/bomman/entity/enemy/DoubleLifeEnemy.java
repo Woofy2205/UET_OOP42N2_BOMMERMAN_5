@@ -47,15 +47,15 @@ public class DoubleLifeEnemy extends CommonEntity {
 					}
 					int col = (getXPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveX;
 					int row = (getYPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveY;
-					if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
-						this.setDirect(this.getOppositeDirect());
-					}
 					if (GameManager.map[row][col] == 0) {
 						canMove.add(this.getDirect());
 					}
 					if (canMove.size() != 0) {
 						int rand_dir = (int) (Math.random() * (canMove.size()));
 						this.setDirect(canMove.get(rand_dir));
+					}
+					if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
+						this.setDirect(this.getOppositeDirect());
 					}
 					for (Bomb b : Bomb.bombs) {
 						if (collisionWithEntity(this, b)) {
@@ -72,10 +72,8 @@ public class DoubleLifeEnemy extends CommonEntity {
 			for (Flame i : Flame.flames) {
 				if (collisionWithFlame(this, i)) {
 					this.setAlive(1);
-					EntityManager.entities.add(new FirstEnemy(this.getXPosition() / Sprite.SCALED_SIZE, this.getYPosition() / Sprite.SCALED_SIZE,
-							Sprite.balloon_left1.getFxImage()));
-					EntityManager.entities.add(new SecondEnemy(this.getXPosition() / Sprite.SCALED_SIZE, this.getYPosition() / Sprite.SCALED_SIZE,
-							Sprite.balloon_left1.getFxImage()));
+					Bomb.bombs.add(new Bomb(this.getXPosition()/Sprite.SCALED_SIZE, this.getYPosition()/Sprite.SCALED_SIZE,
+							Sprite.bomb.getFxImage(), 20));
 				}
 			}
 		}
