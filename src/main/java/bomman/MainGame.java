@@ -1,18 +1,26 @@
 package bomman;
 
-import bomman.entity.*;
+import bomman.entity.Bomb;
+import bomman.entity.CommonEntity;
+import bomman.entity.EntityManager;
+import bomman.entity.Flame;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
 import bomman.tiles.TilesManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class MainGame extends Application {
     static Scene mainScene;
@@ -24,11 +32,16 @@ public class MainGame extends Application {
     final long startNanoTime = System.nanoTime();
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException {
+//        Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/bomman.Menu.fxml")));
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();

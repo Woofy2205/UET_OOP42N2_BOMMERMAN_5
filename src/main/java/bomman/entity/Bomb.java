@@ -1,5 +1,6 @@
 package bomman.entity;
 
+import bomman.manager.SoundManager;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
 import javafx.scene.canvas.GraphicsContext;
@@ -46,6 +47,7 @@ public class Bomb extends CommonEntity {
             b.setExplosionTime(b.explosionTime - 1);
             if (b.explosionTime <= 0) {
                 removingIndexes.add(index);
+                SoundManager.bomb.play();
                 explosionList.add(b);
                 GameManager.map[b.getYPosition()/Sprite.SCALED_SIZE][b.getXPosition()/Sprite.SCALED_SIZE] = 0;
             }
