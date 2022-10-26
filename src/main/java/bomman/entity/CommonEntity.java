@@ -17,6 +17,8 @@ public abstract class CommonEntity {
     private int xPosition;
     private int yPosition;
 
+    private int alive = 0;
+
     private DIRECTION direct;
 
     private Image img;
@@ -77,32 +79,37 @@ public abstract class CommonEntity {
         int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
         int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
 
-        if (entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right)
+        if (entity1Bottom < entity2Top || entity1Top > entity2Bottom || entity1Right < entity2Left || entity1Left > entity2Right)
             return false;
         return true;
     }
 
-//    public static void collide(CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
-//        //System.out.print("y: " + yUnit + ", x: " + xUnit + "\n");
-//        int entity2Right = entity2.getXPosition() + entity2.getDirect().moveX+ Sprite.SCALED_SIZE;
-//        int entity2Top = entity2.getYPosition() + entity2.getDirect().moveY;
-//        int entity2Bottom = entity2.getYPosition() + entity2.getDirect().moveY + Sprite.SCALED_SIZE;
-//
-//        if(entity1Bottom <= entity2Top || entity1Top >= entity2Bottom || entity1Right <= entity2Left || entity1Left >= entity2Right) return false;
-//        return true;
-//    }
+    public static boolean collisionWithFlame(CommonEntity entity, Flame flame) {
 
-    public static void collide (CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
+        int entity1Left = entity.getXPosition() + entity.getDirect().moveX;
+        int entity1Right = entity.getXPosition() + entity.getDirect().moveX + Sprite.SCALED_SIZE;
+        int entity1Top = entity.getYPosition() + entity.getDirect().moveY;
+        int entity1Bottom = entity.getYPosition() + entity.getDirect().moveY + Sprite.SCALED_SIZE;
+
+        int entity2Left = flame.getXPosition() + 20;
+        int entity2Right = flame.getXPosition() + Sprite.SCALED_SIZE - 20;
+        int entity2Top = flame.getYPosition() + 20;
+        int entity2Bottom = flame.getYPosition() + Sprite.SCALED_SIZE - 20;
+
+        if (entity1Bottom < entity2Top || entity1Top > entity2Bottom || entity1Right < entity2Left || entity1Left > entity2Right)
+            return false;
+        return true;
+    }
+
+    public static boolean collideBlocks (CommonEntity entity, int[][] map, CommonTiles[][] tiles) {
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
             for (int j = 0; j < GameManager.GAME_WIDTH; j++) {
                 if (map[i][j] != 0 && collisionWithTiles(entity, tiles[i][j])) {
-                    //int value = map[i][j];
-                    //if (value != 0) {
-                        entity.setDirect(DIRECTION.COLLIDE);
-                    //}
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     // Moving function for the entities.
@@ -135,6 +142,22 @@ public abstract class CommonEntity {
         return direct;
     }
 
+    public DIRECTION getOppositeDirect() {
+        if (this.getDirect() == DIRECTION.UP) {
+            return DIRECTION.DOWN;
+        }
+        if (this.getDirect() == DIRECTION.DOWN) {
+            return DIRECTION.UP;
+        }
+        if (this.getDirect() == DIRECTION.RIGHT) {
+            return DIRECTION.LEFT;
+        }
+        if (this.getDirect() == DIRECTION.LEFT) {
+            return DIRECTION.DOWN;
+        }
+        return DIRECTION.COLLIDE;
+    }
+
     public void setDirect(DIRECTION direction) {
         this.direct = direction;
     }
@@ -152,4 +175,12 @@ public abstract class CommonEntity {
     }
 
     public abstract void update();
+
+    public int getAlive() {
+        return alive;
+    }
+
+    public void setAlive(int alive) {
+        this.alive = alive;
+    }
 }

@@ -2,16 +2,13 @@ package bomman.manager;
 
 import javafx.scene.image.*;
 
-import java.awt.image.BufferedImage;
-import java.nio.IntBuffer;
-
 /**
  * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game)
  */
 public class Sprite {
 
     public static final int DEFAULT_SIZE = 16;
-    public static final int SCALED_SIZE = DEFAULT_SIZE * 4;
+    public static final int SCALED_SIZE = DEFAULT_SIZE * 2;
     private static final int TRANSPARENT_COLOR = 0xffff00ff;
     public final int SIZE;
     private int _x, _y;
@@ -19,6 +16,7 @@ public class Sprite {
     protected int _realWidth;
     protected int _realHeight;
     private SpriteSheet _sheet;
+
 
     /*
     |--------------------------------------------------------------------------
@@ -29,6 +27,23 @@ public class Sprite {
     public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.tiles, 16, 16);
     public static Sprite wall = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.tiles, 16, 16);
     public static Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.tiles, 14, 14);
+
+    public static Sprite newFloor = new Sprite(DEFAULT_SIZE, 0, 5, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newFloor1 = new Sprite(DEFAULT_SIZE, 1, 5, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newFloor2 = new Sprite(DEFAULT_SIZE, 2, 5, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newFloor3 = new Sprite(DEFAULT_SIZE, 3, 5, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newFloor4 = new Sprite(DEFAULT_SIZE, 4, 5, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newFloor5 = new Sprite(DEFAULT_SIZE, 5, 5, SpriteSheet.dungeonTiles, 16, 16);
+
+
+    public static Sprite newWall = new Sprite(DEFAULT_SIZE, 0, 7, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newBrick = new Sprite(DEFAULT_SIZE, 0, 6, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newBrick1 = new Sprite(DEFAULT_SIZE, 1, 6, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newBrick2 = new Sprite(DEFAULT_SIZE, 3, 6, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newBrick3 = new Sprite(DEFAULT_SIZE, 5, 6, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newBrick4 = new Sprite(DEFAULT_SIZE, 9, 6, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newBrick5 = new Sprite(DEFAULT_SIZE, 8, 6, SpriteSheet.dungeonTiles, 16, 16);
+    public static Sprite newBrick6 = new Sprite(DEFAULT_SIZE, 7, 6, SpriteSheet.dungeonTiles, 16, 16);
 
     /*
     |--------------------------------------------------------------------------
@@ -47,10 +62,27 @@ public class Sprite {
     public static Sprite player_down_2 = new Sprite(DEFAULT_SIZE, 2, 2, SpriteSheet.tiles, 12, 16);
 
     public static Sprite player_left_1 = new Sprite(DEFAULT_SIZE, 3, 1, SpriteSheet.tiles, 11, 16);
-    public static Sprite player_left_2 = new Sprite(DEFAULT_SIZE, 3, 2, SpriteSheet.tiles, 12 ,16);
+    public static Sprite player_left_2 = new Sprite(DEFAULT_SIZE, 3, 2, SpriteSheet.tiles, 12, 16);
 
     public static Sprite player_right_1 = new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.tiles, 11, 16);
     public static Sprite player_right_2 = new Sprite(DEFAULT_SIZE, 1, 2, SpriteSheet.tiles, 12, 16);
+
+    public static Sprite newPlayer_up = new Sprite(DEFAULT_SIZE, 1, 7, SpriteSheet.entities, 12, 16);
+    public static Sprite newPlayer_down = new Sprite(DEFAULT_SIZE, 1, 4, SpriteSheet.entities, 12, 15);
+    public static Sprite newPlayer_left = new Sprite(DEFAULT_SIZE, 1, 5, SpriteSheet.entities, 10, 15);
+    public static Sprite newPlayer_right = new Sprite(DEFAULT_SIZE, 1, 6, SpriteSheet.entities, 10, 16);
+
+    public static Sprite newPlayer_up_1 = new Sprite(DEFAULT_SIZE, 2, 7, SpriteSheet.entities, 12, 16);
+    public static Sprite newPlayer_up_2 = new Sprite(DEFAULT_SIZE, 0, 7, SpriteSheet.entities, 12, 15);
+
+    public static Sprite newPlayer_down_1 = new Sprite(DEFAULT_SIZE, 2, 4, SpriteSheet.entities, 12, 15);
+    public static Sprite newPlayer_down_2 = new Sprite(DEFAULT_SIZE, 1, 4, SpriteSheet.entities, 12, 16);
+
+    public static Sprite newPlayer_left_1 = new Sprite(DEFAULT_SIZE, 2, 5, SpriteSheet.entities, 11, 16);
+    public static Sprite newPlayer_left_2 = new Sprite(DEFAULT_SIZE, 1, 5, SpriteSheet.entities, 12, 16);
+
+    public static Sprite newPlayer_right_1 = new Sprite(DEFAULT_SIZE, 2, 6, SpriteSheet.entities, 11, 16);
+    public static Sprite newPlayer_right_2 = new Sprite(DEFAULT_SIZE, 1, 6, SpriteSheet.entities, 12, 16);
 
     public static Sprite player_dead1 = new Sprite(DEFAULT_SIZE, 4, 2, SpriteSheet.tiles, 14, 16);
     public static Sprite player_dead2 = new Sprite(DEFAULT_SIZE, 5, 2, SpriteSheet.tiles, 13, 15);
@@ -121,6 +153,92 @@ public class Sprite {
     public static Sprite mob_dead2 = new Sprite(DEFAULT_SIZE, 15, 1, SpriteSheet.tiles, 16, 16);
     public static Sprite mob_dead3 = new Sprite(DEFAULT_SIZE, 15, 2, SpriteSheet.tiles, 16, 16);
 
+    /**
+     * *********************************************************************************************************
+     */
+
+    //BALLOM
+    public static Sprite newEnemy1_left1 = new Sprite(DEFAULT_SIZE, 9, 1, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy1_left2 = new Sprite(DEFAULT_SIZE, 10, 1, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy1_left3 = new Sprite(DEFAULT_SIZE, 11, 1, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy1_right1 = new Sprite(DEFAULT_SIZE, 11, 2, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy1_right2 = new Sprite(DEFAULT_SIZE, 10, 2, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy1_right3 = new Sprite(DEFAULT_SIZE, 9, 2, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy1_up1 = new Sprite(DEFAULT_SIZE, 10, 0, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy1_up2 = new Sprite(DEFAULT_SIZE, 11, 0, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy1_up3 = new Sprite(DEFAULT_SIZE, 9, 0, SpriteSheet.entities, 16, 16);
+
+
+    //ONEAL
+    public static Sprite newEnemy2_left1 = new Sprite(DEFAULT_SIZE, 12, 1, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy2_left2 = new Sprite(DEFAULT_SIZE, 13, 1, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy2_left3 = new Sprite(DEFAULT_SIZE, 14, 1, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy2_right1 = new Sprite(DEFAULT_SIZE, 14, 2, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy2_right2 = new Sprite(DEFAULT_SIZE, 13, 2, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy2_right3 = new Sprite(DEFAULT_SIZE, 12, 2, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy2_up1 = new Sprite(DEFAULT_SIZE, 13, 0, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy2_up2 = new Sprite(DEFAULT_SIZE, 14, 0, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy2_up3 = new Sprite(DEFAULT_SIZE, 12, 0, SpriteSheet.entities, 16, 16);
+
+
+    //Doll
+    public static Sprite newEnemy3_left1 = new Sprite(DEFAULT_SIZE, 0, 10, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy3_left2 = new Sprite(DEFAULT_SIZE, 1, 10, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy3_left3 = new Sprite(DEFAULT_SIZE, 2, 10, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy3_right1 = new Sprite(DEFAULT_SIZE, 2, 11, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy3_right2 = new Sprite(DEFAULT_SIZE, 1, 11, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy3_right3 = new Sprite(DEFAULT_SIZE, 0, 11, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy3_up1 = new Sprite(DEFAULT_SIZE, 1, 9, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy3_up2 = new Sprite(DEFAULT_SIZE, 2, 9, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy3_up3 = new Sprite(DEFAULT_SIZE, 0, 9, SpriteSheet.entities, 16, 16);
+
+
+    //Minvo
+    public static Sprite newEnemy4_left1 = new Sprite(DEFAULT_SIZE, 4, 10, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy4_left2 = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy4_left3 = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy4_right1 = new Sprite(DEFAULT_SIZE, 6, 11, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy4_right2 = new Sprite(DEFAULT_SIZE, 5, 11, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy4_right3 = new Sprite(DEFAULT_SIZE, 4, 11, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy4_up1 = new Sprite(DEFAULT_SIZE, 5, 9, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy4_up2 = new Sprite(DEFAULT_SIZE, 6, 9, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy4_up3 = new Sprite(DEFAULT_SIZE, 4, 9, SpriteSheet.entities, 16, 16);
+
+    //Kondoria
+    public static Sprite newEnemy5_left1 = new Sprite(DEFAULT_SIZE, 8, 10, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy5_left2 = new Sprite(DEFAULT_SIZE, 9, 10, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy5_left3 = new Sprite(DEFAULT_SIZE, 10, 10, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy5_right1 = new Sprite(DEFAULT_SIZE, 10, 11, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy5_right2 = new Sprite(DEFAULT_SIZE, 9, 11, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy5_right3 = new Sprite(DEFAULT_SIZE, 8, 11, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy5_up1 = new Sprite(DEFAULT_SIZE, 9, 9, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy5_up2 = new Sprite(DEFAULT_SIZE, 10, 9, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy5_up3 = new Sprite(DEFAULT_SIZE, 8, 9, SpriteSheet.entities, 16, 16);
+
+    //STH
+    public static Sprite newEnemy6_left1 = new Sprite(DEFAULT_SIZE, 12, 10, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy6_left2 = new Sprite(DEFAULT_SIZE, 13, 10, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy6_left3 = new Sprite(DEFAULT_SIZE, 14, 10, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy6_right1 = new Sprite(DEFAULT_SIZE, 14, 11, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy6_right2 = new Sprite(DEFAULT_SIZE, 13, 11, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy6_right3 = new Sprite(DEFAULT_SIZE, 12, 11, SpriteSheet.entities, 16, 16);
+
+    public static Sprite newEnemy6_up1 = new Sprite(DEFAULT_SIZE, 13, 9, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy6_up2 = new Sprite(DEFAULT_SIZE, 14, 9, SpriteSheet.entities, 16, 16);
+    public static Sprite newEnemy6_up3 = new Sprite(DEFAULT_SIZE, 12, 9, SpriteSheet.entities, 16, 16);
+
+
     /*
     |--------------------------------------------------------------------------
     | Bomb Sprites
@@ -135,6 +253,17 @@ public class Sprite {
     | FlameSegment Sprites
     |--------------------------------------------------------------------------
      */
+    public static Sprite newBomb_exploded = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded1 = new Sprite(DEFAULT_SIZE, 1, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded2 = new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded3 = new Sprite(DEFAULT_SIZE, 3, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded4 = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded5 = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded6 = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded7 = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.explosion, 16, 16);
+    public static Sprite newBomb_exploded8 = new Sprite(DEFAULT_SIZE, 8, 0, SpriteSheet.explosion, 16, 16);
+
+
     public static Sprite bomb_exploded = new Sprite(DEFAULT_SIZE, 0, 4, SpriteSheet.tiles, 16, 16);
     public static Sprite bomb_exploded1 = new Sprite(DEFAULT_SIZE, 0, 5, SpriteSheet.tiles, 16, 16);
     public static Sprite bomb_exploded2 = new Sprite(DEFAULT_SIZE, 0, 6, SpriteSheet.tiles, 16, 16);
@@ -220,11 +349,11 @@ public class Sprite {
         int calc = animate % time;
         int diff = time / 3;
 
-        if(calc < diff) {
+        if (calc < diff) {
             return normal;
         }
 
-        if(calc < diff * 2) {
+        if (calc < diff * 2) {
             return x1;
         }
 
@@ -249,10 +378,9 @@ public class Sprite {
         PixelWriter pw = wr.getPixelWriter();
         for (int x = 0; x < SIZE; x++) {
             for (int y = 0; y < SIZE; y++) {
-                if ( _pixels[x + y * SIZE] == TRANSPARENT_COLOR) {
+                if (_pixels[x + y * SIZE] == TRANSPARENT_COLOR) {
                     pw.setArgb(x, y, 0);
-                }
-                else {
+                } else {
                     pw.setArgb(x, y, _pixels[x + y * SIZE]);
                 }
             }

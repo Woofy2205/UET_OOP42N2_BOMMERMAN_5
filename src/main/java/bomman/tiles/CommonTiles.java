@@ -12,10 +12,12 @@ import javafx.scene.image.Image;
  */
 public abstract class CommonTiles {
 
-	public static final int TILES_SIZE = 32;
 
 	public int xTile;
 	public int yTile;
+
+	public boolean isExist = true;
+	public boolean isRendering = true;
 
 	private Image img;
 

@@ -2,15 +2,16 @@ package bomman.entity;
 
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
+import bomman.manager.SoundManager;
 import bomman.manager.Sprite;
+import bomman.manager.SpriteSheet;
 import bomman.tiles.CommonTiles;
 import bomman.tiles.TilesManager;
-import bomman.tiles.buffs.Buff;
-import bomman.tiles.buffs.IncreaseRange;
-import bomman.tiles.buffs.SpeedUp;
+import bomman.tiles.buffs.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import javax.xml.transform.dom.DOMResult;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,16 +21,18 @@ import java.util.List;
 public class MainCharacter extends CommonEntity {
 
     // Start point of main character (can be changed so not 'final' type)
-    public static int PLAYER_START_X = 5;
-    public static int PLAYER_START_Y = 5;
+    public static int PLAYER_START_X = 1;
+    public static int PLAYER_START_Y = 1;
+
+    private int count = 0;
 
     // Speed of the main character
     private static int characterVelocity = 2;
+    private static int explosionTimeCharacter = 500;
 
-    // Other attributes
-    private int bombDamage;
+    private List<CommonEntity.DIRECTION> pathToDoor;
 
-    // public static List<Buff> buffs = new ArrayList<Buff>();
+    private static AStarAlgorithm aStar = new AStarAlgorithm();
 
     public MainCharacter(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -38,9 +41,6 @@ public class MainCharacter extends CommonEntity {
     /**
      * Getters.
      */
-    public int getBombDamage() {
-        return bombDamage;
-    }
 
     @Override
     public int getXPosition() {
@@ -71,10 +71,10 @@ public class MainCharacter extends CommonEntity {
         PLAYER_START_Y = playerStartY;
     }
 
-    public static void collideMainCharacter (MainCharacter mainCharacter, int[][] map, CommonTiles[][] tiles) {
+    public static void collideMainCharacter(MainCharacter mainCharacter, int[][] map, CommonTiles[][] tiles) {
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
             for (int j = 0; j < GameManager.GAME_WIDTH; j++) {
-                if (map[i][j] != 0 && collisionWithTiles(mainCharacter, tiles[i][j])) {
+                if (map[i][j] != 0 && map[i][j] != 9 && collisionWithTiles(mainCharacter, tiles[i][j])) {
                     int value = map[i][j];
                     if (value == 3) {
                         GameManager.map[i][j] = 0;
@@ -83,20 +83,42 @@ public class MainCharacter extends CommonEntity {
                         break;
                     } else if (value == 4) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        TilesManager.gameTiles[i][j].setImg(Sprite.newFloor.getFxImage());
                         Buff.buffs.add(new SpeedUp(j, i));
                         SpeedUp.executeBuff(mainCharacter);
                     } else if (value == 5) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        TilesManager.gameTiles[i][j].setImg(Sprite.newFloor.getFxImage());
                         Buff.buffs.add(new IncreaseRange(j, i));
                         IncreaseRange.executeBuff(mainCharacter);
+                    } else if (value == 6) {
+                        GameManager.map[i][j] = 0;
+                        TilesManager.gameTiles[i][j].setImg(Sprite.newFloor.getFxImage());
+                        Buff.buffs.add(new IncreaseBomb(j, i));
+                        IncreaseBomb.executeBuff(mainCharacter);
+                    } else if (value == 7) {
+                        GameManager.map[i][j] = 0;
+                        TilesManager.gameTiles[i][j].setImg(Sprite.newFloor.getFxImage());
+                        Buff.buffs.add(new DestroyedMode(j, i));
+                        DestroyedMode.executeBuff(mainCharacter);
                     }
                     else {
                         mainCharacter.setDirect(DIRECTION.COLLIDE);
                     }
                 }
+                for (CommonEntity e: EntityManager.entities) {
+                    if (collisionWithEntity(mainCharacter, e)) {
+                        mainCharacter.setDirect(DIRECTION.COLLIDE);
+                        GameManager.lost = true;
+                    }
+                }
             }
+        }
+    }
+
+    public void aiAutoPlay() {
+        while(!EntityManager.entities.isEmpty()) {
+
         }
     }
 
@@ -121,22 +143,24 @@ public class MainCharacter extends CommonEntity {
             collideMainCharacter(MainCharacter.this, GameManager.map, TilesManager.gameTiles);
             this.move(this.getDirect(), characterVelocity);
         }
-        System.out.println(getXPosition() + " " + getYPosition());
+        if (EventHandling.currentlyActiveKeys.contains(("R"))) {
+            this.aiAutoPlay();
+        }
     }
 
     public void plantBomb() {
         if (EventHandling.currentlyActiveKeys.contains("SPACE")) {
             int xPos = this.getXPosition() / Sprite.SCALED_SIZE;
             int yPos = this.getYPosition() / Sprite.SCALED_SIZE;
-            if (! EntityManager.hasBomb(xPos, yPos)) {
-                Bomb.bombs.add(new Bomb(xPos, yPos, Sprite.bomb.getFxImage(), 100));
+            if (!EntityManager.hasBomb(xPos, yPos) && Bomb.bombs.size() < Bomb.bombLimit) {
+                Bomb.bombs.add(new Bomb(xPos, yPos, Sprite.bomb.getFxImage(), explosionTimeCharacter));
+                GameManager.map[yPos][xPos] = 9;
             }
         }
     }
-    
+
     public void autocorrect() {
         if (getDirect() == DIRECTION.COLLIDE) {
-            System.out.println("collide");
             if (EventHandling.currentlyActiveKeys.contains("UP") || EventHandling.currentlyActiveKeys.contains("DOWN")) {
                 int delta = getXPosition() % Sprite.SCALED_SIZE;
                 if (delta < 20) {
@@ -145,8 +169,7 @@ public class MainCharacter extends CommonEntity {
                 if (delta > 44) {
                     setXPosition(getXPosition() + (64 - delta));
                 }
-            }
-            if (EventHandling.currentlyActiveKeys.contains("LEFT") || EventHandling.currentlyActiveKeys.contains("RIGHT")) {
+            } else if (EventHandling.currentlyActiveKeys.contains("LEFT") || EventHandling.currentlyActiveKeys.contains("RIGHT")) {
                 int delta = getYPosition() % Sprite.SCALED_SIZE;
                 if (delta < 20) {
                     setYPosition(getYPosition() - delta);
@@ -157,16 +180,16 @@ public class MainCharacter extends CommonEntity {
             }
         }
     }
-        
+
     public void coolDownBuff() {
-        Buff.buffs.forEach(g -> g.update());
+        Buff.buffs.forEach(Buff::update);
         List<Buff> removeBuffs = new ArrayList<Buff>();
-        for (Buff b: Buff.buffs) {
-            if (b.getCoolDown() <= 0) {
+        for (Buff b : Buff.buffs) {
+            if (Buff.getCoolDown() <= 0) {
                 removeBuffs.add(b);
             }
         }
-        for (Buff b: removeBuffs) {
+        for (Buff b : removeBuffs) {
             Buff.buffs.remove(b);
         }
     }
@@ -177,45 +200,55 @@ public class MainCharacter extends CommonEntity {
         autocorrect();
         plantBomb();
         coolDownBuff();
-     }
+    }
 
     @Override
     public void render(GraphicsContext gc, double t) {
         double frame = (int) (t / 0.083) % 12 % 3;
+        if(EventHandling.currentlyActiveKeys.size() != 0 && getDirect() != DIRECTION.COLLIDE) {
+            if (frame == 0) count++;
+            if (count == 13) {
+                SoundManager.walk1.play();
+            }
+            if (count == 26) {
+                SoundManager.walk2.play();
+                count = 0;
+            }
+        }
         if (this.getDirect() == DIRECTION.LEFT) {
             if (EventHandling.currentlyActiveKeys.size() == 0) {
-                this.setImg(Sprite.player_left.getFxImage());
+                this.setImg(Sprite.newPlayer_left.getFxImage());
             } else {
-                if (frame == 0) this.setImg(Sprite.player_left.getFxImage());
-                if (frame == 1) this.setImg(Sprite.player_left_1.getFxImage());
-                if (frame == 2) this.setImg(Sprite.player_left_2.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newPlayer_left.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newPlayer_left_1.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newPlayer_left_2.getFxImage());
             }
         }
         if (this.getDirect() == DIRECTION.RIGHT) {
             if (EventHandling.currentlyActiveKeys.size() == 0) {
-                this.setImg(Sprite.player_right.getFxImage());
+                this.setImg(Sprite.newPlayer_right.getFxImage());
             } else {
-                if (frame == 0) this.setImg(Sprite.player_right.getFxImage());
-                if (frame == 1) this.setImg(Sprite.player_right_1.getFxImage());
-                if (frame == 2) this.setImg(Sprite.player_right_2.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newPlayer_right.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newPlayer_right_1.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newPlayer_right_2.getFxImage());
             }
         }
         if (this.getDirect() == DIRECTION.UP) {
             if (EventHandling.currentlyActiveKeys.size() == 0) {
-                this.setImg(Sprite.player_up.getFxImage());
+                this.setImg(Sprite.newPlayer_up.getFxImage());
             } else {
-                if (frame == 0) this.setImg(Sprite.player_up.getFxImage());
-                if (frame == 1) this.setImg(Sprite.player_up_1.getFxImage());
-                if (frame == 2) this.setImg(Sprite.player_up_2.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newPlayer_up.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newPlayer_up_1.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newPlayer_up_2.getFxImage());
             }
         }
         if (this.getDirect() == DIRECTION.DOWN) {
             if (EventHandling.currentlyActiveKeys.size() == 0) {
-                this.setImg(Sprite.player_down.getFxImage());
+                this.setImg(Sprite.newPlayer_down.getFxImage());
             } else {
-                if (frame == 0) this.setImg(Sprite.player_down.getFxImage());
-                if (frame == 1) this.setImg(Sprite.player_down_1.getFxImage());
-                if (frame == 2) this.setImg(Sprite.player_down_2.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newPlayer_down.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newPlayer_down_1.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newPlayer_down_2.getFxImage());
             }
         }
         gc.drawImage(getImg(), getXPosition(), getYPosition());

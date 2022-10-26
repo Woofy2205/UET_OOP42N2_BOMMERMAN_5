@@ -17,6 +17,11 @@ public class SpriteSheet {
     public BufferedImage image;
 
     public static SpriteSheet tiles = new SpriteSheet("/bomman/gfx/textures/classic.png", 256);
+    //public static SpriteSheet grassTiles = new SpriteSheet("/bomman/gfx/textures/grass.png", 256);
+    public static SpriteSheet dungeonTiles = new SpriteSheet("/bomman/gfx/textures/dungeon.png", 256);
+    public static SpriteSheet explosion = new SpriteSheet("/bomman/gfx/textures/explosion.png", 256);
+    public static SpriteSheet entities = new SpriteSheet("/bomman/gfx/textures/entity.png", 256);
+
 
     public SpriteSheet(String path, int size) {
         _path = path;

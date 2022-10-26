@@ -2,10 +2,7 @@ package bomman.manager;
 
 import bomman.entity.CommonEntity;
 import bomman.entity.EntityManager;
-import bomman.tiles.BreakableTiles;
-import bomman.tiles.CommonTiles;
-import bomman.tiles.HiddenTiles;
-import bomman.tiles.UnbreakableTiles;
+import bomman.tiles.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,8 +24,8 @@ public class GameManager {
 
 	// Each sprite size (pixels)
 	private static final int DEFAULT_SPRITE_SIZE = 32;
-	public static final int GAME_WIDTH = 20;
-	public static final int GAME_HEIGHT = 15;
+	public static final int GAME_WIDTH = 31;
+	public static final int GAME_HEIGHT = 21;
 
 	// In-game private attribute
 	private static final int STAGE_NUMBER = 5;
@@ -38,7 +35,7 @@ public class GameManager {
 	public static boolean nextStage = false;
 	private static boolean won = false;
 	private static boolean restart = false;
-	private static boolean lost = false;
+	public static boolean lost = false;
 
 	// List of entity that will be rendered.
 	public List<CommonEntity> stillObjects = new ArrayList<>();
@@ -82,6 +79,17 @@ public class GameManager {
 		}
 	}
 
+	public static void nextStage() {
+		if (GameManager.nextStage) {
+			EntityManager.entities.clear();
+			EntityManager.createMainCharacter();
+			EntityManager.createEntity();
+			GameManager.createMap();
+			TilesManager.createTiles();
+			GameManager.nextStage = false;
+		}
+	}
+
 	/**
 	 * reset function for the next stage.
 	 */
@@ -112,11 +120,11 @@ public class GameManager {
 	 * Getters.
 	 */
 
-	public boolean isLost() {
+	public static boolean isLost() {
 		return lost;
 	}
 
-	public boolean isWon() {
+	public static boolean isWon() {
 		return won;
 	}
 

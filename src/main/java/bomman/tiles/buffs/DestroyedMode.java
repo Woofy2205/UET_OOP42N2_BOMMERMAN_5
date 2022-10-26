@@ -1,30 +1,25 @@
 package bomman.tiles.buffs;
 
-import bomman.MainGame;
+import bomman.entity.Bomb;
 import bomman.entity.MainCharacter;
 import bomman.manager.SoundManager;
 import bomman.manager.Sprite;
-import bomman.tiles.CommonTiles;
-import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-
-/**
- * Speed the character up.
- */
-public class SpeedUp extends Buff {
+public class DestroyedMode extends Buff {
 
 	public static boolean isExecuting = false;
 
 	public static void executeBuff(MainCharacter mainCharacter) {
 		isExecuting = true;
-		SoundManager.speed.play();
-		mainCharacter.setCharacterVelocity(mainCharacter.getCharacterVelocity() * 2);
+		Bomb.bombLimit = Bomb.bombLimit*10;
+		Bomb.explosionRadius = Bomb.explosionRadius*3;
+		SoundManager.buff.play();
+		MainCharacter.setCharacterVelocity(MainCharacter.getCharacterVelocity() * 2);
 	}
 
-	public SpeedUp(int xUnit, int yUnit) {
-		super(xUnit, yUnit, Sprite.powerup_speed.getFxImage());
-		this.setCoolDown(100);
+	public DestroyedMode(int xUnit, int yUnit) {
+		super(xUnit, yUnit, Sprite.powerup_detonator.getFxImage());
+		this.setCoolDown(1000);
 	}
 
 	@Override
@@ -33,7 +28,8 @@ public class SpeedUp extends Buff {
 		if (this.getCoolDown() == 0) {
 			this.setCoolDown(0);
 			MainCharacter.setCharacterVelocity(MainCharacter.getCharacterVelocity() / 2);
-			SoundManager.speed.stop();
+			Bomb.bombLimit = Bomb.bombLimit/10;
+			Bomb.explosionRadius = Bomb.explosionRadius/3;
 			this.isExecuting = false;
 		}
 		if (this.getCoolDown() < 0) {

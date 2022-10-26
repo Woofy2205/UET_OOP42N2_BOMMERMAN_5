@@ -2,8 +2,10 @@ package bomman.entity;
 
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
+import bomman.manager.SpriteSheet;
 import bomman.tiles.BreakableTiles;
 import bomman.tiles.TilesManager;
+import bomman.tiles.buffs.DestroyedMode;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -17,6 +19,7 @@ public class Flame extends CommonEntity{
 	private int xPos;
 	private int yPos;
 	private int timeExplode = 50;
+	private int cnt = 0;
 
 	public static List<Flame> flames = new ArrayList<Flame>();
 
@@ -44,12 +47,48 @@ public class Flame extends CommonEntity{
 		this.timeExplode = timeExplode;
 	}
 
+	public static int generateRandom() {
+		int max = 20;
+		int min = 1;
+		return (int)Math.floor(Math.random()*(max-min+1)+min);
+	}
+
 	public static boolean checkFlameValid(int xPos, int yPos) {
 		// if (GameManager.getGameManager().map[yPos][xPos] == 1) return false;
-		if (GameManager.map[yPos][xPos] == 2) {
-			GameManager.map[yPos][xPos] = 0;
-			TilesManager.gameTiles[yPos][xPos].setImg(Sprite.grass.getFxImage());
-			return true;
+		int chances = generateRandom();
+		if (yPos <= 0 || yPos >= 20 || xPos <= 0 || xPos >= 30) return false;
+		else if (GameManager.map[yPos][xPos] == 2) {
+			if (chances == 1) {
+				GameManager.map[yPos][xPos] = 4;
+				TilesManager.gameTiles[yPos][xPos].isExist = true;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_speed.getFxImage());
+				return true;
+			} else if (chances == 2) {
+				GameManager.map[yPos][xPos] = 5;
+				TilesManager.gameTiles[yPos][xPos].isExist = true;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_flames.getFxImage());
+				return true;
+			} else if (chances == 3) {
+				GameManager.map[yPos][xPos] = 6;
+				TilesManager.gameTiles[yPos][xPos].isExist = true;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_bombs.getFxImage());
+				return true;
+			} else if (chances == 4) {
+				GameManager.map[yPos][xPos] = 7;
+				TilesManager.gameTiles[yPos][xPos].isExist = true;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_detonator.getFxImage());
+				return true;
+			} else {
+				GameManager.map[yPos][xPos] = 0;
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.newFloor.getFxImage());
+				TilesManager.gameTiles[yPos][xPos].isExist = false;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
+				return true;
+			}
 		} else if (GameManager.map[yPos][xPos] != 0) {
 			return false;
 		}
@@ -76,11 +115,28 @@ public class Flame extends CommonEntity{
 
 	@Override
 	public void render(GraphicsContext gc, double t) {
-		double frame = (int) (t / 0.083) % 12 % 3;
+		double frame = (int) (t / 0.083) % 27 % 9;
 		if (timeExplode >= 0) {
-			if (frame == 0) this.setImg(Sprite.bomb_exploded.getFxImage());
-			if (frame == 1) this.setImg(Sprite.bomb_exploded1.getFxImage());
-			if (frame == 2) this.setImg(Sprite.bomb_exploded2.getFxImage());
+			cnt++;
+			if (cnt == 5) this.setImg(Sprite.newBomb_exploded.getFxImage());
+			if (cnt == 10) this.setImg(Sprite.newBomb_exploded1.getFxImage());
+			if (cnt == 15) this.setImg(Sprite.newBomb_exploded2.getFxImage());
+			if (cnt == 20) this.setImg(Sprite.newBomb_exploded3.getFxImage());
+			if (cnt == 25) this.setImg(Sprite.newBomb_exploded4.getFxImage());
+			if (cnt == 30) this.setImg(Sprite.newBomb_exploded5.getFxImage());
+			if (cnt == 35) this.setImg(Sprite.newBomb_exploded6.getFxImage());
+			if (cnt == 40) this.setImg(Sprite.newBomb_exploded7.getFxImage());
+			if (cnt == 45) this.setImg(Sprite.newBomb_exploded8.getFxImage());
+
+//			if (frame == 0) this.setImg(Sprite.newBomb_exploded.getFxImage());
+//			if (frame == 1) this.setImg(Sprite.newBomb_exploded1.getFxImage());
+//			if (frame == 2) this.setImg(Sprite.newBomb_exploded2.getFxImage());
+//			if (frame == 3) this.setImg(Sprite.newBomb_exploded3.getFxImage());
+//			if (frame == 4) this.setImg(Sprite.newBomb_exploded4.getFxImage());
+//			if (frame == 5) this.setImg(Sprite.newBomb_exploded5.getFxImage());
+//			if (frame == 6) this.setImg(Sprite.newBomb_exploded6.getFxImage());
+//			if (frame == 7) this.setImg(Sprite.newBomb_exploded7.getFxImage());
+//			if (frame == 8) this.setImg(Sprite.newBomb_exploded8.getFxImage());
 		}
 		gc.drawImage(getImg(), getXPosition(), getYPosition());
 	}
