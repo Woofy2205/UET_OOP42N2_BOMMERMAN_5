@@ -2,6 +2,7 @@ package bomman.entity;
 
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
+import bomman.manager.SoundManager;
 import bomman.manager.Sprite;
 import bomman.tiles.CommonTiles;
 import bomman.tiles.TilesManager;
@@ -12,6 +13,7 @@ import bomman.tiles.buffs.SpeedUp;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import javax.xml.transform.dom.DOMResult;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class MainCharacter extends CommonEntity {
     // Start point of main character (can be changed so not 'final' type)
     public static int PLAYER_START_X = 1;
     public static int PLAYER_START_Y = 1;
+
+    private int count = 0;
 
     // Speed of the main character
     private static int characterVelocity = 2;
@@ -193,6 +197,16 @@ public class MainCharacter extends CommonEntity {
     @Override
     public void render(GraphicsContext gc, double t) {
         double frame = (int) (t / 0.083) % 12 % 3;
+        if(EventHandling.currentlyActiveKeys.size() != 0 && getDirect() != DIRECTION.COLLIDE) {
+            if (frame == 0) count++;
+            if (count == 13) {
+                SoundManager.walk1.play();
+            }
+            if (count == 26) {
+                SoundManager.walk2.play();
+                count = 0;
+            }
+        }
         if (this.getDirect() == DIRECTION.LEFT) {
             if (EventHandling.currentlyActiveKeys.size() == 0) {
                 this.setImg(Sprite.player_left.getFxImage());

@@ -71,7 +71,7 @@ public class SecondEnemy extends CommonEntity {
         double frame = (int) (t / 0.083) % 12 % 3;
         if (getAlive() == 1) {
             if (frame == 0) count++;
-            if (count == 10) {
+            if (count == 1) {
                 this.setImg(Sprite.oneal_dead.getFxImage());
             }
             if (count == 20) {

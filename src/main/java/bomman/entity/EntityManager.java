@@ -45,10 +45,10 @@ public class EntityManager {
 	}
 
     public static void createEntity() {
-        //entities.add(new FirstEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
+        entities.add(new FirstEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
         //entities.add(new SecondEnemy(generateRandomX(), generateRandomY(), Sprite.oneal_left1.getFxImage()));
-        //entities.add(new SmartEnemy(generateRandomX(), generateRandomY(), Sprite.doll_left1.getFxImage()));
-		entities.add(new InvisibleEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
+//        entities.add(new SmartEnemy(generateRandomX(), generateRandomY(), Sprite.doll_left1.getFxImage()));
+//		entities.add(new InvisibleEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
     }
 
     public static void createMainCharacter() {

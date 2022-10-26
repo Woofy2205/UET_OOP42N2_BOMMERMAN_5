@@ -3,6 +3,7 @@ package bomman.entity.enemy;
 import bomman.entity.CommonEntity;
 import bomman.entity.Flame;
 import bomman.manager.GameManager;
+import bomman.manager.SoundManager;
 import bomman.manager.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -71,7 +72,8 @@ public class FirstEnemy extends CommonEntity {
         double frame = (int) (t / 0.083) % 12 % 3;
         if (getAlive() == 1) {
             if (frame == 0) count++;
-            if (count == 10) {
+            if (count == 1) {
+                SoundManager.dead.play();
                 this.setImg(Sprite.balloon_dead.getFxImage());
             }
             if (count == 20) {
