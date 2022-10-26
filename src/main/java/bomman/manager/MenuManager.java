@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+import static bomman.MainGame.root;
+
 public class MenuManager {
     @FXML
     private Button quit;
@@ -23,12 +25,19 @@ public class MenuManager {
     @FXML
     private Button settings;
 
-    private Stage stage;
+    private static boolean startGame = false;
 
     public void switchToGame(javafx.event.ActionEvent actionEvent) throws IOException {
-        Stage window = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
-        MainGame bomman = new MainGame();
-        bomman.start(window);
+        if(!startGame) {
+            Stage window = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
+            MainGame game = new MainGame();
+            game.start(window);
+        } else {
+            Stage window = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
+            Scene scene = new Scene(MainGame.root);
+            window.setScene(scene);
+            window.show();
+        }
     }
 
     public void quit(javafx.event.ActionEvent actionEvent) throws IOException {

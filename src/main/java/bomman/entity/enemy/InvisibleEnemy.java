@@ -31,10 +31,6 @@ public class InvisibleEnemy extends CommonEntity {
 		return characterVelocity;
 	}
 
-	public void setCharacterVelocity(int characterVelocity) {
-		FirstEnemy.setCharacterVelocity(characterVelocity);
-	}
-
 	@Override
 	public void update() {
 		if (getAlive() == 0) {

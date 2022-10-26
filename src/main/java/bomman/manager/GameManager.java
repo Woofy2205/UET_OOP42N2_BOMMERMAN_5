@@ -2,10 +2,9 @@ package bomman.manager;
 
 import bomman.entity.CommonEntity;
 import bomman.entity.EntityManager;
-import bomman.tiles.*;
+import bomman.tiles.TilesManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,124 +14,126 @@ import java.util.Scanner;
  */
 public class GameManager {
 
-	public static int[][] map = new int[GameManager.GAME_HEIGHT][GameManager.GAME_WIDTH];
+    public static int[][] map = new int[GameManager.GAME_HEIGHT][GameManager.GAME_WIDTH];
 
-	// Title of the game using in main
-	public static final String GAME_TITLE = "BOMMAN";
-	// Path to the stage map, used to load map from the function.
-	private static String[] mapPath = new String [GameManager.STAGE_NUMBER];
+    // Title of the game using in main
+    public static final String GAME_TITLE = "BOMMAN";
+    // Path to the stage map, used to load map from the function.
+    private static String[] mapPath = new String[GameManager.STAGE_NUMBER];
 
-	// Each sprite size (pixels)
-	private static final int DEFAULT_SPRITE_SIZE = 32;
-	public static final int GAME_WIDTH = 31;
-	public static final int GAME_HEIGHT = 21;
+    // Each sprite size (pixels)
+    private static final int DEFAULT_SPRITE_SIZE = 32;
+    public static final int GAME_WIDTH = 31;
+    public static final int GAME_HEIGHT = 21;
 
-	// In-game private attribute
-	private static final int STAGE_NUMBER = 5;
-	public static int currentStage = 1;
-	// private static int score = 0;
-	// private static int coin = 0;
-	public static boolean nextStage = false;
-	private static boolean won = false;
-	private static boolean restart = false;
-	public static boolean lost = false;
+    // In-game private attribute
+    private static final int STAGE_NUMBER = 5;
+    public static int currentStage = 1;
+    // private static int score = 0;
+    // private static int coin = 0;
+    public static boolean nextStage = false;
+    private static boolean won = false;
+    private static boolean restart = false;
+    public static boolean lost = false;
 
-	// List of entity that will be rendered.
-	public List<CommonEntity> stillObjects = new ArrayList<>();
+    // List of entity that will be rendered.
+    public List<CommonEntity> stillObjects = new ArrayList<>();
 
-	// public variables that can be changed in game
-	public int bommanHealth = 5;
-	public int enemyHealth = 3;
-	public int enemyNumber = 5;
-	// public int bossHealth = 5;
+    // public variables that can be changed in game
+    public static int bommanHealth = 5;
+    public static int enemyHealth = 3;
+    public int enemyNumber = 5;
+    // public int bossHealth = 5;
 
-	/**
-	 * Constructor for the game manager, basically load the main sprites.
-	 */
-	private static void setMapPath() {
-		mapPath[0] = "src/main/resources/bomman/maps/map0.txt";
-		mapPath[1] = "src/main/resources/bomman/maps/map1.txt";
-		mapPath[2] = "src/main/resources/bomman/maps/map2.txt";
-		mapPath[3] = "src/main/resources/bomman/maps/map3.txt";
-		mapPath[4] = "src/main/resources/bomman/maps/map4.txt";
-	}
+    /**
+     * Constructor for the game manager, basically load the main sprites.
+     */
+    private static void setMapPath() {
+        mapPath[0] = "src/main/resources/bomman/maps/map0.txt";
+        mapPath[1] = "src/main/resources/bomman/maps/map1.txt";
+        mapPath[2] = "src/main/resources/bomman/maps/map2.txt";
+        mapPath[3] = "src/main/resources/bomman/maps/map3.txt";
+        mapPath[4] = "src/main/resources/bomman/maps/map4.txt";
+    }
 
-	/**
-	 * This function read a file and load the images from that file to the real map.
-	 */
-	public static void createMap() {
-		setMapPath();
-		String path = mapPath[currentStage];
-		File file = new File(path);
-		try {
-			Scanner sc = new Scanner(file);
-			while (sc.hasNextLine()) {
-				for (int i = 0; i < map.length; i++) {
-					String[] line = sc.nextLine().trim().split( " ");
-					for (int j = 0; j < line.length; j++) {
-						map[i][j] = Integer.parseInt(line[j]);
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * This function read a file and load the images from that file to the real map.
+     */
+    public static void createMap() {
+        setMapPath();
+        String path = mapPath[currentStage];
+        File file = new File(path);
+        try {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                for (int i = 0; i < map.length; i++) {
+                    String[] line = sc.nextLine().trim().split(" ");
+                    for (int j = 0; j < line.length; j++) {
+                        map[i][j] = Integer.parseInt(line[j]);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public static void nextStage() {
-		if (GameManager.nextStage) {
-			EntityManager.entities.clear();
-			EntityManager.createMainCharacter();
-			EntityManager.createEntity();
-			GameManager.createMap();
-			TilesManager.createTiles();
-			GameManager.nextStage = false;
-		}
-	}
+    public static void nextStage() {
+        if (GameManager.nextStage) {
+            EntityManager.entities.clear();
+            EntityManager.createMainCharacter();
+            EntityManager.createEntity();
+            GameManager.createMap();
+            TilesManager.createTiles();
+            GameManager.nextStage = false;
+        }
+    }
 
-	/**
-	 * reset function for the next stage.
-	 */
-	public void reset() {
-		bommanHealth = 5;
-		enemyHealth = 3;
-		nextStage = false;
-		restart = false;
-		won = false;
-		lost = false;
-	}
+    /**
+     * reset function for the next stage.
+     */
+    public static void reset() {
+        bommanHealth = 5;
+        enemyHealth = 3;
+        nextStage = false;
+        restart = false;
+        won = false;
+        lost = false;
+        EntityManager.entities.clear();
+    }
 
-	/**
-	 * restart function for the game.
-	 */
-	public void restart() {
-		currentStage = 0;
-		// score = 0;
-		bommanHealth = 5;
-		enemyHealth = 3;
-		nextStage = false;
-		restart = false;
-		won = false;
-		lost = false;
-	}
+    /**
+     * restart function for the game.
+     */
+    public static void restart() {
+        currentStage = 1;
+        // score = 0;
+        bommanHealth = 5;
+        enemyHealth = 3;
+        nextStage = false;
+        restart = false;
+        won = false;
+        lost = false;
+        EntityManager.entities.clear();
+    }
 
-	/**
-	 * Getters.
-	 */
+    /**
+     * Getters.
+     */
 
-	public static boolean isLost() {
-		return lost;
-	}
+    public static boolean isLost() {
+        return lost;
+    }
 
-	public static boolean isWon() {
-		return won;
-	}
+    public static boolean isWon() {
+        return won;
+    }
 
-	public boolean isRestart() {
-		return restart;
-	}
+    public boolean isRestart() {
+        return restart;
+    }
 
-	public boolean isNextStage() {
-		return nextStage;
-	}
+    public boolean isNextStage() {
+        return nextStage;
+    }
 }

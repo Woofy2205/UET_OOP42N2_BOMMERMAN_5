@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MainGame extends Application {
+    public static Group root;
     static Scene mainScene;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 21;
@@ -46,8 +47,8 @@ public class MainGame extends Application {
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
+        root = new Group();
         // Tao root container
-        Group root = new Group();
         root.getChildren().add(canvas);
 
         // Tao scene
@@ -68,10 +69,26 @@ public class MainGame extends Application {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
                 GameManager.nextStage();
                 if (GameManager.isLost()) {
-
+                    GameManager.restart();
+                    try {
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Lost.fxml")));
+                        Scene scene = new Scene(root, Sprite.SCALED_SIZE * 40, Sprite.SCALED_SIZE * 30);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 if (GameManager.isWon()) {
-
+                    GameManager.restart();
+                    try {
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Win.fxml")));
+                        Scene scene = new Scene(root, Sprite.SCALED_SIZE * 40, Sprite.SCALED_SIZE * 30);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 update();
                 render(t);
