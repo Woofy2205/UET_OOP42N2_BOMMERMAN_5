@@ -1,6 +1,7 @@
 package bomman.tiles;
 
 import bomman.manager.Sprite;
+import bomman.manager.SpriteSheet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -12,7 +13,7 @@ public class UnbreakableTiles extends CommonTiles {
 
 
     public UnbreakableTiles(int xUnit, int yUnit) {
-        super(xUnit, yUnit, Sprite.wall.getFxImage());
+        super(xUnit, yUnit, Sprite.newWall.getFxImage());
     }
 
     @Override

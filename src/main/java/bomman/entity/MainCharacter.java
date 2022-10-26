@@ -83,22 +83,22 @@ public class MainCharacter extends CommonEntity {
                         break;
                     } else if (value == 4) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
+                        TilesManager.gameTiles[i][j].setImg(Sprite.newFloor.getFxImage());
                         Buff.buffs.add(new SpeedUp(j, i));
                         SpeedUp.executeBuff(mainCharacter);
                     } else if (value == 5) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
+                        TilesManager.gameTiles[i][j].setImg(Sprite.newFloor.getFxImage());
                         Buff.buffs.add(new IncreaseRange(j, i));
                         IncreaseRange.executeBuff(mainCharacter);
                     } else if (value == 6) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
+                        TilesManager.gameTiles[i][j].setImg(Sprite.newFloor.getFxImage());
                         Buff.buffs.add(new IncreaseBomb(j, i));
                         IncreaseBomb.executeBuff(mainCharacter);
                     } else if (value == 7) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
+                        TilesManager.gameTiles[i][j].setImg(Sprite.newFloor.getFxImage());
                         Buff.buffs.add(new DestroyedMode(j, i));
                         DestroyedMode.executeBuff(mainCharacter);
                     }
@@ -217,38 +217,38 @@ public class MainCharacter extends CommonEntity {
         }
         if (this.getDirect() == DIRECTION.LEFT) {
             if (EventHandling.currentlyActiveKeys.size() == 0) {
-                this.setImg(Sprite.player_left.getFxImage());
+                this.setImg(Sprite.newPlayer_left.getFxImage());
             } else {
-                if (frame == 0) this.setImg(Sprite.player_left.getFxImage());
-                if (frame == 1) this.setImg(Sprite.player_left_1.getFxImage());
-                if (frame == 2) this.setImg(Sprite.player_left_2.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newPlayer_left.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newPlayer_left_1.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newPlayer_left_2.getFxImage());
             }
         }
         if (this.getDirect() == DIRECTION.RIGHT) {
             if (EventHandling.currentlyActiveKeys.size() == 0) {
-                this.setImg(Sprite.player_right.getFxImage());
+                this.setImg(Sprite.newPlayer_right.getFxImage());
             } else {
-                if (frame == 0) this.setImg(Sprite.player_right.getFxImage());
-                if (frame == 1) this.setImg(Sprite.player_right_1.getFxImage());
-                if (frame == 2) this.setImg(Sprite.player_right_2.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newPlayer_right.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newPlayer_right_1.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newPlayer_right_2.getFxImage());
             }
         }
         if (this.getDirect() == DIRECTION.UP) {
             if (EventHandling.currentlyActiveKeys.size() == 0) {
-                this.setImg(Sprite.player_up.getFxImage());
+                this.setImg(Sprite.newPlayer_up.getFxImage());
             } else {
-                if (frame == 0) this.setImg(Sprite.player_up.getFxImage());
-                if (frame == 1) this.setImg(Sprite.player_up_1.getFxImage());
-                if (frame == 2) this.setImg(Sprite.player_up_2.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newPlayer_up.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newPlayer_up_1.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newPlayer_up_2.getFxImage());
             }
         }
         if (this.getDirect() == DIRECTION.DOWN) {
             if (EventHandling.currentlyActiveKeys.size() == 0) {
-                this.setImg(Sprite.player_down.getFxImage());
+                this.setImg(Sprite.newPlayer_down.getFxImage());
             } else {
-                if (frame == 0) this.setImg(Sprite.player_down.getFxImage());
-                if (frame == 1) this.setImg(Sprite.player_down_1.getFxImage());
-                if (frame == 2) this.setImg(Sprite.player_down_2.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newPlayer_down.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newPlayer_down_1.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newPlayer_down_2.getFxImage());
             }
         }
         gc.drawImage(getImg(), getXPosition(), getYPosition());

@@ -60,28 +60,33 @@ public class Flame extends CommonEntity{
 		else if (GameManager.map[yPos][xPos] == 2) {
 			if (chances == 1) {
 				GameManager.map[yPos][xPos] = 4;
-				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_speed.getFxImage());
 				TilesManager.gameTiles[yPos][xPos].isExist = true;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_speed.getFxImage());
 				return true;
 			} else if (chances == 2) {
 				GameManager.map[yPos][xPos] = 5;
-				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_flames.getFxImage());
 				TilesManager.gameTiles[yPos][xPos].isExist = true;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_flames.getFxImage());
 				return true;
 			} else if (chances == 3) {
 				GameManager.map[yPos][xPos] = 6;
-				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_bombs.getFxImage());
 				TilesManager.gameTiles[yPos][xPos].isExist = true;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_bombs.getFxImage());
 				return true;
 			} else if (chances == 4) {
 				GameManager.map[yPos][xPos] = 7;
-				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_detonator.getFxImage());
 				TilesManager.gameTiles[yPos][xPos].isExist = true;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.powerup_detonator.getFxImage());
 				return true;
 			} else {
 				GameManager.map[yPos][xPos] = 0;
-				TilesManager.gameTiles[yPos][xPos].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0, 0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
+				TilesManager.gameTiles[yPos][xPos].setImg(Sprite.newFloor.getFxImage());
 				TilesManager.gameTiles[yPos][xPos].isExist = false;
+				TilesManager.gameTiles[yPos][xPos].isRendering = false;
 				return true;
 			}
 		} else if (GameManager.map[yPos][xPos] != 0) {

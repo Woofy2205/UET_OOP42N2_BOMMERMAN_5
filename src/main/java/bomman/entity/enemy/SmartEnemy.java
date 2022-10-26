@@ -72,7 +72,7 @@ public class SmartEnemy extends CommonEntity {
 		if (getAlive() == 1) {
 			if (frame == 0) count++;
 			if (count == 10) {
-				this.setImg(Sprite.balloon_dead.getFxImage());
+				this.setImg(Sprite.newEnemy4_up2.getFxImage());
 			}
 			if (count == 20) {
 				this.setImg(Sprite.mob_dead1.getFxImage());
@@ -88,24 +88,24 @@ public class SmartEnemy extends CommonEntity {
 			}
 		} else {
 			if (this.getDirect() == CommonEntity.DIRECTION.LEFT) {
-				if (frame == 0) this.setImg(Sprite.doll_left1.getFxImage());
-				if (frame == 1) this.setImg(Sprite.doll_left2.getFxImage());
-				if (frame == 2) this.setImg(Sprite.doll_left3.getFxImage());
+				if (frame == 0) this.setImg(Sprite.newEnemy4_left1.getFxImage());
+				if (frame == 1) this.setImg(Sprite.newEnemy4_left2.getFxImage());
+				if (frame == 2) this.setImg(Sprite.newEnemy4_left3.getFxImage());
 			}
 			if (this.getDirect() == CommonEntity.DIRECTION.RIGHT) {
-				if (frame == 0) this.setImg(Sprite.doll_right1.getFxImage());
-				if (frame == 1) this.setImg(Sprite.doll_right2.getFxImage());
-				if (frame == 2) this.setImg(Sprite.doll_right3.getFxImage());
+				if (frame == 0) this.setImg(Sprite.newEnemy4_right1.getFxImage());
+				if (frame == 1) this.setImg(Sprite.newEnemy4_right2.getFxImage());
+				if (frame == 2) this.setImg(Sprite.newEnemy4_right3.getFxImage());
 			}
 			if (this.getDirect() == CommonEntity.DIRECTION.UP) {
-				if (frame == 0) this.setImg(Sprite.doll_left1.getFxImage());
-				if (frame == 1) this.setImg(Sprite.doll_left2.getFxImage());
-				if (frame == 2) this.setImg(Sprite.doll_left3.getFxImage());
+				if (frame == 0) this.setImg(Sprite.newEnemy4_up1.getFxImage());
+				if (frame == 1) this.setImg(Sprite.newEnemy4_up2.getFxImage());
+				if (frame == 2) this.setImg(Sprite.newEnemy4_up3.getFxImage());
 			}
 			if (this.getDirect() == CommonEntity.DIRECTION.DOWN) {
-				if (frame == 0) this.setImg(Sprite.doll_right1.getFxImage());
-				if (frame == 1) this.setImg(Sprite.doll_right2.getFxImage());
-				if (frame == 2) this.setImg(Sprite.doll_right3.getFxImage());
+				if (frame == 0) this.setImg(Sprite.newEnemy4_up1.getFxImage());
+				if (frame == 1) this.setImg(Sprite.newEnemy4_up2.getFxImage());
+				if (frame == 2) this.setImg(Sprite.newEnemy4_up3.getFxImage());
 			}
 		}
 		gc.drawImage(getImg(), getXPosition(), getYPosition());
