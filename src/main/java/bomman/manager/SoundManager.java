@@ -40,7 +40,7 @@ public class SoundManager {
     public static String walk_2_p = "/bomman/sfx/walk2.mp3";
     public static String dead_p = "/bomman/sfx/walk.mp3";
 
-    public static String bgMusic_p = "/bomman/sfx/walk.mp3";
+    public static String bgMusic_p = "/bomman/sfx/bg.mp3";
 
     public static void init() {
         try {
@@ -55,9 +55,22 @@ public class SoundManager {
             bgMusic = new MediaPlayer(bg_music);
             bgMusic.setCycleCount(MediaPlayer.INDEFINITE);
 
+            bgMusic.setVolume(0.05);
+            bomb.setVolume(0.2);
+            buff.setVolume(0.2);
+
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setSfxVolume(double d) {
+        bomb.setVolume(d);
+        buff.setVolume(d);
+        walk1.setVolume(d);
+        walk2.setVolume(d);
+        speed.setVolume(d);
+        dead.setVolume(d);
     }
 
 

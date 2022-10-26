@@ -25,11 +25,11 @@ public class Menu extends Application {
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Menu.fxml")));
         Scene scene = new Scene(root, Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-        String css = MainGame.class.getResource("/bomman/css/Menu.css").toExternalForm();
+        String css = Objects.requireNonNull(MainGame.class.getResource("/bomman/css/menu.css")).toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
         SoundManager.init();
-//        SoundManager.bgMusic.play();
+        SoundManager.bgMusic.play();
     }
 }

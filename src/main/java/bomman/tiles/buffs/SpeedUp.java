@@ -2,6 +2,7 @@ package bomman.tiles.buffs;
 
 import bomman.MainGame;
 import bomman.entity.MainCharacter;
+import bomman.manager.SoundManager;
 import bomman.manager.Sprite;
 import bomman.tiles.CommonTiles;
 import javafx.scene.image.Image;
@@ -17,7 +18,8 @@ public class SpeedUp extends Buff {
 
 	public static void executeBuff(MainCharacter mainCharacter) {
 		isExecuting = true;
-		mainCharacter.setCharacterVelocity(mainCharacter.getCharacterVelocity() * 4);
+		SoundManager.speed.play();
+		mainCharacter.setCharacterVelocity(mainCharacter.getCharacterVelocity() * 2);
 	}
 
 	public SpeedUp(int xUnit, int yUnit) {
@@ -30,7 +32,8 @@ public class SpeedUp extends Buff {
 		this.setCoolDown(this.getCoolDown() - 1);
 		if (this.getCoolDown() == 0) {
 			this.setCoolDown(0);
-			MainCharacter.setCharacterVelocity(MainCharacter.getCharacterVelocity() / 4);
+			MainCharacter.setCharacterVelocity(MainCharacter.getCharacterVelocity() / 2);
+			SoundManager.speed.stop();
 			this.isExecuting = false;
 		}
 		if (this.getCoolDown() < 0) {
