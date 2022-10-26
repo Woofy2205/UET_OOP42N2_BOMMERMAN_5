@@ -1,10 +1,9 @@
 package bomman.entity;
 
-import bomman.entity.enemy.FirstEnemy;
-import bomman.entity.enemy.InvisibleEnemy;
-import bomman.entity.enemy.SecondEnemy;
-import bomman.entity.enemy.SmartEnemy;
+import bomman.entity.enemy.*;
+import bomman.manager.GameManager;
 import bomman.manager.Sprite;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.List;
 public class EntityManager {
 
     public static List<CommonEntity> entities = new ArrayList<CommonEntity>();
+	public static int numberEntities = 6;
     public static MainCharacter bomberman;
 
     public EntityManager() {
@@ -33,22 +33,42 @@ public class EntityManager {
     }
 
     public static int generateRandomX() {
-		int max = 38;
+		int max = 29;
 		int min = 1;
 		return (int)Math.floor(Math.random()*(max-min+1)+min);
 	}
 
 	public static int generateRandomY() {
-		int max = 18;
+		int max = 19;
 		int min = 1;
 		return (int)Math.floor(Math.random()*(max-min+1)+min);
 	}
 
+	public void addEntities(int xPos, int yPos) {
+
+	}
+
     public static void createEntity() {
-        entities.add(new FirstEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
-        //entities.add(new SecondEnemy(generateRandomX(), generateRandomY(), Sprite.oneal_left1.getFxImage()));
-//        entities.add(new SmartEnemy(generateRandomX(), generateRandomY(), Sprite.doll_left1.getFxImage()));
-//		entities.add(new InvisibleEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
+		for (int i = 1; i <= numberEntities; i++) {
+			int xRand = generateRandomX();
+			int yRand = generateRandomY();
+			while(GameManager.map[yRand][xRand] != 0) {
+				xRand = generateRandomX();
+				yRand = generateRandomY();
+			}
+			if (i == 1) entities.add(new FirstEnemy(xRand, yRand, Sprite.balloon_left1.getFxImage()));
+			if (i == 2) entities.add(new SecondEnemy(xRand, yRand, Sprite.balloon_left1.getFxImage()));
+			if (i == 3) entities.add(new DoubleLifeEnemy(xRand, yRand, Sprite.balloon_left1.getFxImage()));
+			if (i == 4) entities.add(new SuicidalEnemy(xRand, yRand, Sprite.balloon_left1.getFxImage()));
+			if (i == 5) entities.add(new SmartEnemy(xRand, yRand, Sprite.doll_left1.getFxImage()));
+			if (i == 6) entities.add(new InvisibleEnemy(xRand, yRand, Sprite.balloon_left1.getFxImage()));
+	    }
+        //entities.add(new FirstEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
+	    //entities.add(new SecondEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
+	    //entities.add(new DoubleLifeEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
+	    //entities.add(new SuicidalEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
+        //entities.add(new SmartEnemy(generateRandomX(), generateRandomY(), Sprite.doll_left1.getFxImage()));
+		//entities.add(new InvisibleEnemy(generateRandomX(), generateRandomY(), Sprite.balloon_left1.getFxImage()));
     }
 
     public static void createMainCharacter() {

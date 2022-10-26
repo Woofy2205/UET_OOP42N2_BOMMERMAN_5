@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,8 +24,8 @@ import java.util.Objects;
 
 public class MainGame extends Application {
     static Scene mainScene;
-    public static final int WIDTH = 40;
-    public static final int HEIGHT = 30;
+    public static final int WIDTH = 31;
+    public static final int HEIGHT = 21;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -51,6 +52,7 @@ public class MainGame extends Application {
 
         // Tao scene
         mainScene = new Scene(root);
+        mainScene.setFill(Color.GREEN);
         EventHandling.prepareActionHandlers(mainScene);
 
         // Add scene to stage

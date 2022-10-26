@@ -14,7 +14,7 @@ import java.util.List;
  * Second type of enemy.
  */
 public class SecondEnemy extends CommonEntity {
-    private static int characterVelocity = 2;
+    private static int characterVelocity = 1;
 
     private int count = 0;
 
@@ -59,7 +59,7 @@ public class SecondEnemy extends CommonEntity {
             canMove.clear();
 
             for (Flame i : Flame.flames) {
-                if (collisionWithEntity(this, i)) {
+                if (collisionWithFlame(this, i)) {
                     this.setAlive(1);
                 }
             }

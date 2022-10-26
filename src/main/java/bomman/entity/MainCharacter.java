@@ -4,12 +4,10 @@ import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.SoundManager;
 import bomman.manager.Sprite;
+import bomman.manager.SpriteSheet;
 import bomman.tiles.CommonTiles;
 import bomman.tiles.TilesManager;
-import bomman.tiles.buffs.Buff;
-import bomman.tiles.buffs.IncreaseBomb;
-import bomman.tiles.buffs.IncreaseRange;
-import bomman.tiles.buffs.SpeedUp;
+import bomman.tiles.buffs.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -32,10 +30,9 @@ public class MainCharacter extends CommonEntity {
     private static int characterVelocity = 2;
     private static int explosionTimeCharacter = 500;
 
-    // Other attributes
-    private int bombDamage;
+    private List<CommonEntity.DIRECTION> pathToDoor;
 
-    // public static List<Buff> buffs = new ArrayList<Buff>();
+    private static AStarAlgorithm aStar = new AStarAlgorithm();
 
     public MainCharacter(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -44,9 +41,6 @@ public class MainCharacter extends CommonEntity {
     /**
      * Getters.
      */
-    public int getBombDamage() {
-        return bombDamage;
-    }
 
     @Override
     public int getXPosition() {
@@ -80,7 +74,7 @@ public class MainCharacter extends CommonEntity {
     public static void collideMainCharacter(MainCharacter mainCharacter, int[][] map, CommonTiles[][] tiles) {
         for (int i = 0; i < GameManager.GAME_HEIGHT; i++) {
             for (int j = 0; j < GameManager.GAME_WIDTH; j++) {
-                if (map[i][j] != 0 && collisionWithTiles(mainCharacter, tiles[i][j])) {
+                if (map[i][j] != 0 && map[i][j] != 9 && collisionWithTiles(mainCharacter, tiles[i][j])) {
                     int value = map[i][j];
                     if (value == 3) {
                         GameManager.map[i][j] = 0;
@@ -89,21 +83,25 @@ public class MainCharacter extends CommonEntity {
                         break;
                     } else if (value == 4) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
                         Buff.buffs.add(new SpeedUp(j, i));
                         SpeedUp.executeBuff(mainCharacter);
                     } else if (value == 5) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
                         Buff.buffs.add(new IncreaseRange(j, i));
                         IncreaseRange.executeBuff(mainCharacter);
                     } else if (value == 6) {
                         GameManager.map[i][j] = 0;
-                        TilesManager.gameTiles[i][j].setImg(Sprite.grass.getFxImage());
+                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
                         Buff.buffs.add(new IncreaseBomb(j, i));
                         IncreaseBomb.executeBuff(mainCharacter);
+                    } else if (value == 7) {
+                        GameManager.map[i][j] = 0;
+                        TilesManager.gameTiles[i][j].setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
+                        Buff.buffs.add(new DestroyedMode(j, i));
+                        DestroyedMode.executeBuff(mainCharacter);
                     }
-
                     else {
                         mainCharacter.setDirect(DIRECTION.COLLIDE);
                     }
@@ -115,6 +113,12 @@ public class MainCharacter extends CommonEntity {
                     }
                 }
             }
+        }
+    }
+
+    public void aiAutoPlay() {
+        while(!EntityManager.entities.isEmpty()) {
+
         }
     }
 
@@ -139,6 +143,9 @@ public class MainCharacter extends CommonEntity {
             collideMainCharacter(MainCharacter.this, GameManager.map, TilesManager.gameTiles);
             this.move(this.getDirect(), characterVelocity);
         }
+        if (EventHandling.currentlyActiveKeys.contains(("R"))) {
+            this.aiAutoPlay();
+        }
     }
 
     public void plantBomb() {
@@ -147,6 +154,7 @@ public class MainCharacter extends CommonEntity {
             int yPos = this.getYPosition() / Sprite.SCALED_SIZE;
             if (!EntityManager.hasBomb(xPos, yPos) && Bomb.bombs.size() < Bomb.bombLimit) {
                 Bomb.bombs.add(new Bomb(xPos, yPos, Sprite.bomb.getFxImage(), explosionTimeCharacter));
+                GameManager.map[yPos][xPos] = 9;
             }
         }
     }

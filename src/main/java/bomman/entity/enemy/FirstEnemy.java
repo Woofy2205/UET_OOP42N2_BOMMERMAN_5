@@ -1,10 +1,13 @@
 package bomman.entity.enemy;
 
+import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
+import bomman.entity.EntityManager;
 import bomman.entity.Flame;
 import bomman.manager.GameManager;
 import bomman.manager.SoundManager;
 import bomman.manager.Sprite;
+import bomman.tiles.TilesManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -15,7 +18,7 @@ import java.util.List;
  * First type of enemy.
  */
 public class FirstEnemy extends CommonEntity {
-    private static int characterVelocity = 2;
+    private static int characterVelocity = 1;
 
     private int count = 0;
 
@@ -47,20 +50,30 @@ public class FirstEnemy extends CommonEntity {
                     }
                     int col = (getXPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveX;
                     int row = (getYPosition() / Sprite.SCALED_SIZE) + this.getDirect().moveY;
-                    if (GameManager.map[row][col] == 0) {
+                    if (GameManager.map[row][col] == 0 && !EntityManager.hasBomb(col, row)) {
                         canMove.add(this.getDirect());
+                    }
+                    if (canMove.size() != 0) {
+                        int rand_dir = (int) (Math.random() * (canMove.size()));
+                        this.setDirect(canMove.get(rand_dir));
+                    }
+                    if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
+                        this.setDirect(this.getOppositeDirect());
+                    }
+                    for (Bomb b: Bomb.bombs) {
+                        if (collisionWithEntity(this, b)) {
+                            this.setDirect(this.getOppositeDirect());
+                        }
                     }
                 }
             }
-            if (canMove.size() != 0) {
-                int rand_dir = (int) (Math.random() * (canMove.size()));
-                this.setDirect(canMove.get(rand_dir));
-            }
+
             this.move(this.getDirect(), characterVelocity);
             canMove.clear();
 
+
             for (Flame i : Flame.flames) {
-                if (collisionWithEntity(this, i)) {
+                if (collisionWithFlame(this, i)) {
                     this.setAlive(1);
                 }
             }

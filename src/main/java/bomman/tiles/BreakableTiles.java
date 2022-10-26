@@ -2,6 +2,7 @@ package bomman.tiles;
 
 import bomman.entity.Flame;
 import bomman.manager.Sprite;
+import bomman.manager.SpriteSheet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -11,6 +12,8 @@ import javafx.scene.image.Image;
 public class BreakableTiles extends CommonTiles {
 
 	private int count = 0;
+
+
 
 	public BreakableTiles(int xUnit, int yUnit) {
 		super(xUnit, yUnit, Sprite.brick.getFxImage());
@@ -25,16 +28,7 @@ public class BreakableTiles extends CommonTiles {
 	public void render(GraphicsContext gc, double t) {
 		double frame = (int) (t / 0.083) % 12 % 3;
 		if (!isExist) {
-			if (frame == 0) count++;
-			if (count == 10) {
-				this.setImg(Sprite.brick_exploded.getFxImage());
-			} else if (count == 20) {
-				this.setImg(Sprite.brick_exploded1.getFxImage());
-			} else if (count == 30) {
-				this.setImg(Sprite.brick_exploded1.getFxImage());
-			} else if (count == 50) {
-				this.setImg(Sprite.grass.getFxImage());
-			}
+			this.setImg((new Sprite(Sprite.DEFAULT_SIZE, 0,0, SpriteSheet.grassTiles, 16, 16)).getFxImage());
 		}
 		gc.drawImage(getImg(), getXTile(), getYTile());
 	}
