@@ -2,6 +2,7 @@ package bomman.tiles.buffs;
 
 import bomman.entity.Bomb;
 import bomman.entity.MainCharacter;
+import bomman.manager.SoundManager;
 import bomman.manager.Sprite;
 
 public class DestroyedMode extends Buff {
@@ -12,6 +13,7 @@ public class DestroyedMode extends Buff {
 		isExecuting = true;
 		Bomb.bombLimit = Bomb.bombLimit*10;
 		Bomb.explosionRadius = Bomb.explosionRadius*3;
+		SoundManager.buff.play();
 		MainCharacter.setCharacterVelocity(MainCharacter.getCharacterVelocity() * 2);
 	}
 

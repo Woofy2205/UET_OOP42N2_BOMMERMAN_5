@@ -57,6 +57,7 @@ public class SuicidalEnemy extends CommonEntity {
 					this.setDirect(pathToBomber.get(0));
 				} else {
 					this.setDirect(DIRECTION.COLLIDE);
+					setAlive(1);
 					Bomb.bombs.add(new Bomb(this.getXPosition()/Sprite.SCALED_SIZE, this.getYPosition()/Sprite.SCALED_SIZE,
 							Sprite.bomb.getFxImage(), 50));
 				}
