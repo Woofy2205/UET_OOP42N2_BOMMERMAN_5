@@ -52,7 +52,7 @@ public class MainGame extends Application {
 
         // Tao scene
         mainScene = new Scene(root);
-        mainScene.setFill(Color.GREEN);
+        mainScene.setFill(Color.BLACK);
         EventHandling.prepareActionHandlers(mainScene);
 
         // Add scene to stage

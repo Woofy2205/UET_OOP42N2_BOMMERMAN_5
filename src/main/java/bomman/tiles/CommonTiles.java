@@ -17,6 +17,7 @@ public abstract class CommonTiles {
 	public int yTile;
 
 	public boolean isExist = true;
+	public boolean isRendering = true;
 
 	private Image img;
 

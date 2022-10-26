@@ -87,7 +87,7 @@ public class FirstEnemy extends CommonEntity {
             if (frame == 0) count++;
             if (count == 1) {
                 SoundManager.dead.play();
-                this.setImg(Sprite.balloon_dead.getFxImage());
+                this.setImg(Sprite.newEnemy1_up2.getFxImage());
             }
             if (count == 20) {
                 this.setImg(Sprite.mob_dead1.getFxImage());
@@ -103,24 +103,24 @@ public class FirstEnemy extends CommonEntity {
             }
         } else {
             if (this.getDirect() == DIRECTION.LEFT) {
-                if (frame == 0) this.setImg(Sprite.balloon_left1.getFxImage());
-                if (frame == 1) this.setImg(Sprite.balloon_left2.getFxImage());
-                if (frame == 2) this.setImg(Sprite.balloon_left3.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newEnemy1_left1.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newEnemy1_left2.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newEnemy1_left3.getFxImage());
             }
             if (this.getDirect() == DIRECTION.RIGHT) {
-                if (frame == 0) this.setImg(Sprite.balloon_right1.getFxImage());
-                if (frame == 1) this.setImg(Sprite.balloon_right2.getFxImage());
-                if (frame == 2) this.setImg(Sprite.balloon_right3.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newEnemy1_right1.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newEnemy1_right2.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newEnemy1_right3.getFxImage());
             }
             if (this.getDirect() == DIRECTION.UP) {
-                if (frame == 0) this.setImg(Sprite.balloon_left1.getFxImage());
-                if (frame == 1) this.setImg(Sprite.balloon_left2.getFxImage());
-                if (frame == 2) this.setImg(Sprite.balloon_left3.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newEnemy1_up1.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newEnemy1_up2.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newEnemy1_up3.getFxImage());
             }
             if (this.getDirect() == DIRECTION.DOWN) {
-                if (frame == 0) this.setImg(Sprite.balloon_right1.getFxImage());
-                if (frame == 1) this.setImg(Sprite.balloon_right2.getFxImage());
-                if (frame == 2) this.setImg(Sprite.balloon_right3.getFxImage());
+                if (frame == 0) this.setImg(Sprite.newEnemy1_up1.getFxImage());
+                if (frame == 1) this.setImg(Sprite.newEnemy1_up2.getFxImage());
+                if (frame == 2) this.setImg(Sprite.newEnemy1_up3.getFxImage());
             }
         }
         gc.drawImage(getImg(), getXPosition(), getYPosition());
