@@ -1,10 +1,11 @@
 package bomman.entity;
 
+import bomman.MainGame;
 import bomman.event.EventHandling;
 import bomman.manager.*;
 import bomman.tiles.CommonTiles;
 import bomman.tiles.Portal;
-import bomman.tiles.TilesManager;
+import bomman.manager.TilesManager;
 import bomman.tiles.buffs.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -194,6 +195,9 @@ public class MainCharacter extends CommonEntity {
             }
             if (EventHandling.currentlyActiveKeys.contains(("R"))) {
                 this.aiAutoPlay();
+            }
+            if (EventHandling.currentlyActiveKeys.contains(("P"))) {
+                MainGame.pauseGame = true;
             }
         }
     }

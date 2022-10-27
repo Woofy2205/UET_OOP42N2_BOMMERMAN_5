@@ -13,5 +13,6 @@
             <Font name="Lucida Sans Demibold Italic" size="96.0" />
          </font>
       </Label>
+      <Button fx:id="settings" layoutX="482.0" layoutY="782.0" mnemonicParsing="false" onAction="#switchToSettings" prefHeight="113.0" prefWidth="316.0" stylesheets="@../css/menu.css" />
    </children>
 </AnchorPane>
