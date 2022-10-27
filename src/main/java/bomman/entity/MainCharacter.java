@@ -82,6 +82,9 @@ public class MainCharacter extends CommonEntity {
                         GameManager.map[i][j] = 0;
                         GameManager.currentStage++;
                         GameManager.nextStage = true;
+                        if (GameManager.currentStage == GameManager.STAGE_NUMBER) {
+                            GameManager.won = true;
+                        }
                         break;
                     } else if (value == 4) {
                         GameManager.map[i][j] = 0;
@@ -111,6 +114,11 @@ public class MainCharacter extends CommonEntity {
                     if (collisionWithEntity(mainCharacter, e)) {
                         mainCharacter.setDirect(DIRECTION.COLLIDE);
                         setAlive(1);
+                    }
+                }
+                for (Flame f: Flame.flames) {
+                    if (collisionWithFlame(mainCharacter, f)) {
+                        GameManager.lost = true;
                     }
                 }
             }
