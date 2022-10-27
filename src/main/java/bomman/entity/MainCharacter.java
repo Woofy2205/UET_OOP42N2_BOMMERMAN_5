@@ -1,17 +1,12 @@
 package bomman.entity;
 
 import bomman.event.EventHandling;
-import bomman.manager.GameManager;
-import bomman.manager.SoundManager;
-import bomman.manager.Sprite;
-import bomman.manager.SpriteSheet;
+import bomman.manager.*;
 import bomman.tiles.CommonTiles;
-import bomman.tiles.TilesManager;
 import bomman.tiles.buffs.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import javax.xml.transform.dom.DOMResult;
 import java.util.ArrayList;
 import java.util.List;
 

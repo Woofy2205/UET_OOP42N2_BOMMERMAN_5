@@ -2,8 +2,6 @@ package bomman.manager;
 
 import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
-import bomman.entity.EntityManager;
-import bomman.tiles.TilesManager;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -2,12 +2,11 @@ package bomman.entity.enemy;
 
 import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
-import bomman.entity.EntityManager;
+import bomman.manager.EntityManager;
 import bomman.entity.Flame;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
-import bomman.manager.SpriteSheet;
-import bomman.tiles.TilesManager;
+import bomman.manager.TilesManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 

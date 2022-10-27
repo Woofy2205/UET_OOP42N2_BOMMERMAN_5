@@ -2,12 +2,12 @@ package bomman;
 
 import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
-import bomman.entity.EntityManager;
+import bomman.manager.EntityManager;
 import bomman.entity.Flame;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
-import bomman.tiles.TilesManager;
+import bomman.manager.TilesManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
