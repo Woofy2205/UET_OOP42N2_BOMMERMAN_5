@@ -83,7 +83,9 @@ public class GameManager {
 		if (GameManager.nextStage) {
 			EntityManager.entities.clear();
 			EntityManager.createMainCharacter();
-			EntityManager.createEntity();
+			if (GameManager.currentStage != 3) {
+				EntityManager.createEntity();
+			}
 			GameManager.createMap();
 			TilesManager.createTiles();
 			GameManager.nextStage = false;
