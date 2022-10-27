@@ -61,6 +61,20 @@ public class MainGame extends Application {
             public void handle(long currentNanoTime) {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
                 GameManager.nextStage();
+                if(pauseGame) {
+                    try {
+                        this.stop();
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Pause.fxml")));
+                        Scene scene = new Scene(root, Sprite.SCALED_SIZE * 40, Sprite.SCALED_SIZE * 30);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    System.out.println(pauseGame);
+                    this.start();
+                }
                 if (GameManager.isLost()) {
                     SoundManager.dead.play();
                     this.stop();
@@ -85,20 +99,6 @@ public class MainGame extends Application {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                }
-                if(pauseGame) {
-                    try {
-                        this.stop();
-                        Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Pause.fxml")));
-                        Scene scene = new Scene(root, Sprite.SCALED_SIZE * 40, Sprite.SCALED_SIZE * 30);
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } else {
-                    System.out.println(pauseGame);
-                    this.start();
                 }
                 update();
                 render(t);

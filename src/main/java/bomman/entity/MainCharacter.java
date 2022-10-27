@@ -116,11 +116,11 @@ public class MainCharacter extends CommonEntity {
                         setAlive(1);
                     }
                 }
-                for (Flame f: Flame.flames) {
-                    if (collisionWithFlame(mainCharacter, f)) {
-                        GameManager.lost = true;
-                    }
-                }
+//                for (Flame f: Flame.flames) {
+//                    if (collisionWithFlame(mainCharacter, f)) {
+//                        GameManager.lost = true;
+//                    }
+//                }
             }
         }
     }
