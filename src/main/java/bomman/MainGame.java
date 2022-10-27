@@ -2,12 +2,9 @@ package bomman;
 
 import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
-import bomman.manager.EntityManager;
+import bomman.manager.*;
 import bomman.entity.Flame;
 import bomman.event.EventHandling;
-import bomman.manager.GameManager;
-import bomman.manager.Sprite;
-import bomman.manager.TilesManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -63,6 +60,7 @@ public class MainGame extends Application {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
                 GameManager.nextStage();
                 if (GameManager.isLost()) {
+                    SoundManager.dead.play();
                     this.stop();
                     GameManager.restart();
                     try {
