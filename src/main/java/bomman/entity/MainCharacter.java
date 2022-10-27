@@ -28,7 +28,7 @@ public class MainCharacter extends CommonEntity {
 
     // Speed of the main character
     private static int characterVelocity = 2;
-    private static int explosionTimeCharacter = 500;
+    private static int explosionTimeCharacter = 300;
 
     private List<CommonEntity.DIRECTION> pathToDoor;
 

@@ -1,5 +1,6 @@
 package bomman.manager;
 
+import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
 import bomman.entity.EntityManager;
 import bomman.tiles.TilesManager;
@@ -106,6 +107,8 @@ public class GameManager {
      * restart function for the game.
      */
     public static void restart() {
+        Bomb.explosionRadius = 1;
+        Bomb.bombLimit = 5;
         currentStage = 1;
         // score = 0;
         bommanHealth = 5;
