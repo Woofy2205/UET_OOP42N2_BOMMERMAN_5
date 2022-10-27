@@ -81,7 +81,7 @@ public class MainGame extends Application {
 
 
         EntityManager.createMainCharacter();
-        EntityManager.createEntity();
+//        EntityManager.createEntity();
         //Bomb.bombs.forEach(Bomb::countDown);
     }
 

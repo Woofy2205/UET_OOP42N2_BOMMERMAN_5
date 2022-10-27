@@ -29,7 +29,7 @@ public class GameManager {
 
 	// In-game private attribute
 	private static final int STAGE_NUMBER = 5;
-	public static int currentStage = 1;
+	public static int currentStage = 0;
 	// private static int score = 0;
 	// private static int coin = 0;
 	public static boolean nextStage = false;
@@ -83,7 +83,7 @@ public class GameManager {
 		if (GameManager.nextStage) {
 			EntityManager.entities.clear();
 			EntityManager.createMainCharacter();
-			if (GameManager.currentStage != 3) {
+			if (GameManager.currentStage != 0) {
 				EntityManager.createEntity();
 			}
 			GameManager.createMap();
