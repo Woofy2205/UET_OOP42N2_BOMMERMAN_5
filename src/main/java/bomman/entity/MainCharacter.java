@@ -4,7 +4,7 @@ import bomman.event.EventHandling;
 import bomman.manager.*;
 import bomman.tiles.CommonTiles;
 import bomman.tiles.Portal;
-import bomman.tiles.TilesManager;
+import bomman.manager.TilesManager;
 import bomman.tiles.buffs.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -81,6 +81,9 @@ public class MainCharacter extends CommonEntity {
                         GameManager.map[i][j] = 0;
                         GameManager.currentStage++;
                         GameManager.nextStage = true;
+                        if (GameManager.currentStage == GameManager.STAGE_NUMBER) {
+                            GameManager.won = true;
+                        }
                         break;
                     } else if (value == 4) {
                         GameManager.map[i][j] = 0;
@@ -110,6 +113,11 @@ public class MainCharacter extends CommonEntity {
                 for (CommonEntity e: EntityManager.entities) {
                     if (collisionWithEntity(mainCharacter, e)) {
                         mainCharacter.setDirect(DIRECTION.COLLIDE);
+                        GameManager.lost = true;
+                    }
+                }
+                for (Flame f: Flame.flames) {
+                    if (collisionWithFlame(mainCharacter, f)) {
                         GameManager.lost = true;
                     }
                 }

@@ -94,7 +94,7 @@ public class MainGame extends Application {
 
 
         EntityManager.createMainCharacter();
-        EntityManager.createEntity();
+        //EntityManager.createEntity();
     }
 
     @Override

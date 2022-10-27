@@ -2,6 +2,7 @@ package bomman.manager;
 
 import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
+import bomman.entity.Flame;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,30 +19,21 @@ public class GameManager {
     public static final String GAME_TITLE = "BOMMAN";
     // Path to the stage map, used to load map from the function.
     private static String[] mapPath = new String[GameManager.STAGE_NUMBER];
-
-    // Each sprite size (pixels)
-    private static final int DEFAULT_SPRITE_SIZE = 32;
     public static final int GAME_WIDTH = 31;
     public static final int GAME_HEIGHT = 21;
 
     // In-game private attribute
-    private static final int STAGE_NUMBER = 5;
-    public static int currentStage = 1;
+    public static final int STAGE_NUMBER = 5;
+    public static int currentStage = 0;
     // private static int score = 0;
     // private static int coin = 0;
     public static boolean nextStage = false;
-    private static boolean won = false;
+    public static boolean won = false;
     private static boolean restart = false;
     public static boolean lost = false;
 
     // List of entity that will be rendered.
-    public List<CommonEntity> stillObjects = new ArrayList<>();
-
-    // public variables that can be changed in game
-    public static int bommanHealth = 5;
-    public static int enemyHealth = 3;
-    public int enemyNumber = 5;
-    // public int bossHealth = 5;
+    // public List<CommonEntity> stillObjects = new ArrayList<>();
 
     /**
      * Constructor for the game manager, basically load the main sprites.
@@ -88,33 +80,19 @@ public class GameManager {
     }
 
     /**
-     * reset function for the next stage.
-     */
-    public static void reset() {
-        bommanHealth = 5;
-        enemyHealth = 3;
-        nextStage = false;
-        restart = false;
-        won = false;
-        lost = false;
-        EntityManager.entities.clear();
-    }
-
-    /**
      * restart function for the game.
      */
     public static void restart() {
         Bomb.explosionRadius = 1;
         Bomb.bombLimit = 5;
-        currentStage = 1;
-        // score = 0;
-        bommanHealth = 5;
-        enemyHealth = 3;
+        currentStage = 0;
         nextStage = false;
         restart = false;
         won = false;
         lost = false;
         EntityManager.entities.clear();
+        Bomb.bombs.clear();
+        Flame.flames.clear();
     }
 
     /**
