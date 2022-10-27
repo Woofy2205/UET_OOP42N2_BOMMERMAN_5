@@ -121,7 +121,7 @@ public class AStarAlgorithm {
 	}
 
 	public boolean isUnblocked(int[][] grid, int i, int j) {
-		return (grid[i][j] == 0);
+		return (grid[i][j] == 0 || grid[i][j] == 4 || grid[i][j] == 5 || grid[i][j] == 6 || grid[i][j] == 7);
 	}
 
 	public void successorTrace(int addDistance, int original_i, int original_j, PriorityQueue<pPair> openList, int i, int j,

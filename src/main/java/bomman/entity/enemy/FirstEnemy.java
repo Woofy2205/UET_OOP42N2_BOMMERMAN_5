@@ -58,7 +58,7 @@ public class FirstEnemy extends CommonEntity {
                         this.setDirect(canMove.get(rand_dir));
                     }
                     if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
-                        this.setDirect(this.getOppositeDirect());
+                        this.setDirect(DIRECTION.COLLIDE);
                     }
                     for (Bomb b: Bomb.bombs) {
                         if (collisionWithEntity(this, b)) {
