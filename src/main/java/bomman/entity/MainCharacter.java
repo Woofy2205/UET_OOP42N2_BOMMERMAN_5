@@ -1,10 +1,7 @@
 package bomman.entity;
 
 import bomman.event.EventHandling;
-import bomman.manager.GameManager;
-import bomman.manager.SoundManager;
-import bomman.manager.Sprite;
-import bomman.manager.SpriteSheet;
+import bomman.manager.*;
 import bomman.tiles.CommonTiles;
 import bomman.tiles.Portal;
 import bomman.tiles.TilesManager;
@@ -12,7 +9,6 @@ import bomman.tiles.buffs.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import javax.xml.transform.dom.DOMResult;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +28,7 @@ public class MainCharacter extends CommonEntity {
 
     // Speed of the main character
     private static int characterVelocity = 2;
-    private static int explosionTimeCharacter = 500;
+    private static int explosionTimeCharacter = 300;
 
     private List<CommonEntity.DIRECTION> pathToDoor;
     private List<CommonEntity.DIRECTION> pathToTiles;

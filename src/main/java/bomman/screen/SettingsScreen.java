@@ -1,6 +1,7 @@
-package bomman.manager;
+package bomman.screen;
 
 import bomman.MainGame;
+import bomman.manager.SoundManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SettingsManager implements Initializable {
+public class SettingsScreen implements Initializable {
     @FXML
     private Slider sfx;
 

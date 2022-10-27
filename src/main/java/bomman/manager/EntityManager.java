@@ -1,5 +1,8 @@
-package bomman.entity;
+package bomman.manager;
 
+import bomman.entity.Bomb;
+import bomman.entity.CommonEntity;
+import bomman.entity.MainCharacter;
 import bomman.entity.enemy.*;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;

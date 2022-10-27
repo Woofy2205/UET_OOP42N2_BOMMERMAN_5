@@ -1,5 +1,5 @@
 .background{
-    -fx-background-image: url("../gfx/bg/bg.png");
+    -fx-background-image: url("../gfx/bg/Bomberman.png");
 }
 
 .button{
@@ -15,4 +15,24 @@
 
 #back:hover{
     -fx-background-image: url("../gfx/button/back_hov.png");
+}
+
+.slider{
+    -fx-pref-width: 400 px;
+}
+
+.slider .track{
+    -fx-background-color: linear-gradient(to left, cyan, magenta);
+    -fx-background-radius: 0;
+}
+
+.slider .thumb{
+    -fx-pref-height: 100 px;
+    -fx-pref-width: 40 px;
+    -fx-background-color: linear-gradient(to top, royalblue, aquamarine);
+    -fx-background-radius: 0;
+}
+
+.label{
+    -fx-text-fill: linear-gradient(to top, royalblue, aquamarine);
 }

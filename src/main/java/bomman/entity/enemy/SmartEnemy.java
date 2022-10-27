@@ -1,12 +1,12 @@
 package bomman.entity.enemy;
 
 import bomman.entity.*;
+import bomman.manager.EntityManager;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SmartEnemy extends CommonEntity {

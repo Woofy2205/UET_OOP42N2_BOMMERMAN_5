@@ -32,3 +32,15 @@
 #quit:hover{
     -fx-background-image: url("../gfx/button/quit_hov.png");
 }
+
+#back{
+    -fx-background-image: url("../gfx/button/back.png");
+}
+
+#back:hover{
+    -fx-background-image: url("../gfx/button/back_hov.png");
+}
+
+.label{
+    -fx-text-fill: linear-gradient(to top, royalblue, aquamarine);
+}
