@@ -1,29 +1,20 @@
 package bomman.screen;
 
 import bomman.MainGame;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
 
-public class MenuScreen {
-    @FXML
-    private Button quit;
+import static bomman.screen.MenuScreen.startGame;
 
-    @FXML
-    private Button settings;
-
-    public static boolean startGame = false;
-
+public class PauseScreen {
     public void switchToGame(javafx.event.ActionEvent actionEvent) throws IOException {
+        MainGame.pauseGame = false;
         if(!startGame) {
             Stage window = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
             MainGame game = new MainGame();
@@ -33,18 +24,6 @@ public class MenuScreen {
             Scene scene = new Scene(MainGame.root);
             window.setScene(scene);
             window.show();
-        }
-    }
-
-    public void quit(javafx.event.ActionEvent actionEvent) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit");
-        alert.setHeaderText("You are exitting the game");
-        alert.setContentText("Are you sure to exit ?");
-
-        if(alert.showAndWait().get() == ButtonType.OK) {
-            Stage window = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
-            window.close();
         }
     }
 

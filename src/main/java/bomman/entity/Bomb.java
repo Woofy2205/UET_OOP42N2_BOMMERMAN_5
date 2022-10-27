@@ -64,7 +64,7 @@ public class Bomb extends CommonEntity {
             Flame.flames.add(new Flame(b.getXPosition() / Sprite.SCALED_SIZE,
                     b.getYPosition() / Sprite.SCALED_SIZE, Sprite.newBomb_exploded.getFxImage()));
 
-            for (int i = 1; i <= b.explosionRadius; i++) {
+            for (int i = 1; i <= explosionRadius; i++) {
 
                 if (Flame.checkFlameValid(b.getXPosition() / Sprite.SCALED_SIZE - 1, b.getYPosition() / Sprite.SCALED_SIZE)
                         && Flame.checkFlameValid(b.getXPosition() / Sprite.SCALED_SIZE - i, b.getYPosition() / Sprite.SCALED_SIZE)) {
