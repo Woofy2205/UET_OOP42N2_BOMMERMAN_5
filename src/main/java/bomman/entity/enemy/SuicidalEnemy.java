@@ -1,13 +1,12 @@
 package bomman.entity.enemy;
 
 import bomman.entity.*;
+import bomman.manager.EntityManager;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
-import bomman.tiles.TilesManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SuicidalEnemy extends CommonEntity {

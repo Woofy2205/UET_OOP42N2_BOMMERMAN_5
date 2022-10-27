@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class LostScreen {
+public class WinScreen {
     public void switchToMenu(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Menu.fxml")));
         Stage window = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());

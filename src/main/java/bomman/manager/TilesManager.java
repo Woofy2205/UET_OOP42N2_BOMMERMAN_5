@@ -1,7 +1,8 @@
-package bomman.tiles;
+package bomman.manager;
 
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
+import bomman.tiles.*;
 import bomman.tiles.buffs.DestroyedMode;
 import bomman.tiles.buffs.IncreaseBomb;
 import bomman.tiles.buffs.IncreaseRange;

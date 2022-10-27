@@ -1,19 +1,19 @@
 package bomman.entity;
 
 import bomman.event.EventHandling;
-import bomman.manager.GameManager;
-import bomman.manager.SoundManager;
-import bomman.manager.Sprite;
-import bomman.manager.SpriteSheet;
+import bomman.manager.*;
 import bomman.tiles.CommonTiles;
+import bomman.tiles.Portal;
 import bomman.tiles.TilesManager;
 import bomman.tiles.buffs.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import javax.xml.transform.dom.DOMResult;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.min;
 
 /**
  * This will control the main character =))))))) like, obviously =))))))))
@@ -28,9 +28,10 @@ public class MainCharacter extends CommonEntity {
 
     // Speed of the main character
     private static int characterVelocity = 2;
-    private static int explosionTimeCharacter = 500;
+    private static int explosionTimeCharacter = 300;
 
     private List<CommonEntity.DIRECTION> pathToDoor;
+    private List<CommonEntity.DIRECTION> pathToTiles;
 
     private static AStarAlgorithm aStar = new AStarAlgorithm();
 
@@ -116,10 +117,58 @@ public class MainCharacter extends CommonEntity {
         }
     }
 
-    public void aiAutoPlay() {
-        while(!EntityManager.entities.isEmpty()) {
+    public void findPath(int[][] gridGame, int startX, int startY, int desX, int desY) {
+        aStar.aStarSearch(gridGame, startX, startY, desX, desY);
+        pathToDoor = aStar.getPathToDes();
+    }
 
+    public void findPathToTiles(int[][] gridGame, int startX, int startY, int desX, int desY) {
+        aStar.aStarSearch(gridGame, startX, startY, desX, desY);
+        pathToTiles = aStar.getPathToDes();
+    }
+
+    public int distance(int x, int y, int difX, int difY) {
+        return Math.abs(x - difX) + Math.abs(y - difY);
+    }
+
+//    public
+//
+//    public void findPlantingSpot() {
+//
+//    }
+
+    public void destroyNearestBreakableTile(){
+        for (CommonEntity e: EntityManager.entities) {
+            this.findPathToTiles(GameManager.map,
+                    this.getYPosition() / Sprite.SCALED_SIZE,
+                    this.getXPosition() / Sprite.SCALED_SIZE,
+                    e.getYPosition() / Sprite.SCALED_SIZE - 1, e.getXPosition() / Sprite.SCALED_SIZE);
+            if (!pathToTiles.isEmpty()){
+                this.setDirect(pathToTiles.get(0));
+            } else {
+                this.setDirect(DIRECTION.COLLIDE);
+                Bomb.bombs.add(new Bomb(this.getXPosition()/Sprite.SCALED_SIZE, this.getYPosition()/Sprite.SCALED_SIZE,
+                        Sprite.bomb.getFxImage(), 20));
+            }
         }
+    }
+
+    public void aiAutoPlay() {
+        this.findPath(GameManager.map,
+                this.getYPosition() / Sprite.SCALED_SIZE,
+                this.getXPosition() / Sprite.SCALED_SIZE,
+                19, 29);
+        if (getXPosition() % Sprite.SCALED_SIZE == 0 && getYPosition() % Sprite.SCALED_SIZE == 0) {
+            if (!pathToDoor.isEmpty()) {
+                this.setDirect(pathToDoor.get(0));
+            } else {
+                destroyNearestBreakableTile();
+                this.setDirect(DIRECTION.COLLIDE);
+            }
+        }
+        this.move(this.getDirect(), characterVelocity);
+        collideMainCharacter(this, GameManager.map, TilesManager.gameTiles);
+        pathToDoor.clear();
     }
 
     public void moveEvent() {

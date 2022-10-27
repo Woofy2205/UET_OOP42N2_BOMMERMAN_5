@@ -2,12 +2,12 @@ package bomman.entity.enemy;
 
 import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
-import bomman.entity.EntityManager;
+import bomman.manager.EntityManager;
 import bomman.entity.Flame;
 import bomman.manager.GameManager;
 import bomman.manager.SoundManager;
 import bomman.manager.Sprite;
-import bomman.tiles.TilesManager;
+import bomman.manager.TilesManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -58,7 +58,7 @@ public class FirstEnemy extends CommonEntity {
                         this.setDirect(canMove.get(rand_dir));
                     }
                     if (collideBlocks(this, GameManager.map, TilesManager.gameTiles)) {
-                        this.setDirect(this.getOppositeDirect());
+                        this.setDirect(DIRECTION.COLLIDE);
                     }
                     for (Bomb b: Bomb.bombs) {
                         if (collisionWithEntity(this, b)) {

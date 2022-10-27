@@ -2,12 +2,12 @@ package bomman;
 
 import bomman.entity.Bomb;
 import bomman.entity.CommonEntity;
-import bomman.entity.EntityManager;
+import bomman.manager.EntityManager;
 import bomman.entity.Flame;
 import bomman.event.EventHandling;
 import bomman.manager.GameManager;
 import bomman.manager.Sprite;
-import bomman.tiles.TilesManager;
+import bomman.manager.TilesManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MainGame extends Application {
+    public static Group root;
     static Scene mainScene;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 21;
@@ -35,19 +36,13 @@ public class MainGame extends Application {
         launch(args);
     }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-//        Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/bomman.Menu.fxml")));
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-
+    public void  startGame(Stage stage) {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
+        root = new Group();
         // Tao root container
-        Group root = new Group();
         root.getChildren().add(canvas);
 
         // Tao scene
@@ -68,10 +63,28 @@ public class MainGame extends Application {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
                 GameManager.nextStage();
                 if (GameManager.isLost()) {
-
+                    this.stop();
+                    GameManager.restart();
+                    try {
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Lost.fxml")));
+                        Scene scene = new Scene(root, Sprite.SCALED_SIZE * 40, Sprite.SCALED_SIZE * 30);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 if (GameManager.isWon()) {
-
+                    this.stop();
+                    GameManager.restart();
+                    try {
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Win.fxml")));
+                        Scene scene = new Scene(root, Sprite.SCALED_SIZE * 40, Sprite.SCALED_SIZE * 30);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 update();
                 render(t);
@@ -82,7 +95,11 @@ public class MainGame extends Application {
 
         EntityManager.createMainCharacter();
         EntityManager.createEntity();
-        //Bomb.bombs.forEach(Bomb::countDown);
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        startGame(stage);
     }
 
     public void update() {
