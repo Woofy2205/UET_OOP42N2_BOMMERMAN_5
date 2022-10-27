@@ -96,9 +96,6 @@ public class MainGame extends Application {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                } else {
-                    System.out.println(pauseGame);
-                    this.start();
                 }
                 update();
                 render(t);
