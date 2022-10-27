@@ -12,7 +12,6 @@ import java.util.Scanner;
  * This class will manage all the attributes, functions and operations in the game.
  */
 public class GameManager {
-
     public static int[][] map = new int[GameManager.GAME_HEIGHT][GameManager.GAME_WIDTH];
 
     // Title of the game using in main
