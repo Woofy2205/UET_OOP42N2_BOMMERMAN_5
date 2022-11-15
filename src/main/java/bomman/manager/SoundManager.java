@@ -38,7 +38,7 @@ public class SoundManager {
     public static String speed_p = "/bomman/sfx/speed.mp3";
     public static String walk_1_p = "/bomman/sfx/walk1.mp3";
     public static String walk_2_p = "/bomman/sfx/walk2.mp3";
-    public static String dead_p = "/bomman/sfx/walk.mp3";
+    public static String dead_p = "/bomman/sfx/dead.mp3";
 
     public static String bgMusic_p = "/bomman/sfx/bg.mp3";
 

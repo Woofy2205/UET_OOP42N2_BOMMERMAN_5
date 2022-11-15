@@ -61,12 +61,23 @@ public class SettingsScreen implements Initializable {
     }
 
     public void switchToMenu(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Menu.fxml")));
-        Stage window = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
-        Scene scene = new Scene(root);
-        String css = Objects.requireNonNull(MainGame.class.getResource("/bomman/css/menu.css")).toExternalForm();
-        scene.getStylesheets().add(css);
-        window.setScene(scene);
-        window.show();
+        System.out.println(MainGame.pauseGame);
+        if(!MainGame.pauseGame) {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Menu.fxml")));
+            Stage window = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
+            Scene scene = new Scene(root);
+            String css = Objects.requireNonNull(MainGame.class.getResource("/bomman/css/menu.css")).toExternalForm();
+            scene.getStylesheets().add(css);
+            window.setScene(scene);
+            window.show();
+        } else {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(MainGame.class.getResource("/bomman/fxml/Pause.fxml")));
+            Stage window = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
+            Scene scene = new Scene(root);
+            String css = Objects.requireNonNull(MainGame.class.getResource("/bomman/css/menu.css")).toExternalForm();
+            scene.getStylesheets().add(css);
+            window.setScene(scene);
+            window.show();
+        }
     }
 }

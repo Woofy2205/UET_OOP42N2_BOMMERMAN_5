@@ -86,7 +86,6 @@ public class FirstEnemy extends CommonEntity {
         if (getAlive() == 1) {
             if (frame == 0) count++;
             if (count == 1) {
-                SoundManager.dead.play();
                 this.setImg(Sprite.newEnemy1_up2.getFxImage());
             }
             if (count == 20) {

@@ -4,7 +4,10 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
+/target
+/bin
 /.idea
+/.mvn
 *.iws
 *.iml
 *.ipr
@@ -30,6 +33,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Mac OS ###
-.DS_Store

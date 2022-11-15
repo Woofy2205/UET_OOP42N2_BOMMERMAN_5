@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Buff extends CommonTiles {
 
-	public static int coolDown = 100;
+	public static int coolDown = 500;
 
 	public static List<Buff> buffs = new ArrayList<Buff>();
 
